@@ -23,13 +23,13 @@ default: &default
 
 development:
   <<: *default
-  database: Thorson_development
+  database: PrimeOne_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: Thorson
+  #username: PrimeOne
 
   # The password associated with the postgres role (username).
   #password:
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: Thorson_test
+  database: PrimeOne_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: Thorson_production
-  username: Thorson
-  password: <%= ENV['THORSON_DATABASE_PASSWORD'] %>
+  host: <%= ENV['THORSON_DB_HOST'] %>
+  port: <%= ENV['THORSON_DB_PORT'] %>
+  database: <%= ENV['THORSON_DB_DB'] %>
+  username: <%= ENV['THORSON_DB_USER'] %>
+  password: <%= ENV['THORSON_DB_PASS'] %>
