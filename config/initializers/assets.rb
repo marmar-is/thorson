@@ -9,3 +9,20 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+Rails.application.config.assets.paths << Rails.root.join("vendor", "assets", "plugins")
+Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+# General Assets (js)
+Rails.application.config.assets.precompile += %w(
+bootstrap/js/bootstrap.min.js
+jquery.easing/jquery.easing.min.js
+accordion.js
+animate.js
+link-transition.js
+panel-controls.js
+preloader.js
+toggle.js
+lib.js
+urban-constants.js
+)

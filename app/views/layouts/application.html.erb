@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Thorson</title>
+  <title><%= title(@title) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= yield :head %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta charset="UTF-8">
+  <meta name="description" content="Thorson Group Insurance Dashboard" />
+  <meta name="keywords" content="thorson,group,thorsongroup,insurance,dashboard" />
+  <meta name="author" content="Marmar-is" />
+
+  <!-- Font -->
+  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,700', 'data-turbolinks-track' => true %>
 </head>
 <body>
 
-<%= yield %>
+  <div class="app layout-fixed-header">
+    <%= render partial: 'layouts/nav' %>
+    <%= yield %>
+    <%= render partial: 'layouts/footer' %>
+  </div>
+
+  <%= javascript_include_tag 'bootstrap/js/bootstrap.min', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'jquery.easing/jquery.easing.min', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'animate', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'accordion', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'link-transition', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'panel-controls', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'preloader', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'toggle', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'urban-constants', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'lib', 'data-turbolinks-track' => true %>
+
+  <%= yield :js_includes %>
 
 </body>
+
+<div>
+  <%= debug(params) if Rails.env.development? %>
+</div>
+
 </html>
