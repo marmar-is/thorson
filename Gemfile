@@ -60,24 +60,24 @@ end
 #gem 'rails_12factor', group: :production
 
 # Work with spreadsheets
-gem 'roo', '~> 2.0.0'
+#gem 'roo', '~> 2.0.0'
 
 # Allow haml files
 gem 'haml'
 
 # PDF Generation
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+# => gem 'wicked_pdf'
+# => gem 'wkhtmltopdf-binary'
 #gem 'wkhtmltopdf-heroku', group: :production
 
 # PDF Combination
-gem 'combine_pdf'
+# => gem 'combine_pdf'
 
 # PDF Filling
-gem 'pdf-forms'
+# => gem 'pdf-forms'
 
 # randomize date (and other things)
-gem 'ish', '~> 0.0.1'
+# => gem 'ish', '~> 0.0.1'
 
 # User Accounts
 gem 'devise', '~> 3.4'
@@ -93,8 +93,4 @@ group :development do
     gem 'capistrano-rails-collection', require: false
     gem 'capistrano-bundler', require: false
     gem 'capistrano3-unicorn', require: false
-    #gem 'capistrano3-puma',   require: false
 end
-
-# a better server
-#gem 'puma'
