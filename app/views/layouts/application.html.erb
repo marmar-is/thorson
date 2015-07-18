@@ -18,9 +18,14 @@
 </head>
 <body>
 
-  <div class="app layout-fixed-header">
+  <div class="app layout-fixed-header layout-fixed-footer">
     <%= render partial: 'layouts/nav' %>
-    <%= yield %>
+
+    <div class="main-panel">
+      <%= render partial: 'layouts/header' %>
+      <%= yield %>
+    </div>
+
     <%= render partial: 'layouts/footer' %>
   </div>
 
