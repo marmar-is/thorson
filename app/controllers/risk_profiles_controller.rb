@@ -15,9 +15,9 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/new
   def new
     @risk_profile = RiskProfile.new
-    @spec_names = SpecialtyFactor.select(:spec_name)
-    @limits = LimitFactor.select(:limit)
-    @nases = NasRate.select(:limit)
+    @spec_names = SpecialtyFactor.pluck(:spec_name)
+    @limits = LimitFactor.pluck(:limit)
+    @nases = NasRate.pluck(:limit)
   end
 
   # GET /risk_profiles/1/edit
