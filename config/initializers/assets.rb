@@ -17,12 +17,13 @@ Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts
 Rails.application.config.assets.precompile += %w(
 bootstrap/js/bootstrap.min.js
 jquery.easing/jquery.easing.min.js
+perfect-scrollbar/js/perfect-scrollbar.jquery.min.js
 accordion.js
 animate.js
 link-transition.js
 panel-controls.js
 preloader.js
 toggle.js
-lib.js
 urban-constants.js
+lib.js
 )
