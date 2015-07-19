@@ -1,8 +1,9 @@
 class CreateSpecialties < ActiveRecord::Migration
   def change
-    create_table :specialties do |t|
-      t.string :name, default: ""
-      t.decimal :factor, default: 0
+    create_table :specialty_factors do |t|
+      t.string :spec_name
+      t.string :state
+      t.decimal :factor
 
       t.timestamps null: false
     end

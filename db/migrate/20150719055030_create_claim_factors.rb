@@ -1,9 +1,9 @@
 class CreateClaimFactors < ActiveRecord::Migration
   def change
     create_table :claim_factors do |t|
-      t.integer :year, default:0
-      t.decimal :factor, default:0
-      t.string :state, default: "CA"
+      t.integer :policy_year
+      t.decimal :factor
+      t.string :state
 
       t.timestamps null: false
     end
