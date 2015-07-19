@@ -1,5 +1,5 @@
 # Change these
-server '104.154.32.141', port: 22, roles: [:web, :app, :db], primary: true
+server '104.154.75.247', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:marmar-is/Thorson.git'
 set :application,     'Thorson'
