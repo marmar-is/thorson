@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  factor: 9.99
+  name: MyString
+
+two:
+  factor: 9.99
+  name: MyString

@@ -40,9 +40,10 @@
         </div>
         <div class="panel-body">
           <div class="row">
-            <div class="col-xs-12 mb25 input-group">
+            <div class="col-xs-12 mb25">
+              <p>Name</p>
               <span class="col-xs-10">
-                <%= f.text_field :name, class:'form-control', placeholder:'Name' %>
+                <%= f.text_field :name, class:'form-control', placeholder:'John Doe' %>
               </span>
               <span class="col-xs-2">
                 <%= select_tag :suffix, options_for_select([ "M.D.", "D.O." ]), class:'form-control btn btn-info' %>

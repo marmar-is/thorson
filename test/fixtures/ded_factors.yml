@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  factor: 9.99
+  state: MyString
+
+two:
+  amount: 1
+  factor: 9.99
+  state: MyString
