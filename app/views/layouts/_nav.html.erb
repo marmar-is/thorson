@@ -4,7 +4,9 @@
   <div class="brand">
     <!-- logo -->
     <div class="brand-logo">
-      <%= image_tag 'logo_thorson.png', height:'20', alt:'Thorson Insurance' %>
+      <%= link_to root_path do %>
+        <%= image_tag 'logo_thorson.png', height:'20', alt:'Thorson Insurance' %>
+      <% end %>
     </div>
     <!-- /logo -->
     <!-- toggle small sidebar menu -->
