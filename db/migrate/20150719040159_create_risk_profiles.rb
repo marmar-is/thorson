@@ -4,7 +4,7 @@ class CreateRiskProfiles < ActiveRecord::Migration
       t.string :name, default: ""
       t.string :county, default: ""
       t.string :state, default: ""
-      t.date :effective, default: "1995-11-08"
+      t.date :effective, default: "11/08/1995"
       t.date :retro, default: nil
       t.string :specialty, default: ""
       t.integer :deductible, default: 0

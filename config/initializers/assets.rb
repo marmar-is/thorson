@@ -35,5 +35,5 @@ chosen_v1.4.0/chosen.jquery.min.js
 bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css
 bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js
 bootstrap-datepicker/dist/css/bootstrap-datepicker3.css
-bootstrap-timepicker/js/bootstrap-timepicker.min.js
+bootstrap-datepicker/js/bootstrap-datepicker.js
 )
