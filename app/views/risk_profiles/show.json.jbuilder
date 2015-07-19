@@ -1,0 +1,1 @@
+json.extract! @risk_profile, :id, :name, :county, :state, :effective, :retro, :specialty, :deductible, :limits, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty, :created_at, :updated_at

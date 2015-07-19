@@ -1,0 +1,168 @@
+<%= form_for(@risk_profile) do |f| %>
+  <% if @risk_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@risk_profile.errors.count, "error") %> prohibited this risk_profile from being saved:</h2>
+
+      <ul>
+      <% @risk_profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row mb25">
+    <div class="col-sm-6">
+      <div class="panel mb25">
+        <div class="panel-heading border">
+          Location
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 mb25">
+              <p>State</p>
+              <%= f.select :state, options_for_select(us_states), {}, { class:'chosen', style:'width:100%;', 'data-placeholder':'State'} %>
+            </div>
+
+            <div class="col-xs-12 mb25">
+              <p>County</p>
+              <%= f.select :county, options_for_select(us_counties), {}, { class:'chosen', style:'width:100%;', 'data-placeholder':'County'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="panel mb25">
+        <div class="panel-heading border">
+          Exposures
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 mb25 input-group">
+              <span class="col-xs-10">
+                <%= f.text_field :name, class:'form-control', placeholder:'Name' %>
+              </span>
+              <span class="col-xs-2">
+                <%= select_tag :suffix, options_for_select([ "M.D.", "D.O." ]), class:'form-control btn btn-info' %>
+              </span>
+            </div>
+
+            <div class="col-xs-12 mb25">
+              <p>County</p>
+              <%= f.select :county, options_for_select(us_counties), {}, { class:'chosen', style:'width:100%;', 'data-placeholder':'County'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb25">
+
+    <div class="col-sm-6">
+
+
+      <div class="panel">
+        <div class="panel-heading border">
+          Date Pickers
+        </div>
+        <div class="panel-body m15">
+          <div class="form-horizontal bordered-group">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Default</label>
+              <div class="col-sm-9">
+                <div class="input-prepend input-group input-group-lg">
+                  <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                  <input type="text" name="reservation" class="form-control drp" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Default</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control mb25" data-provide="datepicker">
+
+                <div data-provide="datepicker-inline"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :county %><br>
+    <%= f.text_field :county %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :effective %><br>
+    <%= f.date_select :effective %>
+  </div>
+  <div class="field">
+    <%= f.label :retro %><br>
+    <%= f.date_select :retro %>
+  </div>
+  <div class="field">
+    <%= f.label :specialty %><br>
+    <%= f.text_field :specialty %>
+  </div>
+  <div class="field">
+    <%= f.label :deductible %><br>
+    <%= f.number_field :deductible %>
+  </div>
+  <div class="field">
+    <%= f.label :limits %><br>
+    <%= f.text_field :limits %>
+  </div>
+  <div class="field">
+    <%= f.label :limit_nas %><br>
+    <%= f.text_field :limit_nas %>
+  </div>
+  <div class="field">
+    <%= f.label :entity %><br>
+    <%= f.check_box :entity %>
+  </div>
+  <div class="field">
+    <%= f.label :allied1 %><br>
+    <%= f.number_field :allied1 %>
+  </div>
+  <div class="field">
+    <%= f.label :allied2 %><br>
+    <%= f.number_field :allied2 %>
+  </div>
+  <div class="field">
+    <%= f.label :allied3 %><br>
+    <%= f.number_field :allied3 %>
+  </div>
+  <div class="field">
+    <%= f.label :sub_specialty %><br>
+    <%= f.text_field :sub_specialty %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= content_for :js_includes do %>
+  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
+  <script>
+    $('document').ready(function() {
+      'use strict';
+      $('.chosen').chosen();
+    });
+  </script>
+<% end %>

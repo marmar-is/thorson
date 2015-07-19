@@ -27,3 +27,9 @@ toggle.js
 urban-constants.js
 lib.js
 )
+
+# New Risk Profile (css & js)
+Rails.application.config.assets.precompile += %w(
+chosen_v1.4.0/chosen.min.css
+chosen_v1.4.0/chosen.jquery.min.js
+)

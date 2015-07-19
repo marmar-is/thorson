@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  county: MyString
+  state: MyString
+  effective: 2015-07-19
+  retro: 2015-07-19
+  specialty: MyString
+  deductible: 1
+  limits: MyString
+  limit_nas: MyString
+  entity: false
+  allied1: 1
+  allied2: 1
+  allied3: 1
+  sub_specialty: MyString
+
+two:
+  name: MyString
+  county: MyString
+  state: MyString
+  effective: 2015-07-19
+  retro: 2015-07-19
+  specialty: MyString
+  deductible: 1
+  limits: MyString
+  limit_nas: MyString
+  entity: false
+  allied1: 1
+  allied2: 1
+  allied3: 1
+  sub_specialty: MyString

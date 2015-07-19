@@ -11,9 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150719040159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "risk_profiles", force: :cascade do |t|
+    t.string   "name",          default: ""
+    t.string   "county",        default: ""
+    t.string   "state",         default: ""
+    t.date     "effective",     default: '1995-11-08'
+    t.date     "retro"
+    t.string   "specialty",     default: ""
+    t.integer  "deductible",    default: 0
+    t.string   "limits",        default: ""
+    t.string   "limit_nas",     default: ""
+    t.boolean  "entity",        default: false
+    t.integer  "allied1",       default: 0
+    t.integer  "allied2",       default: 0
+    t.integer  "allied3",       default: 0
+    t.string   "sub_specialty", default: ""
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
 
 end
