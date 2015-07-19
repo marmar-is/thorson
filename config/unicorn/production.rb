@@ -1,4 +1,4 @@
-root= "/home/Matthew/apps/Thorson/current"
+root = "/home/Matthew/apps/Thorson/current"
 shared_path= "/home/Matthew/apps/Thorson/shared"
 working_directory root
 
