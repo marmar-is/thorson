@@ -11,7 +11,8 @@ worker_processes Integer(ENV['WEB_CONCURRENCY'])
 timeout 60
 preload_app true
 
-listen "#{shared_path}/sockets/unicorn.Thorson.sock", backlog: 64
+#listen "#{shared_path}/sockets/unicorn.Thorson.sock", backlog: 64
+listen "/tmp/unicorn.Thorson.sock", backlog: 64
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
