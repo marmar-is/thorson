@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20150719062919) do
     t.date     "retro"
     t.string   "specialty",     default: ""
     t.integer  "deductible",    default: 0
-    t.string   "limits",        default: ""
+    t.string   "limit",         default: ""
     t.string   "limit_nas",     default: ""
     t.boolean  "entity",        default: false
     t.integer  "allied1",       default: 0

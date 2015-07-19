@@ -16,6 +16,8 @@ class RiskProfilesController < ApplicationController
   def new
     @risk_profile = RiskProfile.new
     @spec_names = SpecialtyFactor.select(:spec_name)
+    @limits = LimitFactor.select(:limit)
+    @nases = NasRate.select(:limit)
   end
 
   # GET /risk_profiles/1/edit

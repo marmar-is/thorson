@@ -8,7 +8,7 @@ class CreateRiskProfiles < ActiveRecord::Migration
       t.date :retro, default: nil
       t.string :specialty, default: ""
       t.integer :deductible, default: 0
-      t.string :limits, default: ""
+      t.string :limit, default: ""
       t.string :limit_nas, default: ""
       t.boolean :entity, default: false
       t.integer :allied1, default: 0
