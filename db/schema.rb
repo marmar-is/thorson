@@ -11,10 +11,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719040159) do
+ActiveRecord::Schema.define(version: 20150719062919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "allied_rates", force: :cascade do |t|
+    t.integer  "rate"
+    t.string   "state"
+    t.string   "category"
+    t.text     "elements",   default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "allied_rates", ["elements"], name: "index_allied_rates_on_elements", using: :gin
+
+  create_table "claim_factors", force: :cascade do |t|
+    t.integer  "policy_year"
+    t.decimal  "factor"
+    t.string   "state"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "ded_factors", force: :cascade do |t|
+    t.integer  "deductible"
+    t.decimal  "factor"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entity_factors", force: :cascade do |t|
+    t.decimal  "factor"
+    t.string   "entity"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "limit_factors", force: :cascade do |t|
+    t.decimal  "factor"
+    t.string   "limit"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nas_rates", force: :cascade do |t|
+    t.integer  "limit"
+    t.integer  "rate"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "risk_factors", force: :cascade do |t|
+    t.string   "criteria"
+    t.integer  "max_debit"
+    t.integer  "max_credit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "risk_profiles", force: :cascade do |t|
     t.string   "name",          default: ""
@@ -33,6 +92,29 @@ ActiveRecord::Schema.define(version: 20150719040159) do
     t.string   "sub_specialty", default: ""
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+  end
+
+  create_table "specialty_factors", force: :cascade do |t|
+    t.string   "spec_name"
+    t.decimal  "factor"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_rates", force: :cascade do |t|
+    t.string   "state"
+    t.integer  "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "territory_factors", force: :cascade do |t|
+    t.decimal  "factor"
+    t.string   "county"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

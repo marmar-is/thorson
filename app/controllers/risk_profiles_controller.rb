@@ -15,7 +15,7 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/new
   def new
     @risk_profile = RiskProfile.new
-    @specs = SpecialtyFactors.select(:spec_name)
+    @spec_names = SpecialtyFactor.select(:spec_name)
   end
 
   # GET /risk_profiles/1/edit
