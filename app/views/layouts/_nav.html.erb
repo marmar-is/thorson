@@ -24,12 +24,21 @@
     <ul class="nav">
       <!-- dashboard -->
       <li>
-        <a href="#dashboard">
+        <%= link_to root_path do %>
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
-        </a>
+        <% end %>
       </li>
       <!-- /dashboard -->
+
+      <!-- broker portal -->
+      <li>
+        <%= link_to new_broker_path do %>
+          <i class="fa fa-users"></i>
+          <span>Brokers Portal</span>
+        <% end %>
+      </li>
+      <!-- /broker portal -->
 
       <!-- policies -->
       <li>
