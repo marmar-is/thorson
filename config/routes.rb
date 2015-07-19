@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :risk_profiles, as: 'brokers'
+  resources :risk_profiles
 
   root 'statics#index'
 
