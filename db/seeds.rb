@@ -94,8 +94,8 @@ TerritoryFactor.create!(county:"Santa Clara", factor:0.995, state:"CA")
 TerritoryFactor.create!(county:"Santa Cruz", factor:0.995, state:"CA")
 TerritoryFactor.create!(county:"Stanislaus", factor:0.995, state:"CA")
 
-EntityFactory.create!(entity:"Individual", factor:1, state:"CA")
-EntityFactory.create!(entity:"Entity", factor:1.08, state:"CA")
+EntityFactor.create!(entity:"Individual", factor:1, state:"CA")
+EntityFactor.create!(entity:"Entity", factor:1.08, state:"CA")
 
 LimitFactor.create!(limit:"1,000,000/3,000,000", factor:1, state:"CA")
 LimitFactor.create!(limit:"2,000,000/4,000,000", factor:1.25, state:"CA")
