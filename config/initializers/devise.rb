@@ -2,15 +2,15 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # ==> LDAP Configuration
-  config.ldap_logger = true
+  # config.ldap_logger = true
   config.ldap_create_user = true
   config.ldap_update_password = false
-  config.ldap_config = "#{Rails.root}/config/ldap.yml"
-  config.ldap_check_group_membership = false
-  config.ldap_check_group_membership_without_admin = false
-  config.ldap_check_attributes = false
-  config.ldap_use_admin_to_bind = false
-  config.ldap_ad_group_check = false
+  # config.ldap_config = "#{Rails.root}/config/ldap.yml"
+  # config.ldap_check_group_membership = false
+  # config.ldap_check_group_membership_without_admin = false
+  # config.ldap_check_attributes = false
+  # config.ldap_use_admin_to_bind = false
+  # config.ldap_ad_group_check = false
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -222,7 +222,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
