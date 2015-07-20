@@ -79,8 +79,9 @@ gem 'haml'
 # randomize date (and other things)
 # => gem 'ish', '~> 0.0.1'
 
-# User Accounts
+# User Accounts & Authentication
 gem 'devise', '~> 3.4'
+gem "devise_ldap_authenticatable", '~> 0.8.5'
 
 # Development emails
 gem 'letter_opener', group: :development
