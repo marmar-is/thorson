@@ -25,9 +25,9 @@ development:
   host: ldap.jumpcloud.com
   port: 636
   attribute: uid
-  base: ou=Users,o=<%= ENV['JUMPCLOUD_ORG_ID'] %>,dc=jumpcloud,dc=com
-  admin_user: cn=<%= ENV['JUMPCLOUD_ADMIN_USER'] %>,o=<%= ENV['JUMPCLOUD_ORG_ID'] %>,dc=jumpcloud,dc=com
-  admin_password: <%= ENV['JUMPCLOUD_ADMIN_PASS'] %>
+  base: ou=Users,o=<%= ENV['ORG'] %>,dc=jumpcloud,dc=com
+  admin_user: cn=<%= ENV['ADMIN'] %>,o=<%= ENV['ORG'] %>,dc=jumpcloud,dc=com
+  admin_password: <%= ENV['PASS'] %>
   ssl: true
   # <<: *AUTHORIZATIONS
 
