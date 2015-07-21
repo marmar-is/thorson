@@ -4,9 +4,6 @@ Rails.application.routes.draw do
 
   root 'statics#index'
 
-
-  get '/portal' => 'statics#portal'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

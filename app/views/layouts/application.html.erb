@@ -18,16 +18,20 @@
 </head>
 <body>
 
-  <div class="app layout-fixed-header layout-fixed-footer">
-    <%= render partial: 'layouts/nav' %>
+  <% if devise_controller? %>
+    <%= yield %>
+  <% else %>
+    <div class="app layout-fixed-header layout-fixed-footer">
+      <%= render partial: 'layouts/nav' %>
 
-    <div class="main-panel">
-      <%= render partial: 'layouts/header' %>
-      <%= yield %>
+      <div class="main-panel">
+        <%= render partial: 'layouts/header' %>
+        <%= yield %>
+      </div>
+
+      <%= render partial: 'layouts/footer' %>
     </div>
-
-    <%= render partial: 'layouts/footer' %>
-  </div>
+    <% end %>
 
   <%= javascript_include_tag 'bootstrap/js/bootstrap.min', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'jquery.easing/jquery.easing.min', 'data-turbolinks-track' => true %>

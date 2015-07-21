@@ -37,3 +37,11 @@ bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js
 bootstrap-datepicker/dist/css/bootstrap-datepicker3.css
 bootstrap-datepicker/js/bootstrap-datepicker.js
 )
+
+# New User Session (css & js)
+Rails.application.config.assets.precompile += %w(
+
+)
+
+#checkbo/js/checkBo.min.js
+#checkbo/css/checkBo.min.css
