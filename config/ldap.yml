@@ -25,9 +25,9 @@ development:
   host: ldap.jumpcloud.com
   port: 636
   attribute: uid
-  base: ou=Users,o=559f3cebe0baae7f4c000963,dc=jumpcloud,dc=com
-  admin_user: cn=kurt@marmar-is.com,o=559f3cebe0baae7f4c000963,dc=jumpcloud,dc=com
-  admin_password: Teufel13
+  base: ou=Users,o=<%= ENV['JUMPCLOUD_ORG_ID'] %>,dc=jumpcloud,dc=com
+  admin_user: cn=<%= ENV['JUMPCLOUD_ADMIN_USER'] %>,o=<%= ENV['JUMPCLOUD_ORG_ID'] %>,dc=jumpcloud,dc=com
+  admin_password: <%= ENV['JUMPCLOUD_ADMIN_PASS'] %>
   ssl: true
   # <<: *AUTHORIZATIONS
 
