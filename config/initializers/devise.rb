@@ -19,10 +19,10 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see [ruby-saml][] for more information).
   config.saml_configure do |settings|
-    settings.assertion_consumer_service_url     = "http://#{request.host}/accounts/saml/auth"
+    settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-    settings.issuer                             = "http://#{request.host}"
+    settings.issuer                             = "http://localhost:8080"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     settings.idp_slo_target_url                 = "https://app.onelogin.com/trust/saml2/http-redirect/slo/#{ENV['ONE_LOGIN_APP_ID']}"
     settings.idp_sso_target_url                 = "https://app.onelogin.com/saml/signon/#{ENV['ONE_LOGIN_APP_ID']}"
@@ -52,6 +52,7 @@ Kt12v+IWZTmG/1NaRi385t+B947cWyZi3gKliCpF8x7EmS7ovJZTUKBaXUiNoFRJ
 2uU2idgl6jgAeqqk5Y9VUsrSuq8Le78Lx6/wHGAk8VtVdU/KXuLSSmikg3lcSQ==
 -----END CERTIFICATE-----
     CERT
+  end
 
   # ==> LDAP Configuration
   # config.ldap_logger = true

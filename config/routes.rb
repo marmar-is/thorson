@@ -2,12 +2,14 @@ Rails.application.routes.draw do
   devise_for :accounts
   devise_for :users
 
+  root 'statics#index', as: :root
+
   devise_scope :user do
     authenticated :user do
-      root 'statics#index', as: :root
+
     end
     unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
+      #root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
 
