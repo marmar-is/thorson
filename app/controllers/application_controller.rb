@@ -3,7 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :ensure_authenticated
+  before_action :authenticate_all!
+
+  # Overwriting the sign_out redirect path method
+  def after_sign_out_path_for(resource_or_scope)
+    unauthenticated_root_path
+  end
 
   protected
   def devise_parameter_sanitizer
@@ -15,9 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  def ensure_authenticated
-    if action_name != 'portal'
-      #redirect_to :unauthenticated_root
+  def authenticate_all!(opts = {})
+    if !account_signed_in? && action_name != 'portal' && !devise_controller?
+      redirect_to :unauthenticated_root
     end
   end
 end
