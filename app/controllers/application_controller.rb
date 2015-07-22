@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  #before_action :authenticate_account!
+  before_action :ensure_authenticated
 
   protected
   def devise_parameter_sanitizer
@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private
+  def ensure_authenticated
+    if action_name != 'portal'
+      #redirect_to :unauthenticated_root
+    end
+  end
 end

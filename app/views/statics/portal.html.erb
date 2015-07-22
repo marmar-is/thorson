@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Thorson Sign In Portal</title>
+  <title>Thorson Portal</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= yield :head %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -45,6 +45,7 @@
 
       <div class="row">
         <div class="col-md-3 col-md-offset-2 pb15">
+          <%= link_to new_broker_session_path do %>
           <div class="panel">
             <div class="panel-heading text-center border">
               Broker Sign In
@@ -53,9 +54,11 @@
               Use your Thorson Broker credentials to access our Broker Portal.
             </div>
           </div>
+          <% end %>
         </div>
 
         <div class="col-md-3 col-md-offset-2 pb15">
+          <%= link_to new_employee_session_path do %>
           <div class="panel">
             <div class="panel-heading text-center border">
               Employee Sign In
@@ -64,9 +67,8 @@
               Use your Thorson Employee credentials to access our Employee Console.
             </div>
           </div>
+          <% end %>
         </div>
-        <%#= render partial: 'layouts/header' %>
-        <!-- /main area -->
       </div>
 
       <%= render partial: 'layouts/footer' %>
@@ -86,6 +88,10 @@
   <%= javascript_include_tag 'lib', 'data-turbolinks-track' => true %>
 
   <%= yield :js_includes %>
+
+  <script>
+
+  </script>
 
 </body>
 

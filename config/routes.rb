@@ -1,18 +1,27 @@
 Rails.application.routes.draw do
-  devise_for :accounts
+  devise_for :employees
+  devise_for :brokers
 
-  devise_scope :accounts do
-    authenticated :account do
+  devise_scope :broker do
+    authenticated :broker do
+      root 'factors#index', as: :root
+    end
+    unauthenticated :broker do
+      root 'statics#portal', as: :unauthenticated_root
+    end
+  end
+
+  devise_scope :employee do
+    authenticated :employee do
       root 'statics#index', as: :root
     end
-
-    unauthenticated :account do
+    unauthenticated :employee do
       root 'statics#portal', as: :unauthenticated_root
     end
   end
 
   resources :risk_profiles
-  get '/factors' => 'factors#index'
+  #get '/factors' => 'factors#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
