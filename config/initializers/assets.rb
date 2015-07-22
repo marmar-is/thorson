@@ -38,9 +38,10 @@ bootstrap-datepicker/dist/css/bootstrap-datepicker3.css
 bootstrap-datepicker/js/bootstrap-datepicker.js
 )
 
-# New User Session (css & js)
+# Factors Index (css & js)
 Rails.application.config.assets.precompile += %w(
-
+datatables/css/jquery.dataTables.css
+datatables/js/jquery.dataTables.js
 )
 
 #checkbo/js/checkBo.min.js

@@ -227,7 +227,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise (~> 3.4)
   devise_ldap_authenticatable (~> 0.8.5)
-  devise_saml_authenticatable (~> 1.1.0)
+  devise_saml_authenticatable (~> 1.1)
   font-awesome-rails (~> 4.3.0)
   haml
   jbuilder (~> 2.0)
