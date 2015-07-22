@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
   devise_for :accounts
 
-  root 'statics#index', as: :root
+  devise_scope :accounts do
+    authenticated :account do
+      root 'statics#index', as: :root
+    end
+
+    unauthenticated :account do
+      root 'statics#portal', as: :unauthenticated_root
+    end
+  end
 
   resources :risk_profiles
   get '/factors' => 'factors#index'
