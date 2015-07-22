@@ -20,52 +20,41 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see [ruby-saml][] for more information).
   config.saml_configure do |settings|
-    settings.assertion_consumer_service_url     = "http://localhost:8080/factors"
+    settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-    settings.issuer                             = "https://app.onelogin.com/saml/metadata/462924"
+    settings.issuer                             = "https://app.onelogin.com/saml/metadata/463009"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    settings.idp_slo_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-redirect/slo/462924"#{ENV['ONE_LOGIN_APP_ID']}"
-    settings.idp_sso_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-post/sso/462924"#{ENV['ONE_LOGIN_APP_ID']}"
+    settings.idp_sso_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-post/sso/463009"#{ENV['ONE_LOGIN_APP_ID']}"
+    settings.idp_slo_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-redirect/slo/463009"#{ENV['ONE_LOGIN_APP_ID']}"
     settings.idp_cert                           = <<-CERT.chomp
-    -----BEGIN CERTIFICATE-----
-    MIIEGjCCAwKgAwIBAgIUc7s30jcxy+Z71Gow0N4WxdNTbT8wDQYJKoZIhvcNAQEF
-    BQAwWTELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCW1hcm1hci1pczEVMBMGA1UECwwM
-    T25lTG9naW4gSWRQMR8wHQYDVQQDDBZPbmVMb2dpbiBBY2NvdW50IDY2MzQ2MB4X
-    DTE1MDcyMDA1MzAxNVoXDTIwMDcyMTA1MzAxNVowWTELMAkGA1UEBhMCVVMxEjAQ
-    BgNVBAoMCW1hcm1hci1pczEVMBMGA1UECwwMT25lTG9naW4gSWRQMR8wHQYDVQQD
-    DBZPbmVMb2dpbiBBY2NvdW50IDY2MzQ2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
-    MIIBCgKCAQEAppEwfGOd8sw5vZuQlyEUXhn++pNqxFf9oUj87cXILMqMbh+MMMrd
-    5te9rJrql9qzpURe6sz6e1BwIDu0n7GQ7yGiv4jN9UIEatqeHRXp2wWaLxyA8RzP
-    oZCCZxMw+FN3VfRRZ1t3R0cVqxmu/E9Hfq7Ac87Qm7jxM1yBFQpR5uTQJdvI4jKM
-    mFds9oR6kzcOsDHJYaDbQ1G0u8z/2PezjsGarRd9mpAcivW0OcCmBIFislEJWK8Y
-    oauB7hO9Y7FXdf2wYDX8PGSrQL+YJlv9Ew9WEDxb2XxxXjanHo8fh8jhAaAXLtQh
-    CA3cql9drSgDgHbBhXgI0A6oWHeX3ZJ6BwIDAQABo4HZMIHWMAwGA1UdEwEB/wQC
-    MAAwHQYDVR0OBBYEFARSxLAxDEl3Nhb0p7i6qbqcqhCDMIGWBgNVHSMEgY4wgYuA
-    FARSxLAxDEl3Nhb0p7i6qbqcqhCDoV2kWzBZMQswCQYDVQQGEwJVUzESMBAGA1UE
-    CgwJbWFybWFyLWlzMRUwEwYDVQQLDAxPbmVMb2dpbiBJZFAxHzAdBgNVBAMMFk9u
-    ZUxvZ2luIEFjY291bnQgNjYzNDaCFHO7N9I3Mcvme9RqMNDeFsXTU20/MA4GA1Ud
-    DwEB/wQEAwIHgDANBgkqhkiG9w0BAQUFAAOCAQEAS1rk45A6DHqhvdC2bmUMUzXd
-    nLf65Ec8XhhBCdyv8HbVqxpf4jQsuU3RYzs9YJQyuF+JjVF0Ek/dIUptYLUArBpG
-    uM3c3Uruqjck+oBX8mzUHGUTR1l3Sb4VOayRpdUCcjaRj1USoPwaegUfoDHt6tQk
-    Kt12v+IWZTmG/1NaRi385t+B947cWyZi3gKliCpF8x7EmS7ovJZTUKBaXUiNoFRJ
-    0FKgxLWsqmdVqUvhQbGChowu6zcHI+T2WUph6gbPJbOLhLs3OBsWOt2vtSKVVK+i
-    2uU2idgl6jgAeqqk5Y9VUsrSuq8Le78Lx6/wHGAk8VtVdU/KXuLSSmikg3lcSQ==
-    -----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+MIIEGjCCAwKgAwIBAgIUc7s30jcxy+Z71Gow0N4WxdNTbT8wDQYJKoZIhvcNAQEF
+BQAwWTELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCW1hcm1hci1pczEVMBMGA1UECwwM
+T25lTG9naW4gSWRQMR8wHQYDVQQDDBZPbmVMb2dpbiBBY2NvdW50IDY2MzQ2MB4X
+DTE1MDcyMDA1MzAxNVoXDTIwMDcyMTA1MzAxNVowWTELMAkGA1UEBhMCVVMxEjAQ
+BgNVBAoMCW1hcm1hci1pczEVMBMGA1UECwwMT25lTG9naW4gSWRQMR8wHQYDVQQD
+DBZPbmVMb2dpbiBBY2NvdW50IDY2MzQ2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAppEwfGOd8sw5vZuQlyEUXhn++pNqxFf9oUj87cXILMqMbh+MMMrd
+5te9rJrql9qzpURe6sz6e1BwIDu0n7GQ7yGiv4jN9UIEatqeHRXp2wWaLxyA8RzP
+oZCCZxMw+FN3VfRRZ1t3R0cVqxmu/E9Hfq7Ac87Qm7jxM1yBFQpR5uTQJdvI4jKM
+mFds9oR6kzcOsDHJYaDbQ1G0u8z/2PezjsGarRd9mpAcivW0OcCmBIFislEJWK8Y
+oauB7hO9Y7FXdf2wYDX8PGSrQL+YJlv9Ew9WEDxb2XxxXjanHo8fh8jhAaAXLtQh
+CA3cql9drSgDgHbBhXgI0A6oWHeX3ZJ6BwIDAQABo4HZMIHWMAwGA1UdEwEB/wQC
+MAAwHQYDVR0OBBYEFARSxLAxDEl3Nhb0p7i6qbqcqhCDMIGWBgNVHSMEgY4wgYuA
+FARSxLAxDEl3Nhb0p7i6qbqcqhCDoV2kWzBZMQswCQYDVQQGEwJVUzESMBAGA1UE
+CgwJbWFybWFyLWlzMRUwEwYDVQQLDAxPbmVMb2dpbiBJZFAxHzAdBgNVBAMMFk9u
+ZUxvZ2luIEFjY291bnQgNjYzNDaCFHO7N9I3Mcvme9RqMNDeFsXTU20/MA4GA1Ud
+DwEB/wQEAwIHgDANBgkqhkiG9w0BAQUFAAOCAQEAS1rk45A6DHqhvdC2bmUMUzXd
+nLf65Ec8XhhBCdyv8HbVqxpf4jQsuU3RYzs9YJQyuF+JjVF0Ek/dIUptYLUArBpG
+uM3c3Uruqjck+oBX8mzUHGUTR1l3Sb4VOayRpdUCcjaRj1USoPwaegUfoDHt6tQk
+Kt12v+IWZTmG/1NaRi385t+B947cWyZi3gKliCpF8x7EmS7ovJZTUKBaXUiNoFRJ
+0FKgxLWsqmdVqUvhQbGChowu6zcHI+T2WUph6gbPJbOLhLs3OBsWOt2vtSKVVK+i
+2uU2idgl6jgAeqqk5Y9VUsrSuq8Le78Lx6/wHGAk8VtVdU/KXuLSSmikg3lcSQ==
+-----END CERTIFICATE-----
 
     CERT
   end
-
-  # ==> LDAP Configuration
-  # config.ldap_logger = true
-  config.ldap_create_user = true
-  config.ldap_update_password = false
-  # config.ldap_config = "#{Rails.root}/config/ldap.yml"
-  # config.ldap_check_group_membership = false
-  # config.ldap_check_group_membership_without_admin = false
-  # config.ldap_check_attributes = false
-  # config.ldap_use_admin_to_bind = false
-  # config.ldap_ad_group_check = false
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
