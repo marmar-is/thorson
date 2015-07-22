@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150722194103) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.string   "role"
+    t.integer  "role"
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
