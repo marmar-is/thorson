@@ -1,4 +1,4 @@
 # attribute-map.yml
 
 "urn:mace:dir:attribute-def:email": "email"
-"Role": "role"
+"role": "string_role"
