@@ -19,13 +19,13 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see [ruby-saml][] for more information).
   config.saml_configure do |settings|
-    #settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
-    #settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-    #settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-    #settings.issuer                             = "https://app.onelogin.com/saml/metadata/#{ENV['ONE_LOGIN_APP_ID']}"
-    #settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    #settings.idp_sso_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-post/sso/#{ENV['ONE_LOGIN_APP_ID']}"
-    #settings.idp_slo_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-redirect/slo/#{ENV['ONE_LOGIN_APP_ID']}"
+    settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer                             = "https://app.onelogin.com/saml/metadata/#{ENV['ONE_LOGIN_APP_ID']}"
+    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    settings.idp_sso_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-post/sso/#{ENV['ONE_LOGIN_APP_ID']}"
+    settings.idp_slo_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-redirect/slo/#{ENV['ONE_LOGIN_APP_ID']}"
     settings.idp_cert                           = <<-CERT.chomp
 -----BEGIN CERTIFICATE-----
 MIIEGjCCAwKgAwIBAgIUc7s30jcxy+Z71Gow0N4WxdNTbT8wDQYJKoZIhvcNAQEF

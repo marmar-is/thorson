@@ -1,6 +1,6 @@
 # attribute-map.yml
 
-#"urn:mace:dir:attribute-def:uid": "username"
+"urn:mace:dir:attribute-def:uid": "username"
 #"urn:mace:dir:attribute-def:email": "email"
 #"urn:mace:dir:attribute-def:lastname": "lname"
 #"urn:mace:dir:attribute-def:firstname": "fname"
