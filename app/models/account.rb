@@ -32,7 +32,7 @@ class Account < ActiveRecord::Base
 
   # Full Name
   def full_name
-    self.fname.to_s + " " self.lname.to_s
+    self.fname + " " + self.lname
   end
 
   # Include default devise modules. Others available are:
