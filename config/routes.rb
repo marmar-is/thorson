@@ -2,23 +2,9 @@ Rails.application.routes.draw do
   devise_for :employees
   devise_for :brokers
 
-  devise_scope :broker do
-    authenticated :broker do
-      root 'factors#index', as: :root
-    end
-    unauthenticated :broker do
-      root 'statics#portal', as: :unauthenticated_root
-    end
-  end
-
-  devise_scope :employee do
-    authenticated :employee do
-      root 'statics#index', as: :root
-    end
-    unauthenticated :employee do
-      root 'statics#portal', as: :unauthenticated_root
-    end
-  end
+  root 'factors#index', as: :broker_root
+  root 'statics#index', as: :employee_root
+  root 'statics#portal', as: :unauthenticated_root
 
   resources :risk_profiles
   #get '/factors' => 'factors#index'
