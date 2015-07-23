@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722194103) do
+ActiveRecord::Schema.define(version: 20150723174238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,14 +37,20 @@ ActiveRecord::Schema.define(version: 20150722194103) do
 
   create_table "allied_rates", force: :cascade do |t|
     t.integer  "rate"
-    t.string   "state"
-    t.string   "category"
-    t.text     "elements",   default: [],              array: true
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "group"
+    t.text     "constituents", default: [],              array: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "allied_rates", ["elements"], name: "index_allied_rates_on_elements", using: :gin
+  add_index "allied_rates", ["constituents"], name: "index_allied_rates_on_constituents", using: :gin
+
+  create_table "base_rates", force: :cascade do |t|
+    t.integer  "rate"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "broker_accts", force: :cascade do |t|
     t.string   "name",         default: ""
@@ -62,26 +68,16 @@ ActiveRecord::Schema.define(version: 20150722194103) do
 
   add_index "broker_accts", ["code"], name: "index_broker_accts_on_code", unique: true, using: :btree
 
-  create_table "claim_factors", force: :cascade do |t|
-    t.integer  "policy_year"
-    t.decimal  "factor"
-    t.string   "state"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "ded_factors", force: :cascade do |t|
     t.integer  "deductible"
     t.decimal  "factor"
-    t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "entity_factors", force: :cascade do |t|
     t.decimal  "factor"
-    t.string   "entity"
-    t.string   "state"
+    t.boolean  "entity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -97,36 +93,39 @@ ActiveRecord::Schema.define(version: 20150722194103) do
   create_table "nas_rates", force: :cascade do |t|
     t.integer  "limit"
     t.integer  "rate"
-    t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "risk_factors", force: :cascade do |t|
     t.string   "criteria"
-    t.integer  "max_debit"
-    t.integer  "max_credit"
+    t.decimal  "min_factor"
+    t.decimal  "max_factor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "risk_profiles", force: :cascade do |t|
-    t.string   "name",           default: ""
-    t.string   "county",         default: ""
-    t.string   "state",          default: ""
-    t.date     "effective",      default: '1995-11-08'
+    t.string   "name"
+    t.string   "county"
+    t.string   "state"
+    t.string   "territory"
+    t.date     "effective"
     t.date     "retro"
-    t.string   "specialty",      default: ""
-    t.integer  "deductible",     default: 0
-    t.string   "limit",          default: ""
-    t.string   "limit_nas",      default: ""
-    t.boolean  "entity",         default: false
-    t.integer  "allied1",        default: 0
-    t.integer  "allied2",        default: 0
-    t.integer  "allied3",        default: 0
-    t.string   "sub_specialty",  default: ""
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.string   "specialty"
+    t.string   "specialty_surgery"
+    t.integer  "deductible"
+    t.string   "limit"
+    t.string   "limit_nas"
+    t.boolean  "entity"
+    t.integer  "allied1"
+    t.integer  "allied2"
+    t.integer  "allied3"
+    t.string   "sub_specialty"
+    t.boolean  "capital"
+    t.string   "license"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "broker_acct_id"
   end
 
@@ -134,22 +133,28 @@ ActiveRecord::Schema.define(version: 20150722194103) do
 
   create_table "specialty_factors", force: :cascade do |t|
     t.string   "spec_name"
+    t.string   "spec_surgery"
+    t.string   "spec_class"
+    t.string   "spec_code"
     t.decimal  "factor"
     t.string   "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  create_table "state_rates", force: :cascade do |t|
+  create_table "step_factors", force: :cascade do |t|
+    t.string   "policy_year"
+    t.decimal  "factor"
     t.string   "state"
-    t.integer  "rate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "territory_factors", force: :cascade do |t|
     t.decimal  "factor"
-    t.string   "county"
+    t.string   "territory"
+    t.integer  "number"
+    t.decimal  "exposure"
     t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

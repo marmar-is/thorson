@@ -1,14 +1,22 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Seed Initial Rates + Factors
-DedFactor.create!(factor: 1.00, deductible: 00000)
-DedFactor.create!(factor: 0.95, deductible: 05000)
+# Remove all Rates & Factors Prior to Seeding
+DedFactor.destroy_all
+EntityFactor.destroy_all
+LimitFactor.destroy_all
+StepFactor.destroy_all
+TerritoryFactory.destroy_all
+RiskFactor.destroy_all
+SpecialtyFactory.destroy_all
+
+BaseRate.destroy_all
+NasRate.destroy_all
+AlliedRate.destroy_all
+
+# Seed Initial Factors
+DedFactor.create!(factor: 1.00, deductible:      )
+DedFactor.create!(factor: 0.95, deductible:  5000)
 DedFactor.create!(factor: 0.90, deductible: 10000)
 DedFactor.create!(factor: 0.80, deductible: 25000)
 
@@ -401,20 +409,21 @@ SpecialtyFactor.create!(factor: 6.958, spec_name: "Surgery - Neurology", spec_su
 SpecialtyFactor.create!(factor: 0.539, spec_name: "Emergency Medicine - no major surgery", spec_surgery: "No", spec_class: "1", spec_code: "80102A", state: "OH")
 SpecialtyFactor.create!(factor: 0.539, spec_name: "Administrative Medicine", spec_surgery: "No", spec_class: "1", spec_code: "80178", state: "OH")
 
+# Seed Initial Rates
 BaseRate.create!(rate: 19027, state: "AZ")
-BaseRate.create!(rate: 06184, state: "ID")
+BaseRate.create!(rate:  6184, state: "ID")
 BaseRate.create!(rate: 14339, state: "NC")
 BaseRate.create!(rate: 18709, state: "CO")
 BaseRate.create!(rate: 11563, state: "MD")
 BaseRate.create!(rate: 17999, state: "OH")
 BaseRate.create!(rate: 17497, state: "GA")
-BaseRate.create!(rate: 07476, state: "NY")
+BaseRate.create!(rate:  7476, state: "NY")
 BaseRate.create!(rate: 13113, state: "WA")
 
-NasRate.create!(rate: 0435, limit_nas: 025000)
-NasRate.create!(rate: 0985, limit_nas: 050000)
+NasRate.create!(rate:  435, limit_nas:       )
+NasRate.create!(rate:  985, limit_nas:  50000)
 NasRate.create!(rate: 1235, limit_nas: 100000)
 
-AlliedRate.create!(rate: 500, group: "allied1", constituents: [ "PA" ] )
+AlliedRate.create!(rate:  500, group: "allied1", constituents: [ "PA" ] )
 AlliedRate.create!(rate: 1000, group: "allied2", constituents: [ "NP" ] )
 AlliedRate.create!(rate: 1500, group: "allied3", constituents: [ "CNM" ] )
