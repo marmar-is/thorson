@@ -121,15 +121,223 @@
                       </tbody>
                     </table>
                   </div>
+                  <div class="tab-pane" id="step_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Policy Year</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Policy Year</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @step_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.policy_year %></td>
+                            <td><%= factor.state %></td>
+                            <td><%= factor.factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="territory_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Territory</th>
+                          <th>Exposure</th>
+                          <th>Number</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Territory</th>
+                          <th>Exposure</th>
+                          <th>Number</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @territory_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.territory %></td>
+                            <td><%= factor.exposure %></td>
+                            <td><%= factor.number %></td>
+                            <td><%= factor.state %></td>
+                            <td><%= factor.factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="spec_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Specialty Name</th>
+                          <th>Specialty Surgery</th>
+                          <th>Specialty Class</th>
+                          <th>Specialty Code</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Specialty Name</th>
+                          <th>Specialty Surgery</th>
+                          <th>Specialty Class</th>
+                          <th>Specialty Code</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @spec_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.spec_name %></td>
+                            <td><%= factor.spec_surgery %></td>
+                            <td><%= factor.spec_class %></td>
+                            <td><%= factor.spec_code %></td>
+                            <td><%= factor.state %></td>
+                            <td><%= factor.factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="risk_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Criteria</th>
+                          <th>Minimum Factor</th>
+                          <th>Maximum Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Criteria</th>
+                          <th>Minimum Factor</th>
+                          <th>Maximum Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @risk_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.criteria %></td>
+                            <td><%= factor.min_factor %></td>
+                            <td><%= factor.max_factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
         <div class="tab-pane" id="rates">
-          <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Etiam porta sem malesuada magna mollis euismod.</p>
+          <div class="row mb15">
+            <div class="col-md-12">
+              <div class="box-tab left">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#nas_r" data-toggle="tab">NAS Rates</a></li>
+                  <li><a href="#base_r" data-toggle="tab">Base Rates</a></li>
+                  <li><a href="#allied_r" data-toggle="tab">Allied Rates</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active in" id="nas_r">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Limit</th>
+                          <th>Rate</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Limit</th>
+                          <th>Rate</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @nas_rates.each  do |rate| %>
+                          <tr>
+                            <td><%= rate.limit %></td>
+                            <td><%= rate.rate %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="base_r">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>State</th>
+                          <th>Rate</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>State</th>
+                          <th>Rate</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @base_rates.each  do |rate| %>
+                          <tr>
+                            <td><%= rate.state %></td>
+                            <td><%= rate.rate %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="limit_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Group</th>
+                          <th>Constituents</th>
+                          <th>Rate</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Group</th>
+                          <th>Constituents</th>
+                          <th>Rate</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @allied_rates.each  do |rate| %>
+                          <tr>
+                            <td><%= rate.group %></td>
+                            <td><%= rate.constituents.join(', ') %></td>
+                            <td><%= rate.rate %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

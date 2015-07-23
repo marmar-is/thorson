@@ -6,11 +6,11 @@ class CreateRatings < ActiveRecord::Migration
 
       t.hstore :risk_prof # taken directly from risk profile
 
-      t.integer :policy_year
-      t.boolean :capital
-
       t.hstore :rates # taken directly from current rates
       t.hstore :factors # taken directly from current factors
+
+      t.integer :policy_year
+      t.boolean :capital
 
       t.decimal :physician_premium, default: 0
       t.decimal :allied_premium, default: 0

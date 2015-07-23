@@ -2,7 +2,7 @@ class CreateRiskProfiles < ActiveRecord::Migration
   def change
     create_table :risk_profiles do |t|
       t.string :name
-      t.string :county
+      t.string :territory
       t.string :state
       t.string :territory
       t.date :effective

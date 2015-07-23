@@ -36,8 +36,10 @@ class RiskProfilesController < ApplicationController
 
     respond_to do |format|
       if @risk_profile.save
-=begin
+
         # Create a new rating (save all rates/factors at the time)
+        CAPITAL_F  = 0.10 # Capital Rate is 10%
+
         nas_r         = NasRate.where(limit: @risk_profile.limit_nas).first.rate
         base_r        = BaseRate.where(state: @risk_profile.state).first.rate
         allied1_r     = AlliedRate.where(group: 'allied1').first.rate
@@ -45,23 +47,47 @@ class RiskProfilesController < ApplicationController
         allied3_r     = AlliedRate.where(group: 'allied3').first.rate
 
         limit_f       = LimitFactor.where(limit: @risk_profile.limit, state: @risk_profile.state).first.factor
+        entity_f      = EntityFactor.where(entity: @risk_profile.entity).first.factor
+        deductible_f  = DeductibleFactor.where(deductible: @risk_profile.deductible).first.factor
+        step_f        = StepFactor.where(policy_year: "1", state: @risk_profile.state).first.factor
+        #risk_f        = RiskFactor.where
+
+        spec          = SpecialtyFactor.where(spec_name: @risk_profile.specialty).first
+        specialty_f   = spec.factor
+        specialty_c   = spec.spec_class
+
+        territory     = TerritoryFactory.where(territory: @risk_profile.county, state: @risk_profile.state).first
+        territory_n   = territory.number
+        territory_e   = territory.exposure
+        territory_f   = territory.factor
 
         physician_p   = (base_r * spec_f * territy_f * ded_f * step_f)
         allied_p      = (allied1_r * @risk_profile.allied1 * allied2_r * @risk_profile.allied2 * allied3_r * @risk_profile.allied3)
         fairway_p     = (((physician_p * risk_f * entity_f) + !!entity_premium!!) * limit_f)
-        capital_c     = (0)
+        capital_c     = (CAPITAL_F * fairway_p)
 
-        @risk_profile.ratings.create!(risk_prof: @risk_profile.attributes,
+        @rating = Rating.new(
+        risk_prof: @risk_profile.attributes,
         rates: {
-          nas_rate: nas_r,
-          base_rate: base_r,
-          allied1_rate: allied1_r, allied2_rate: allied2_r, allied3_rate: allied3_r
+          nas_rate:     nas_r,
+          base_rate:    base_r,
+          allied1_rate: allied1_r, allied2_rate: allied2_r, allied3_rate: allied3_r,
         },
         factors: {
-
-        }
-        policy_year: 1, capital: true,
-
+          limit_factor:       limit_f,
+          entity_factor:      entity_f,
+          deductible_factor:  deductible_f,
+          specialty_factor:   specialty_f,
+          specialty_class:    specialty_c,
+          step_factor:        step_f,
+          capital_factor:     CAPITAL_F,
+          #risk_factor:       risk_f,
+          territory_number:   territory_n,
+          territory_exposure: territory_e,
+          territory_factor:   territory_f
+        },
+        policy_year: 1,
+        capital: true,
         physician_premium:    physician_p,
         allied_premium:       allied_p,
         nas_premium:          nas_r,
@@ -69,7 +95,8 @@ class RiskProfilesController < ApplicationController
         total_premium:        (fairway_p + capital_c + nas_r),
         capital_contribution: capital_c
         )
-=end
+
+        if @rating.save
         format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
         format.json { render :index, status: :created, location: @risk_profile }
       else
