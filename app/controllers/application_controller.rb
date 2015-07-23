@@ -8,8 +8,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
 
     if current_account.admin?
-      redirect_to root_path
-
+      
     elsif current_account.broker?
 
       if current_account.broker_acct.nil?
