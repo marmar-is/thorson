@@ -15,7 +15,7 @@ NasRate.destroy_all
 AlliedRate.destroy_all
 
 # Seed Initial Factors
-DedFactor.create!(factor: 1.00, deductible:      )
+DedFactor.create!(factor: 1.00, deductible:     0)
 DedFactor.create!(factor: 0.95, deductible:  5000)
 DedFactor.create!(factor: 0.90, deductible: 10000)
 DedFactor.create!(factor: 0.80, deductible: 25000)
@@ -420,7 +420,7 @@ BaseRate.create!(rate: 17497, state: "GA")
 BaseRate.create!(rate:  7476, state: "NY")
 BaseRate.create!(rate: 13113, state: "WA")
 
-NasRate.create!(rate:  435, limit_nas:       )
+NasRate.create!(rate:  435, limit_nas:  25000)
 NasRate.create!(rate:  985, limit_nas:  50000)
 NasRate.create!(rate: 1235, limit_nas: 100000)
 
