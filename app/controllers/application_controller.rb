@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_account!
   before_action :authenticate_broker!
+  before_action :set_acct!
 
   protected
   def devise_parameter_sanitizer
@@ -22,8 +23,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_broker!
-    if account_signed_in? && current_account.broker? && current_account.broker_acct.nil?
+    if account_signed_in? && current_account.broker? && current_account.meta.nil?
       redirect_to new_broker_acct_path, notice: 'You must create an account to continue.'
     end
+  end
+
+  def set_acct!
+    @acct = current_account.meta
   end
 end

@@ -42,12 +42,15 @@ $(function(){
     }
   });
 
+  /*
+  Auto Open Disabled
   $('#broker .editable').on('hidden', function(e, reason){
     if(reason === 'save' || reason === 'nochange') {
-      var $next = $(this).closest('.form-group').next().find('.editable');
+      var $next = $(this).closest('div').next().find('.editable');
       setTimeout(function() {
         $next.editable('show');
       }, 300);
     }
   });
+  */
 });

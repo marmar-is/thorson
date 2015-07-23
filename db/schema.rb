@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723174238) do
+ActiveRecord::Schema.define(version: 20150723191037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,10 +30,13 @@ ActiveRecord::Schema.define(version: 20150723174238) do
     t.string   "fname",              default: ""
     t.string   "lname",              default: ""
     t.integer  "broker_acct_id"
+    t.integer  "meta_id"
+    t.string   "meta_type"
   end
 
   add_index "accounts", ["broker_acct_id"], name: "index_accounts_on_broker_acct_id", using: :btree
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
+  add_index "accounts", ["meta_id", "meta_type"], name: "index_accounts_on_meta_id_and_meta_type", using: :btree
 
   create_table "allied_rates", force: :cascade do |t|
     t.integer  "rate"
