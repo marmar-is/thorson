@@ -1,6 +1,7 @@
 class RiskProfile < ActiveRecord::Base
   # Associations
   belongs_to :broker_acct
+  has_many :ratings
 
   # Validations
   validates :name, presence: true

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  risk_prof: 
+  policy_year: 1
+  capital: false
+  rates: 
+  factors: 
+  physician_premium: 9.99
+  allied_premium: 9.99
+
+two:
+  risk_prof: 
+  policy_year: 1
+  capital: false
+  rates: 
+  factors: 
+  physician_premium: 9.99
+  allied_premium: 9.99
