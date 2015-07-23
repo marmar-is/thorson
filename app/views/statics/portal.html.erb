@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title(@title) %></title>
+  <title>Thorson Portal</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= yield :head %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -15,18 +15,64 @@
 
   <!-- Font -->
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,700', 'data-turbolinks-track' => true %>
+
+  <style>
+    div.vcc {
+      position: absolute;
+      top: 50%;
+      margin-top: -150px;/* half of #content height*/
+      left: 0;
+      width: 100%;
+    }
+    div.panel {
+      color:#555;
+    }
+    div.panel-heading {
+      font-size:16px;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-success-dark">
 
-  <div class="app layout-fixed-header layout-fixed-footer">
-    <%= render partial: 'layouts/nav' %>
+  <div class="layout-fixed-footer">
+    <!-- main area -->
+    <div class="vcc">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 mb30">
+          <%= image_tag "logo_thorson.png", width:'100%' %>
+        </div>
+      </div>
 
-    <div class="main-panel">
-      <%= render partial: 'layouts/header' %>
-      <%= yield %>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-2 pb15">
+          <%= link_to new_account_session_path do %>
+          <div class="panel">
+            <div class="panel-heading text-center border">
+              Broker Sign In
+            </div>
+            <div class="panel-body">
+              Use your Thorson Broker credentials to access our Broker Portal.
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <div class="col-md-3 col-md-offset-2 pb15">
+          <%#= link_to new_employee_session_path do %>
+          <div class="panel">
+            <div class="panel-heading text-center border">
+              Employee Sign In
+            </div>
+            <div class="panel-body">
+              Use your Thorson Employee credentials to access our Employee Console.
+            </div>
+          </div>
+          <%# end %>
+        </div>
+      </div>
+
+      <%= render partial: 'layouts/footer' %>
     </div>
-
-    <%= render partial: 'layouts/footer' %>
   </div>
 
   <%= javascript_include_tag 'bootstrap/js/bootstrap.min', 'data-turbolinks-track' => true %>
@@ -42,6 +88,10 @@
   <%= javascript_include_tag 'lib', 'data-turbolinks-track' => true %>
 
   <%= yield :js_includes %>
+
+  <script>
+
+  </script>
 
 </body>
 

@@ -4,7 +4,7 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles
   # GET /risk_profiles.json
   def index
-    @risk_profiles = RiskProfile.all
+    @risk_profiles = current_account.broker.risk_profiles
   end
 
   # GET /risk_profiles/1

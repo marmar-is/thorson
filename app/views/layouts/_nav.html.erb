@@ -4,11 +4,12 @@
   <div class="brand">
     <!-- logo -->
     <div class="brand-logo">
-      <%= link_to root_path do %>
-        <%= image_tag 'logo_thorson.png', height:'20', alt:'Thorson Insurance' %>
+      <%= link_to "/" do %>
+        <%= image_tag 'logo_thorson.png', height:'32', alt:'Thorson Insurance' %>
       <% end %>
     </div>
     <!-- /logo -->
+
     <!-- toggle small sidebar menu -->
     <a href="javascript:;" class="toggle-sidebar hidden-xs hamburger-icon v3" data-toggle="layout-small-menu">
       <span></span>
@@ -24,7 +25,7 @@
     <ul class="nav">
       <!-- dashboard -->
       <li>
-        <%= link_to root_path do %>
+        <%= link_to "/" do %>
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         <% end %>
@@ -143,8 +144,15 @@
         </a>
       </li>
       <!-- /support -->
-
     </ul>
+
+    <!-- logo -->
+    <div class="brand">
+      <div class="brand-logo">
+        <%= image_tag 'logo_thorson_nav_icon.png', width:'90%', alt:'Thorson Insurance' %>
+      </div>
+    </div>
+    <!-- /logo -->
   </nav>
   <!-- /main navigation -->
 </div>

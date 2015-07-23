@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719062919) do
+ActiveRecord::Schema.define(version: 20150722194103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "email",              default: "", null: false
+    t.string   "encrypted_password", default: "", null: false
+    t.integer  "sign_in_count",      default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "role",               default: 0
+    t.string   "fname",              default: ""
+    t.string   "lname",              default: ""
+    t.integer  "broker_acct_id"
+  end
+
+  add_index "accounts", ["broker_acct_id"], name: "index_accounts_on_broker_acct_id", using: :btree
+  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
 
   create_table "allied_rates", force: :cascade do |t|
     t.integer  "rate"
@@ -26,6 +45,22 @@ ActiveRecord::Schema.define(version: 20150719062919) do
   end
 
   add_index "allied_rates", ["elements"], name: "index_allied_rates_on_elements", using: :gin
+
+  create_table "broker_accts", force: :cascade do |t|
+    t.string   "name",         default: ""
+    t.string   "code",         default: ""
+    t.string   "contact_name", default: ""
+    t.string   "email",        default: ""
+    t.string   "phone",        default: ""
+    t.string   "street",       default: ""
+    t.string   "city",         default: ""
+    t.string   "state",        default: ""
+    t.string   "zip",          default: ""
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "broker_accts", ["code"], name: "index_broker_accts_on_code", unique: true, using: :btree
 
   create_table "claim_factors", force: :cascade do |t|
     t.integer  "policy_year"
@@ -117,4 +152,5 @@ ActiveRecord::Schema.define(version: 20150719062919) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "accounts", "broker_accts"
 end

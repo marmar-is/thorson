@@ -32,19 +32,13 @@
   <ul class="nav navbar-nav hidden-xs">
     <li>
       <p class="navbar-text">
-        Dashboard
+        <%= current_account.role.capitalize %>
       </p>
     </li>
   </ul>
 
   <ul class="nav navbar-nav navbar-right hidden-xs">
-    <li>
-      <a href="javascript:;" data-toggle="quick-launch-panel">
-        <i class="fa fa-circle-thin"></i>
-      </a>
-    </li>
-
-    <li>
+    <!--<li>
       <a href="javascript:;" data-toggle="dropdown">
         <i class="fa fa-bell-o"></i>
         <div class="status bg-danger border-danger animated bounce"></div>
@@ -96,31 +90,28 @@
           <a href="javascript:;">See all messages</a>
         </li>
       </ul>
-    </li>
+    </li>-->
 
     <li>
       <a href="javascript:;" data-toggle="dropdown">
-        <img src="images/avatar.jpg" class="header-avatar img-circle ml10" alt="user" title="user">
-        <span class="pull-left">Samuel Perkins</span>
+        <!--img src="images/avatar.jpg" class="header-avatar img-circle ml10" alt="user" title="user">-->
+        <span class="pull-left"><%= current_account.full_name %></span>
       </a>
       <ul class="dropdown-menu">
-        <li>
+        <!--<li>
           <a href="javascript:;">Settings</a>
-        </li>
-        <li>
-          <a href="javascript:;">Upgrade</a>
         </li>
         <li>
           <a href="javascript:;">
             <span class="label bg-danger pull-right">34</span>
             <span>Notifications</span>
           </a>
+        </li>-->
+        <li>
+          <a href="mailto:support@marmar-is.com?subject=Please%20help%20of%20me%20with%20...">Help!</a>
         </li>
         <li>
-          <a href="javascript:;">Help</a>
-        </li>
-        <li>
-          <a href="signin.html">Logout</a>
+          <%= link_to "Logout", destroy_account_session_path, method: :delete %>
         </li>
       </ul>
 
