@@ -1,4 +1,7 @@
 class RiskProfile < ActiveRecord::Base
+  # Associations
+  belongs_to :broker_acct
+
   # Validations
   validates :name, presence: true
   validates :county, presence: true

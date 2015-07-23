@@ -19,7 +19,7 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see [ruby-saml][] for more information).
   config.saml_configure do |settings|
-    settings.assertion_consumer_service_url     = "http://thorsongroup.com/accounts/saml/auth"
+    settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
     settings.issuer                             = "https://app.onelogin.com/saml/metadata/#{ENV['ONE_LOGIN_APP_ID']}"

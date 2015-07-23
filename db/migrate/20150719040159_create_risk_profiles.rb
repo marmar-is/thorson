@@ -18,5 +18,7 @@ class CreateRiskProfiles < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_reference :risk_profiles, :broker_acct, index: true, foreign_key: true
   end
 end
