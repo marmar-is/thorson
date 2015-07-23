@@ -1,4 +1,5 @@
 class BrokerAcctsController < ApplicationController
+  before_action :authenticate_broker!
   before_action :set_broker_acct, only: [ :profile, :update ]
 
   # GET /broker_accts/new
@@ -38,6 +39,13 @@ class BrokerAcctsController < ApplicationController
 
   # GET /profile
   def profile
+  end
+
+  protected
+  def authenticate_broker!
+    if current_account && !current_account.broker?
+      redirect_to :back, notice: 'You are attempting to access a broker-only zone.'
+    end
   end
 
   private

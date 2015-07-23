@@ -23,7 +23,27 @@
 
     <div class="main-panel">
       <%= render partial: 'layouts/header' %>
-      <%= yield %>
+      <!-- main area -->
+      <div class="main-content">
+        
+        <!-- Notice && Alert -->
+        <%- if flash[:alert] || flash[:notice] %>
+        <div class="text-center" style="color:#000;">
+          <p class="alert">
+            <%= link_to "x", "#", data:{dismiss:'alert'}, class:'close' %>
+            <%= flash[:notice] %>
+          </p>
+          <p class="alert">
+            <%= link_to "x", "#", data:{dismiss:'alert'}, class:'close' %>
+            <%= flash[:alert] %>
+          </p>
+        </div>
+        <% end -%>
+        <!-- /Notice && Alert -->
+
+        <%= yield %>
+      </div>
+      <!-- /main area -->
     </div>
 
     <%= render partial: 'layouts/footer' %>

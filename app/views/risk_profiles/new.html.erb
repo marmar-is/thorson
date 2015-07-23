@@ -1,62 +1,64 @@
 
-<!-- main area -->
-<div class="main-content">
-  <h1 class="text-center">New Risk Profile</h1>
-  <div data-ng-controller="dashboardCtrl" class="ng-scope">
-    <div class="row"> </div>
-    <div class="row"> </div>
-    <div class="row"> </div>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="widget bg-white">
-          <div class="widget-details widget-list">
-            <div class="mb20">
-              <h4 class="no-margin text-uppercase">NEW RISK</h4>
-            </div>
-            <a href="javascript:;" class="widget-list-item">
-              <button class="btn btn-default btn-outline">Profile</button>
-            </a>
-            <a href="javascript:;" class="widget-list-item">
-              <button class="btn btn-default btn-outline">Exposure</button>
-            </a>
-            <a href="javascript:;" class="widget-list-item">
-              <button class="btn btn-default btn-outline">Coverage</button>
-            </a>
+<h1 class="text-center">New Risk Profile</h1>
+<div data-ng-controller="dashboardCtrl" class="ng-scope">
+  <div class="row"> </div>
+  <div class="row"> </div>
+  <div class="row"> </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="widget bg-white">
+        <div class="widget-details widget-list">
+          <div class="mb20">
+            <h4 class="no-margin text-uppercase">NEW RISK</h4>
           </div>
+          <a href="javascript:;" class="widget-list-item">
+            <button class="btn btn-default btn-outline">Profile</button>
+          </a>
+          <a href="javascript:;" class="widget-list-item">
+            <button class="btn btn-default btn-outline">Exposure</button>
+          </a>
+          <a href="javascript:;" class="widget-list-item">
+            <button class="btn btn-default btn-outline">Coverage</button>
+          </a>
         </div>
       </div>
-      <div class="col-md-4">
-        <section class="widget bg-lightblue">
-          <div class="widget-details">
-            <a href="javascript:;" class="pull-left relative">
-              <div class="status bg-primary text-white mt5" data-animation="rubberBand"></div>
-            </a>
-          </div>
-          <div class="widget-details"> <span class="h5 bold">Samuel Perkins, M.D.</span> <small class="block">NEUROSURGERY</small><small class="block">LOS ANGELES COUNTY</small> </div>
-        </section>
-      </div>
-
-      <div class="col-md-4">
-        <section class="widget bg-success text-center">
-          <div class="widget-details col-xs-4">
-            <h2 class="no-margin">$5k</h2> <small class="text-uppercase">Deductible</small> </div>
-            <div class="widget-details col-xs-4">
-              <h2 class="no-margin">1M/3M</h2> <small class="text-uppercase">Limits</small> </div>
-              <div class="widget-details col-xs-4">
-                <h2 class="no-margin">$50k</h2> <small class="text-uppercase">NAS</small> </div>
-              </section>
-            </div>
-            <div class="col-md-4">
-              <button type="button" class="btn btn-default btn-block">SAVE</button>
-              <button type="button" class="btn btn-default btn-lg btn-block">SUBMIT QUOTE</button>
-            </div>
-          </div>
+    </div>
+    <div class="col-md-4">
+      <section class="widget bg-lightblue">
+        <div class="widget-details">
+          <a href="javascript:;" class="pull-left relative">
+            <div class="status bg-primary text-white mt5" data-animation="rubberBand"></div>
+          </a>
         </div>
-        <%#= render 'form' %>
-      </div>
-      <!-- /main area -->
+        <div class="widget-details"> <span class="h5 bold">Samuel Perkins, M.D.</span> <small class="block">NEUROSURGERY</small><small class="block">LOS ANGELES COUNTY</small> </div>
+      </section>
+    </div>
 
-      <!-- Javascripts -->
-      <%= content_for :js_includes do %>
-      <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
-      <% end %>
+    <div class="col-md-4">
+      <section class="widget bg-success text-center">
+        <div class="widget-details col-xs-4">
+          <h2 class="no-margin">$5k</h2>
+          <small class="text-uppercase">Deductible</small>
+        </div>
+        <div class="widget-details col-xs-4">
+          <h2 class="no-margin">1M/3M</h2>
+          <small class="text-uppercase">Limits</small>
+        </div>
+        <div class="widget-details col-xs-4">
+          <h2 class="no-margin">$50k</h2>
+          <small class="text-uppercase">NAS</small>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-4">
+      <button type="button" class="btn btn-default btn-block">SAVE</button>
+      <button type="button" class="btn btn-default btn-lg btn-block">SUBMIT QUOTE</button>
+    </div>
+  </div>
+</div>
+<%#= render 'form' %>
+
+<!-- Javascripts -->
+<%= content_for :js_includes do %>
+  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
+<% end %>

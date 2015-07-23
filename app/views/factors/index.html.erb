@@ -2,30 +2,26 @@
   <%= stylesheet_link_tag 'datatables/css/jquery.dataTables.css', 'data-turbolinks-track' => true %>
 <% end %>
 
-<!-- main area -->
-<div class="main-content">
-  <div class="panel">
-    <div class="panel-heading border">
-      <ol class="breadcrumb mb0 no-padding">
-        <p>Rating Factors & Rates</p>
-      </ol>
-    </div>
-    <div class="panel-body">
-      <table class="table table-bordered bordered table-striped table-condensed datatable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start Date</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
+<div class="panel">
+  <div class="panel-heading border">
+    <ol class="breadcrumb mb0 no-padding">
+      <p>Rating Factors & Rates</p>
+    </ol>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered bordered table-striped table-condensed datatable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Office</th>
+          <th>Age</th>
+          <th>Start Date</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
-<!-- /main area -->
 
 <%= content_for :js_includes do %>
   <%= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
