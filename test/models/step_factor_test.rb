@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StateRateTest < ActiveSupport::TestCase
+class StepFactorTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -50,6 +50,7 @@ x-editable/bootstrap3-editable/css/bootstrap-editable.css
 x-editable/inputs-ext/address/address.css
 x-editable/bootstrap3-editable/js/bootstrap-editable.js
 x-editable/inputs-ext/address/address.js
+broker-x-editable.js
 )
 
 #checkbo/js/checkBo.min.js

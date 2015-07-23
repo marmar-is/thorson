@@ -1,6 +1,7 @@
 class BrokerAcctsController < ApplicationController
-  before_action :authenticate_broker!
+  before_action :broker_access!
   before_action :set_broker_acct, only: [ :profile, :update ]
+  skip_before_action :authenticate_broker!, only: [ :new, :create ]
 
   # GET /broker_accts/new
   def new
@@ -15,7 +16,7 @@ class BrokerAcctsController < ApplicationController
 
     respond_to do |format|
       if @broker_acct.save
-        format.html { render :profile, notice: 'Risk profile was successfully created.' }
+        format.html { render :profile, notice: 'Broker Account was successfully created.' }
         format.json { render :profile, status: :created, location: @broker_acct }
       else
         format.html { render :new }
@@ -42,8 +43,8 @@ class BrokerAcctsController < ApplicationController
   end
 
   protected
-  def authenticate_broker!
-    if current_account && !current_account.broker?
+  def broker_access!
+    if account_signed_in? && !current_account.broker? && !current_account.admin?
       redirect_to :back, notice: 'You are attempting to access a broker-only zone.'
     end
   end

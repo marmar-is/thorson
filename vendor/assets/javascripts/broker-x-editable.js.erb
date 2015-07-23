@@ -1,5 +1,6 @@
 $(function(){
   //defaults
+
   $.fn.editable.defaults.url = '/broker_accts';
   $.fn.editable.defaults.mode = 'inline';
   $.fn.editable.defaults.ajaxOptions = {type: "PATCH"};
@@ -7,11 +8,11 @@ $(function(){
   $('#broker #address').editable({
     params: function(params) {
       var data = {};
-      data['broker'] = {};
-      data['broker']['street'] = params.value.street;
-      data['broker']['city'] = params.value.city;
-      data['broker']['state'] = params.value.state;
-      data['broker']['zip'] = params.value.zip;
+      data['broker_acct'] = {};
+      data['broker_acct']['street'] = params.value.street;
+      data['broker_acct']['city'] = params.value.city;
+      data['broker_acct']['state'] = params.value.state;
+      data['broker_acct']['zip'] = params.value.zip;
       data['id'] = params.pk;
 
       return data;
@@ -28,8 +29,8 @@ $(function(){
   $('#broker .editable').editable({
     params: function(params) {
       var data = {};
-      data['broker'] = {};
-      data['broker'][params.name] = params.value
+      data['broker_acct'] = {};
+      data['broker_acct'][params.name] = params.value
       data['id'] = params.pk;
 
       //console.log(data);

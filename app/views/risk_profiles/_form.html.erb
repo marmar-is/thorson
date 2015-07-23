@@ -1,7 +1,7 @@
 <%= content_for :head do %>
-<%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
-<%= stylesheet_link_tag 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css', 'data-turbolinks-track' => true %>
-<%= stylesheet_link_tag 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css', 'data-turbolinks-track' => true %>
 <% end %>
 
 <%= form_for(@risk_profile) do |f| %>
@@ -29,12 +29,12 @@
             <div class="row">
               <div class="col-xs-12 mb25">
                 <p>State</p>
-                <%= f.select :state, options_for_select(us_states), {}, { class:'chosen', style:'width:100%;', 'data-placeholder':'State' } %>
+                <%= f.select :state, options_for_select(us_states), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'State' } %>
               </div>
 
               <div class="col-xs-12 mb25">
                 <p>County</p>
-                <%= f.select :county, options_for_select(us_counties), {}, { class:'chosen', style:'width:100%;', 'data-placeholder':'County' } %>
+                <%= f.select :county, options_for_select(us_counties), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'County' } %>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
 
 <% end %>
 
-  <%= content_for :js_includes do %>
+<%= content_for :js_includes do %>
   <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'data-turbolinks-track' => true %>
@@ -193,4 +193,4 @@
     buttonup_class: 'btn btn-info'
   });
   </script>
-  <% end %>
+<% end %>

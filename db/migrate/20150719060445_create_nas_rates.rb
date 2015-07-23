@@ -3,7 +3,6 @@ class CreateNasRates < ActiveRecord::Migration
     create_table :nas_rates do |t|
       t.integer :limit
       t.integer :rate
-      t.string :state
 
       t.timestamps null: false
     end

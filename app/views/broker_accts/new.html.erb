@@ -1,9 +1,10 @@
 <%= content_for :head do %>
+  <%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
 <% end %>
 
 <div class="panel mb25">
   <div class="panel-heading border">
-    <h4>Create New Broker Account</h4>
+    <h4>Create Your New Broker Account</h4>
   </div>
   <div class="panel-body">
     <div class="row no-margin">
@@ -22,66 +23,50 @@
           <% end %>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Brokerage Name</label>
-            <div class="col-sm-10">
-              <%= f.text_field :name, class:'form-control' %>
+            <p>Account Information</p>
+            <div class="row">
+              <div class="col-sm-5">
+                  <%= f.text_field :name, class:'form-control', placeholder:'Brokerage Name' %>
+              </div>
+              <div class="col-sm-5 col-sm-offset-2">
+                  <%= f.text_field :code, class:'form-control', placeholder:'Brokerage Code' %>
+              </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Brokerage Code</label>
-            <div class="col-sm-10">
-              <%= f.text_field :code, class:'form-control' %>
+            <p>Contact Information</p>
+            <div class="col-sm-6 col-sm-offset-3 mb10">
+              <%= f.text_field :contact_name, class:'form-control', placeholder:'Contact Name' %>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-5">
+                <%= f.email_field :email, class:'form-control', placeholder:'Contact Email Address' %>
+              </div>
+              <div class="col-sm-5  col-sm-offset-2">
+                <%= f.telephone_field :phone, class:'form-control', placeholder:'Contact Phone Number' %>
+              </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Contact Name</label>
-            <div class="col-sm-10">
-              <%= f.text_field :contact_name, class:'form-control' %>
+            <p>Address Information</p>
+            <div class="col-sm-6 col-sm-offset-3 mb10">
+              <%= f.text_field :street, class:'form-control', placeholder:'Street Address' %>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Contact Email</label>
-            <div class="col-sm-10">
-              <%= f.email_field :email, class:'form-control' %>
-            </div>
-          </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <%= f.text_field :city, class:'form-control', placeholder:'City' %>
+              </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Contact Phone</label>
-            <div class="col-sm-10">
-              <%= f.phone_field :phone, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Street Address</label>
-            <div class="col-sm-10">
-              <%= f.text_field :street, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">City</label>
-            <div class="col-sm-10">
-              <%= f.text_field :city, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">State (e.g. CA)</label>
-            <div class="col-sm-10">
-              <%= f.text_field :state, class:'form-control' %>
-              <p class="help-block">Two Letter Abbreviation (e.g. CA)</p>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Zip Code</label>
-            <div class="col-sm-10">
-              <%= f.text_field :zip, class:'form-control' %>
+              <div class="col-sm-4">
+                <%= f.select :state, options_for_select(us_states), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'State' } %>
+              </div>
+              <div class="col-sm-4">
+                <%= f.text_field :zip, class:'form-control' %>
+              </div>
             </div>
           </div>
 
@@ -95,4 +80,13 @@
 </div>
 
 <%= content_for :js_includes do %>
+  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
+  <script>
+
+    $('document').ready(function() {
+      'use strict';
+
+      $('.chosen').chosen();
+    });
+  </script>
 <% end %>

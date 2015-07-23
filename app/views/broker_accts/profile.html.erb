@@ -7,87 +7,83 @@
   <div class="panel-heading border">
     <h4>My Broker Account Profile</h4>
   </div>
-  <p>Click to edit.</p>
   <div class="panel-body">
     <div class="row no-margin">
       <div class="col-lg-10 col-lg-offset-1">
         <form id="broker" class="form-horizontal bordered-group" role="form">
-          <% if @broker_acct.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@broker_acct.errors.count, "error") %> prohibited this broker from being saved:</h2>
-
-              <ul>
-                <% @broker_acct.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Brokerage Name</label>
-            <div class="col-sm-10">
-              <%= link_to @broker_acct.name, "#", id:'name',
+            <p>Account Information</p>
+            <div class="row">
+              <div class="col-sm-5">
+                <%= link_to @broker_acct.name, "#", id:'name',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter Brokerage Name", type: "text" } %>
+              </div>
+              <div class="col-sm-5 col-sm-offset-2">
+                <%= link_to @broker_acct.code, "#", id:'code',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter Brokerage Code", type: "text" } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <p>Contact Information</p>
+            <div class="col-sm-6 col-sm-offset-3 mb10">
+              <%= link_to @broker_acct.contact_name, "#", id:'contact_name',
               class: "form-control editable editable-click", style: "display: inline;",
                 data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
-                title: "Enter Brokerage Name", type: "text" } %>
+                title: "Enter Contact Name", type: "text" } %>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-5">
+                <%= link_to @broker_acct.email, "#", id:'email',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter Contact Email Address", type: "text" } %>
+              </div>
+              <div class="col-sm-5  col-sm-offset-2">
+                <%= link_to @broker_acct.phone, "#", id:'phone',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter Contact Phone Number", type: "text" } %>
+              </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Brokerage Code</label>
-            <div class="col-sm-10">
-              <%= f.text_field :code, class:'form-control' %>
+            <p>Address Information</p>
+            <div class="col-sm-6 col-sm-offset-3 mb10">
+              <%= link_to @broker_acct.street, "#", id:'street',
+              class: "form-control editable editable-click", style: "display: inline;",
+                data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                title: "Enter Street", type: "text" } %>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Contact Name</label>
-            <div class="col-sm-10">
-              <%= f.text_field :contact_name, class:'form-control' %>
-            </div>
-          </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <%= link_to @broker_acct.city, "#", id:'city',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter City", type: "text" } %>
+              </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Contact Email</label>
-            <div class="col-sm-10">
-              <%= f.email_field :email, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Contact Phone</label>
-            <div class="col-sm-10">
-              <%= f.phone_field :phone, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Street Address</label>
-            <div class="col-sm-10">
-              <%= f.text_field :street, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">City</label>
-            <div class="col-sm-10">
-              <%= f.text_field :city, class:'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">State (e.g. CA)</label>
-            <div class="col-sm-10">
-              <%= f.text_field :state, class:'form-control' %>
-              <p class="help-block">Two Letter Abbreviation (e.g. CA)</p>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Zip Code</label>
-            <div class="col-sm-10">
-              <%= f.text_field :zip, class:'form-control' %>
+              <div class="col-sm-4">
+                <%= link_to @broker_acct.state, "#", id:'state',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter State", type: "text" } %>
+              </div>
+              <div class="col-sm-4">
+                <%= link_to @broker_acct.zip, "#", id:'zip',
+                class: "form-control editable editable-click", style: "display: inline;",
+                  data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                  title: "Enter Zip Code", type: "text" } %>
+              </div>
             </div>
           </div>
         </form>

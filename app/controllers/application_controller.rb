@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_account!
+  before_action :authenticate_broker!
 
   protected
   def devise_parameter_sanitizer
@@ -17,7 +18,11 @@ class ApplicationController < ActionController::Base
   def authenticate_account!
     if !account_signed_in? && action_name != 'portal' && !devise_controller?
       redirect_to :unauthenticated_root
-    elsif account_signed_in? && current_account.broker? && current_account.broker_acct.nil?
+    end
+  end
+
+  def authenticate_broker!
+    if account_signed_in? && current_account.broker? && current_account.broker_acct.nil?
       redirect_to new_broker_acct_path, notice: 'You must create an account to continue.'
     end
   end
