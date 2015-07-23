@@ -38,10 +38,11 @@ bootstrap-datepicker/dist/css/bootstrap-datepicker3.css
 bootstrap-datepicker/js/bootstrap-datepicker.js
 )
 
-# Factors Index (css & js)
+# Datatables General (css & js)
 Rails.application.config.assets.precompile += %w(
 datatables/css/jquery.dataTables.css
 datatables/js/jquery.dataTables.js
+datatables/js/bootstrap-datatables.js
 )
 
 # Broker Profile (css & js)

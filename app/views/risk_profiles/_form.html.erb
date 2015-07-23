@@ -99,11 +99,11 @@
             <%- AlliedRate.all.each do |ar| %>
             <div class="row">
               <div class="col-xs-5">
-                <%= ar.elements.join(", ") %>
+                <%= ar.constituents.join(", ") %>
               </div>
               <div class="col-xs-7">
                 <div class="input-group input-group-lg mb25">
-                  <%= f.text_field ar.category.downcase.to_sym, class:'form-control input-lg spinner-ar' %>
+                  <%= f.text_field ar.group.downcase.to_sym, class:'form-control input-lg spinner-ar' %>
                 </div>
               </div>
             </div>
@@ -178,19 +178,20 @@
   $('document').ready(function() {
     'use strict';
     $('.chosen').chosen();
+
+    $('.spinner-ar').TouchSpin({
+      initval: 0,
+      buttondown_class: 'btn btn-success',
+      buttonup_class: 'btn btn-success'
+    });
+    $('.spinner-ded').TouchSpin({
+      initval: 0,
+      step: 5000,
+      max: "<%= DedFactor.maximum(:deductible) %>",
+      buttondown_class: 'btn btn-info',
+      buttonup_class: 'btn btn-info'
+    });
   });
 
-  $('.spinner-ar').TouchSpin({
-    initval: 0,
-    buttondown_class: 'btn btn-success',
-    buttonup_class: 'btn btn-success'
-  });
-  $('.spinner-ded').TouchSpin({
-    initval: 0,
-    step: 5000,
-    max: "<%= DedFactor.maximum(:deductible) %>",
-    buttondown_class: 'btn btn-info',
-    buttonup_class: 'btn btn-info'
-  });
   </script>
 <% end %>

@@ -28,7 +28,7 @@ class RiskProfilesController < ApplicationController
   # POST /risk_profiles.json
   def create
     @risk_profile = RiskProfile.new(risk_profile_params)
-    @risk_profile.broker_acct = current_account.broker_acct
+    @risk_profile.broker_acct = @acct
 
     respond_to do |format|
       if @risk_profile.save
@@ -73,6 +73,6 @@ class RiskProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def risk_profile_params
-      params.require(:risk_profile).permit(:name, :county, :state, :effective, :retro, :specialty, :deductible, :limits, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty)
+      params.require(:risk_profile).permit(:name, :county, :state, :effective, :retro, :specialty, :deductible, :limit, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty)
     end
 end

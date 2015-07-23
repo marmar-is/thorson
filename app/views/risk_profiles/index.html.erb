@@ -1,51 +1,96 @@
-<h1>Listing Risk Profiles</h1>
+<%= content_for :head do %>
+  <%= stylesheet_link_tag 'datatables/css/jquery.dataTables.css' => true %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>County</th>
-      <th>State</th>
-      <th>Effective</th>
-      <th>Retro</th>
-      <th>Specialty</th>
-      <th>Deductible</th>
-      <th>Limits</th>
-      <th>Limit nas</th>
-      <th>Entity</th>
-      <th>Allied1</th>
-      <th>Allied2</th>
-      <th>Allied3</th>
-      <th>Sub specialty</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="panel">
+  <div class="panel-heading border">
+    <ol class="breadcrumb mb0 no-padding">
+      <li>
+        <h3>My Risk Profiles</h3>
+      </li>
+    </ol>
+  </div>
+  <div class="panel-body">
+    <table id="risk_profiles" class="table table-bordered bordered table-striped table-condensed datatable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>County</th>
+          <th>State</th>
+          <th>Effective</th>
+          <th>Retro</th>
+          <th>Specialty</th>
+          <th>Deductible</th>
+          <th>Limits</th>
+          <th>Limit nas</th>
+          <th>Entity</th>
+          <th>Allied1</th>
+          <th>Allied2</th>
+          <th>Allied3</th>
+          <th>Sub specialty</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Name</th>
+          <th>County</th>
+          <th>State</th>
+          <th>Effective</th>
+          <th>Retro</th>
+          <th>Specialty</th>
+          <th>Deductible</th>
+          <th>Limits</th>
+          <th>Limit nas</th>
+          <th>Entity</th>
+          <th>Allied1</th>
+          <th>Allied2</th>
+          <th>Allied3</th>
+          <th>Sub specialty</th>
+          <th colspan="3"></th>
+        </tr>
+      </tfoot>
 
-  <tbody>
-    <% @risk_profiles.each do |risk_profile| %>
-      <tr>
-        <td><%= risk_profile.name %></td>
-        <td><%= risk_profile.county %></td>
-        <td><%= risk_profile.state %></td>
-        <td><%= risk_profile.effective %></td>
-        <td><%= risk_profile.retro %></td>
-        <td><%= risk_profile.specialty %></td>
-        <td><%= risk_profile.deductible %></td>
-        <td><%= risk_profile.limits %></td>
-        <td><%= risk_profile.limit_nas %></td>
-        <td><%= risk_profile.entity %></td>
-        <td><%= risk_profile.allied1 %></td>
-        <td><%= risk_profile.allied2 %></td>
-        <td><%= risk_profile.allied3 %></td>
-        <td><%= risk_profile.sub_specialty %></td>
-        <td><%= link_to 'Show', risk_profile %></td>
-        <td><%= link_to 'Edit', edit_risk_profile_path(risk_profile) %></td>
-        <td><%= link_to 'Destroy', risk_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+      <tbody>
+        <% @risk_profiles.each do |risk_profile| %>
+          <tr>
+            <td><%= risk_profile.name %></td>
+            <td><%= risk_profile.county %></td>
+            <td><%= risk_profile.state %></td>
+            <td><%= risk_profile.effective %></td>
+            <td><%= risk_profile.retro %></td>
+            <td><%= risk_profile.specialty %></td>
+            <td><%= risk_profile.deductible %></td>
+            <td><%= risk_profile.limits %></td>
+            <td><%= risk_profile.limit_nas %></td>
+            <td><%= risk_profile.entity %></td>
+            <td><%= risk_profile.allied1 %></td>
+            <td><%= risk_profile.allied2 %></td>
+            <td><%= risk_profile.allied3 %></td>
+            <td><%= risk_profile.sub_specialty %></td>
+            <td><%= link_to 'Show', risk_profile %></td>
+            <td><%= link_to 'Edit', edit_risk_profile_path(risk_profile) %></td>
+            <td><%= link_to 'Destroy', risk_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <%= link_to 'New Risk profile', new_risk_profile_path %>
+
+<%= content_for :js_includes do %>
+  <%= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'datatables/js/bootstrap-datatables.js', 'data-turbolinks-track' => true %>
+
+  <script>
+  $('document').ready(function() {
+    'use strict';
+
+    $('#risk_profiles').dataTable({  });
+
+  });
+
+  </script>
+<% end %>
