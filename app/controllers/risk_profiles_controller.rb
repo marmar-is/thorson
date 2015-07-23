@@ -36,6 +36,40 @@ class RiskProfilesController < ApplicationController
 
     respond_to do |format|
       if @risk_profile.save
+
+        # Create a new rating (save all rates/factors at the time)
+        nas_rate    = NasRate.where(limit: @risk_profile.limit_nas).first.rate
+        base_rate   = BaseRate.where(state: @risk_profile.state).first.rate
+        allied1     = AlliedRate.where(group: 'allied1').first.rate
+        allied2     = AlliedRate.where(group: 'allied2').first.rate
+        allied3     = AlliedRate.where(group: 'allied3').first.rate
+
+
+
+        physician_p = (base_rate * spec_factor * territy_factor * ded_factor * step_factor)
+        allied_p    = (allied1 * @risk_profile.allied1 * allied2 * @risk_profile.allied2 * allied3 * @risk_profile.allied3)
+        fairway_p   = (((physician_p * risk_factor * entity_factor) + !!entity_premium!!) * limit_factor)
+        capital_c   = (0)
+
+        @risk_profile.ratings.create!(risk_prof: @risk_profile.attributes,
+        rates: {
+          nas_rate: nas_rate,
+          base_rate: base_rate,
+          allied1_rate: allied1, allied2_rate: allied2, allied3_rate: allied3
+        },
+        factors: {
+
+        }
+        policy_year: 1, capital: true,
+        
+        physician_premium:    physician_p,
+        allied_premium:       allied_p,
+        nas_premium:          nas_rate,
+        fairway_premium:      fairway_p,
+        total_premium:        (fairway_p + capital_c + nas_rate),
+        capital_contribution: capital_c
+        )
+
         format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
         format.json { render :index, status: :created, location: @risk_profile }
       else
