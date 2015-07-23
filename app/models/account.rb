@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
   enum role: [:error, :admin, :broker, :employee]
 
   # Associations
-  belongs_to :broker_acct
+  belongs_to :meta, polymorphic: true # Polymorphic association for Accounts + Broker/Employee
 
   # Methods
   # get Full Name

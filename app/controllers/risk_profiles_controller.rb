@@ -28,6 +28,7 @@ class RiskProfilesController < ApplicationController
   # POST /risk_profiles.json
   def create
     @risk_profile = RiskProfile.new(risk_profile_params)
+    @risk_profile.broker_acct = current_account.broker_acct
 
     respond_to do |format|
       if @risk_profile.save
