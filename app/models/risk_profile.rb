@@ -10,12 +10,12 @@ class RiskProfile < ActiveRecord::Base
   #validates :retro, presence: true
   validates :specialty, presence: true
   validates :deductible, presence: true
-  validates :limits, presence: true
-  validates :limit_nas, presence: true
-  validates :entity, presence: true
+  validates :limit, presence: true
+  #validates :limit_nas, presence: true
+  #validates :entity, presence: true
   validates :allied1, presence: true
   validates :allied2, presence: true
   validates :allied3, presence: true
-  validates :sub_specialty, presence: true
+  #validates :sub_specialty, presence: true
 
 end

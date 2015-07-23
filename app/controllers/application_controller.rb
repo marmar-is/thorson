@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_account!
   before_action :authenticate_broker!
-  before_action :set_acct!
+  before_action :set_acct!, if: :account_signed_in?
 
   protected
   def devise_parameter_sanitizer

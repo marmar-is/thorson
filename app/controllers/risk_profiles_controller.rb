@@ -27,13 +27,17 @@ class RiskProfilesController < ApplicationController
   # POST /risk_profiles
   # POST /risk_profiles.json
   def create
+    @spec_names = SpecialtyFactor.pluck(:spec_name)
+    @limits = LimitFactor.pluck(:limit)
+    @nases = NasRate.pluck(:limit)
+
     @risk_profile = RiskProfile.new(risk_profile_params)
     @risk_profile.broker_acct = @acct
 
     respond_to do |format|
       if @risk_profile.save
-        format.html { redirect_to @risk_profile, notice: 'Risk profile was successfully created.' }
-        format.json { render :show, status: :created, location: @risk_profile }
+        format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
+        format.json { render :index, status: :created, location: @risk_profile }
       else
         format.html { render :new }
         format.json { render json: @risk_profile.errors, status: :unprocessable_entity }
@@ -73,6 +77,6 @@ class RiskProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def risk_profile_params
-      params.require(:risk_profile).permit(:name, :county, :state, :effective, :retro, :specialty, :deductible, :limit, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty)
+      params.require(:risk_profile).permit(:name, :county, :state, :territory, :effective, :retro, :specialty, :specialty_surgery, :deductible, :limit, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty, :capital, :license )
     end
 end

@@ -9,13 +9,13 @@
   <div class="panel-body">
     <div class="row no-margin">
       <div class="col-lg-10 col-lg-offset-1">
-        <%= form_for(@broker_acct, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
-          <% if @broker_acct.errors.any? %>
+        <%= form_for(@acct, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
+          <% if @acct.errors.any? %>
             <div id="error_explanation">
-              <h2><%= pluralize(@broker_acct.errors.count, "error") %> prohibited this broker from being saved:</h2>
+              <h2><%= pluralize(@acct.errors.count, "error") %> prohibited this broker from being saved:</h2>
 
               <ul>
-                <% @broker_acct.errors.full_messages.each do |message| %>
+                <% @acct.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
                 <% end %>
               </ul>

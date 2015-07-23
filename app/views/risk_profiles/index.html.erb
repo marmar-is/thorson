@@ -19,16 +19,7 @@
           <th>State</th>
           <th>Effective</th>
           <th>Retro</th>
-          <th>Specialty</th>
-          <th>Deductible</th>
-          <th>Limits</th>
-          <th>Limit nas</th>
-          <th>Entity</th>
-          <th>Allied1</th>
-          <th>Allied2</th>
-          <th>Allied3</th>
           <th>Sub specialty</th>
-          <th colspan="3"></th>
         </tr>
       </thead>
       <tfoot>
@@ -38,16 +29,7 @@
           <th>State</th>
           <th>Effective</th>
           <th>Retro</th>
-          <th>Specialty</th>
-          <th>Deductible</th>
-          <th>Limits</th>
-          <th>Limit nas</th>
-          <th>Entity</th>
-          <th>Allied1</th>
-          <th>Allied2</th>
-          <th>Allied3</th>
           <th>Sub specialty</th>
-          <th colspan="3"></th>
         </tr>
       </tfoot>
 
@@ -59,18 +41,10 @@
             <td><%= risk_profile.state %></td>
             <td><%= risk_profile.effective %></td>
             <td><%= risk_profile.retro %></td>
-            <td><%= risk_profile.specialty %></td>
-            <td><%= risk_profile.deductible %></td>
-            <td><%= risk_profile.limits %></td>
-            <td><%= risk_profile.limit_nas %></td>
-            <td><%= risk_profile.entity %></td>
-            <td><%= risk_profile.allied1 %></td>
-            <td><%= risk_profile.allied2 %></td>
-            <td><%= risk_profile.allied3 %></td>
             <td><%= risk_profile.sub_specialty %></td>
-            <td><%= link_to 'Show', risk_profile %></td>
+            <%if false%><td><%= link_to 'Show', risk_profile %></td>
             <td><%= link_to 'Edit', edit_risk_profile_path(risk_profile) %></td>
-            <td><%= link_to 'Destroy', risk_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Destroy', risk_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
           </tr>
         <% end %>
       </tbody>
