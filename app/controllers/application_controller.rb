@@ -5,26 +5,6 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_account!
 
-  def after_sign_in_path_for(resource)
-
-    if current_account.admin?
-      
-    elsif current_account.broker?
-
-      if current_account.broker_acct.nil?
-        redirect_to new_broker_path
-      else
-        redirect_to new_risk_profile_path
-      end
-
-    elsif current_account.employee?
-      redirect_to factors_path
-    else
-      raise AbstractController::ActionNotFound
-    end
-
-  end
-
   protected
   def devise_parameter_sanitizer
     if resource_class == User

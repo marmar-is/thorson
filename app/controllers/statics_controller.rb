@@ -8,7 +8,7 @@ class StaticsController < ApplicationController
     elsif current_account.broker?
 
       if current_account.broker_acct.nil?
-        redirect_to new_broker_path
+        redirect_to new_broker_acct_path
       else
         redirect_to new_risk_profile_path
       end
