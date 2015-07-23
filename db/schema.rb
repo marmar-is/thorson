@@ -111,23 +111,26 @@ ActiveRecord::Schema.define(version: 20150722194103) do
   end
 
   create_table "risk_profiles", force: :cascade do |t|
-    t.string   "name",          default: ""
-    t.string   "county",        default: ""
-    t.string   "state",         default: ""
-    t.date     "effective",     default: '1995-11-08'
+    t.string   "name",           default: ""
+    t.string   "county",         default: ""
+    t.string   "state",          default: ""
+    t.date     "effective",      default: '1995-11-08'
     t.date     "retro"
-    t.string   "specialty",     default: ""
-    t.integer  "deductible",    default: 0
-    t.string   "limit",         default: ""
-    t.string   "limit_nas",     default: ""
-    t.boolean  "entity",        default: false
-    t.integer  "allied1",       default: 0
-    t.integer  "allied2",       default: 0
-    t.integer  "allied3",       default: 0
-    t.string   "sub_specialty", default: ""
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "specialty",      default: ""
+    t.integer  "deductible",     default: 0
+    t.string   "limit",          default: ""
+    t.string   "limit_nas",      default: ""
+    t.boolean  "entity",         default: false
+    t.integer  "allied1",        default: 0
+    t.integer  "allied2",        default: 0
+    t.integer  "allied3",        default: 0
+    t.string   "sub_specialty",  default: ""
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "broker_acct_id"
   end
+
+  add_index "risk_profiles", ["broker_acct_id"], name: "index_risk_profiles_on_broker_acct_id", using: :btree
 
   create_table "specialty_factors", force: :cascade do |t|
     t.string   "spec_name"
@@ -153,4 +156,5 @@ ActiveRecord::Schema.define(version: 20150722194103) do
   end
 
   add_foreign_key "accounts", "broker_accts"
+  add_foreign_key "risk_profiles", "broker_accts"
 end

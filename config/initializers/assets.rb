@@ -44,5 +44,13 @@ datatables/css/jquery.dataTables.css
 datatables/js/jquery.dataTables.js
 )
 
+# Broker Profile (css & js)
+Rails.application.config.assets.precompile += %w(
+x-editable/bootstrap3-editable/css/bootstrap-editable.css
+x-editable/inputs-ext/address/address.css
+x-editable/bootstrap3-editable/js/bootstrap-editable.js
+x-editable/inputs-ext/address/address.js
+)
+
 #checkbo/js/checkBo.min.js
 #checkbo/css/checkBo.min.css

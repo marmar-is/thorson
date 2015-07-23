@@ -1,4 +1,6 @@
 <%= content_for :head do %>
+  <%= stylesheet_link_tag 'x-editable/bootstrap3-editable/css/bootstrap-editable.css', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'x-editable/inputs-ext/address/address.css', 'data-turbolinks-track' => true %>
 <% end %>
 
 <!-- main area -->
@@ -10,7 +12,9 @@
     <div class="panel-body">
       <div class="row no-margin">
         <div class="col-lg-10 col-lg-offset-1">
-            <%= form_for(@broker_acct, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
+
+            <%#= form_for(@broker_acct, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
+            <form id="broker" class="form-horizontal bordered-group" role="form">
               <% if @broker_acct.errors.any? %>
                 <div id="error_explanation">
                   <h2><%= pluralize(@broker_acct.errors.count, "error") %> prohibited this broker from being saved:</h2>
@@ -26,7 +30,10 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Brokerage Name</label>
                 <div class="col-sm-10">
-                  <%= f.text_field :name, class:'form-control' %>
+                  <%= link_to @broker_acct.name, "#", id:'name',
+                  class: "form-control editable editable-click", style: "display: inline;",
+                    data: { url: "/broker_accts/#{@broker_acct.id}", pk: "#{@broker_acct.id}",
+                    title: "Enter Brokerage Name", type: "text" } %>
                 </div>
               </div>
 
@@ -86,12 +93,7 @@
                   <%= f.text_field :zip, class:'form-control' %>
                 </div>
               </div>
-
-              <div class="actions text-center">
-                <%= f.submit "Save Information", class:'btn btn-success btn-lg' %>
-              </div>
-
-            <% end %>
+            </form>
           </form>
         </div>
       </div>
@@ -101,4 +103,7 @@
 <!-- /main area -->
 
 <%= content_for :js_includes do %>
+  <%= javascript_include_tag 'x-editable/bootstrap3-editable/js/bootstrap-editable.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'x-editable/inputs-ext/address/address.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'broker-x-editable.js', 'data-turbolinks-track' => true %>
 <% end %>

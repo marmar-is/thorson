@@ -1,5 +1,5 @@
 class BrokerAcctsController < ApplicationController
-  #before_action :set_broker_acct, only: [:show, :edit, :update, :destroy]
+  before_action :set_broker_acct, only: [ :profile, :update ]
 
   # GET /broker_accts/new
   def new
@@ -14,13 +14,30 @@ class BrokerAcctsController < ApplicationController
 
     respond_to do |format|
       if @broker_acct.save
-        format.html { redirect_to new_risk_profile_path, notice: 'Risk profile was successfully created.' }
-        #format.json { render :show, status: :created, location: @broker_acct }
+        format.html { render :profile, notice: 'Risk profile was successfully created.' }
+        format.json { render :profile, status: :created, location: @broker_acct }
       else
         format.html { render :new }
-        #format.json { render json: @broker_acct.errors, status: :unprocessable_entity }
+        format.json { render json: @broker_acct.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # PATCH/PUT /broker_accts/1
+  def update
+    respond_to do |format|
+      if @broker_acct.update(broker_acct_params)
+        format.html { render :profile, notice: 'Broker was successfully updated.' }
+        format.json { render :profile, status: :ok, location: @broker_acct }
+      else
+        format.html { render :profile }
+        format.json { render json: @broker_acct.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # GET /profile
+  def profile
   end
 
   private

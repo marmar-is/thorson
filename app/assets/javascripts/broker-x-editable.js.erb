@@ -1,0 +1,52 @@
+$(function(){
+  //defaults
+  $.fn.editable.defaults.url = '/broker_accts';
+  $.fn.editable.defaults.mode = 'inline';
+  $.fn.editable.defaults.ajaxOptions = {type: "PATCH"};
+
+  $('#broker #address').editable({
+    params: function(params) {
+      var data = {};
+      data['broker'] = {};
+      data['broker']['street'] = params.value.street;
+      data['broker']['city'] = params.value.city;
+      data['broker']['state'] = params.value.state;
+      data['broker']['zip'] = params.value.zip;
+      data['id'] = params.pk;
+
+      return data;
+    },
+
+    validate: function(value) {
+      if(value.city == '') return 'City is required!';
+      if(value.state == '') return 'State is required!';
+      if(value.zip == '') return 'Zip Code is required!';
+      if(value.street == '') return 'Street is required!';
+    }
+  });
+
+  $('#broker .editable').editable({
+    params: function(params) {
+      var data = {};
+      data['broker'] = {};
+      data['broker'][params.name] = params.value
+      data['id'] = params.pk;
+
+      //console.log(data);
+
+      return data;
+    },
+    success: function(response, newValue) {
+      $('.broker_'+$(this)[0].id+'_display').text(newValue);
+    }
+  });
+
+  $('#broker .editable').on('hidden', function(e, reason){
+    if(reason === 'save' || reason === 'nochange') {
+      var $next = $(this).closest('.form-group').next().find('.editable');
+      setTimeout(function() {
+        $next.editable('show');
+      }, 300);
+    }
+  });
+});
