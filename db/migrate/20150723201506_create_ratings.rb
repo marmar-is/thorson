@@ -1,5 +1,7 @@
 class CreateRatings < ActiveRecord::Migration
   def change
+    enable_extension "hstore" # enable hstore datatype
+
     create_table :ratings do |t|
 
       t.hstore :risk_prof # taken directly from risk profile

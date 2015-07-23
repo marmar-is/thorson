@@ -42,8 +42,10 @@ bootstrap-datepicker/js/bootstrap-datepicker.js
 Rails.application.config.assets.precompile += %w(
 datatables/css/jquery.dataTables.css
 datatables/js/jquery.dataTables.js
-datatables/js/bootstrap-datatables.js
+bootstrap-datatables.js
 )
+#datatables/css/jquery.dataTables_themeroller.css
+
 
 # Broker Profile (css & js)
 Rails.application.config.assets.precompile += %w(

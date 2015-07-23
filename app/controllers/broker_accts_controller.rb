@@ -48,7 +48,11 @@ class BrokerAcctsController < ApplicationController
   protected
   def broker_access!
     if account_signed_in? && !current_account.broker? && !current_account.admin?
-      redirect_to :back, notice: 'You are attempting to access a broker-only zone.'
+      begin
+        redirect_to :back, notice: 'You are attempting to access a broker-only zone.'
+      rescue
+        redirect_to "/", notice: 'You are attempting to access a broker-only zone.'
+      end
     end
   end
 

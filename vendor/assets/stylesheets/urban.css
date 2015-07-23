@@ -4008,7 +4008,7 @@ a.list-group-item-danger.active:focus {
   padding: 15px;
   background-color: #fff;
 }
-.box-tab.justified .nav-tabs li {
+.box-tab.justified > .nav-tabs li {
   display: table-cell;
   float: none;
   width: 1%;

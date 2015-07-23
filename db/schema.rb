@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723191037) do
+ActiveRecord::Schema.define(version: 20150723201506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",              default: "", null: false
@@ -100,6 +101,25 @@ ActiveRecord::Schema.define(version: 20150723191037) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.hstore   "risk_prof"
+    t.integer  "policy_year"
+    t.boolean  "capital"
+    t.hstore   "rates"
+    t.hstore   "factors"
+    t.decimal  "physician_premium",    default: 0.0
+    t.decimal  "allied_premium",       default: 0.0
+    t.decimal  "nas_premium",          default: 0.0
+    t.decimal  "fairway_premium",      default: 0.0
+    t.decimal  "total_premium",        default: 0.0
+    t.integer  "capital_contribution", default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "risk_profile_id"
+  end
+
+  add_index "ratings", ["risk_profile_id"], name: "index_ratings_on_risk_profile_id", using: :btree
+
   create_table "risk_factors", force: :cascade do |t|
     t.string   "criteria"
     t.decimal  "min_factor"
@@ -164,5 +184,6 @@ ActiveRecord::Schema.define(version: 20150723191037) do
   end
 
   add_foreign_key "accounts", "broker_accts"
+  add_foreign_key "ratings", "risk_profiles"
   add_foreign_key "risk_profiles", "broker_accts"
 end

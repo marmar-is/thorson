@@ -1,29 +1,153 @@
 <%= content_for :head do %>
   <%= stylesheet_link_tag 'datatables/css/jquery.dataTables.css', 'data-turbolinks-track' => true %>
+
+  <style>
+
+  .tab-content.outer-content {
+    padding-left:0;
+    padding-top:5px;
+
+    /*border-top: #ccc 1px solid;*/
+  }
+
+  </style>
 <% end %>
 
-<div class="panel">
-  <div class="panel-heading border">
-    <ol class="breadcrumb mb0 no-padding">
-      <p>Rating Factors & Rates</p>
-    </ol>
-  </div>
-  <div class="panel-body">
-    <table class="table table-bordered bordered table-striped table-condensed datatable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Office</th>
-          <th>Age</th>
-          <th>Start Date</th>
-        </tr>
-      </thead>
-    </table>
+
+<ol class="breadcrumb no-bg">
+  <li>
+    <h3>Factors & Rates Console</h3>
+  </li>
+</ol>
+
+<div class="row mb25">
+  <div class="col-md-12">
+    <div class="box-tab justified">
+      <ul class="nav nav-tabs" id="rf-tabs">
+        <li class="active">
+          <a href="#factors" data-toggle="tab">Factors</a>
+        </li>
+        <li>
+          <a href="#rates" data-toggle="tab">Rates</a>
+        </li>
+      </ul>
+      <div class="tab-content no-bg outer-content">
+        <div class="tab-pane active in" id="factors">
+          <div class="row mb15">
+            <div class="col-md-12">
+              <div class="box-tab left">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#ded_f" data-toggle="tab">Deductible Factors</a></li>
+                  <li><a href="#entity_f" data-toggle="tab">Entity Factors</a></li>
+                  <li><a href="#limit_f" data-toggle="tab">Limit Factors</a></li>
+                  <li><a href="#step_f" data-toggle="tab">Step Factors</a></li>
+                  <li><a href="#territory_f" data-toggle="tab">Territory Factors</a></li>
+                  <li><a href="#spec_f" data-toggle="tab">Specialty Factors</a></li>
+                  <li><a href="#risk_f" data-toggle="tab">Risk Factors</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active in" id="ded_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Deductible</th>
+                          <th>Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Deductible</th>
+                          <th>Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @ded_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.deductible %></td>
+                            <td><%= factor.factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="entity_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @entity_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.entity %></td>
+                            <td><%= factor.factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane" id="limit_f">
+                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+                      <thead>
+                        <tr>
+                          <th>Limit</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Limit</th>
+                          <th>State</th>
+                          <th>Factor</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <% @limit_factors.each  do |factor| %>
+                          <tr>
+                            <td><%= factor.limit %></td>
+                            <td><%= factor.state %></td>
+                            <td><%= factor.factor %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="tab-pane" id="rates">
+          <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Etiam porta sem malesuada magna mollis euismod.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+
 <%= content_for :js_includes do %>
   <%= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag '', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'bootstrap-datatables.js', 'data-turbolinks-track' => true %>
+
+  <script>
+  $('document').ready(function() {
+    'use strict';
+
+    $('.rate-factor').dataTable({  });
+
+  });
+
+  </script>
 <% end %>

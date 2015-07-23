@@ -1,14 +1,21 @@
 class FactorsController < ApplicationController
-  before_action :authenticate_role!
+  before_action :employee_access!
 
   # GET /factors
   def index
+    @ded_factors = DedFactor.all
+    @entity_factors = EntityFactor.all
+    @limit_factors = LimitFactor.all
   end
 
-  private
-  def authenticate_role!
-    if !current_account.admin? && !current_account.employee?
-      raise ActionController::RoutingError.new('Unauthorized Access.')
+  protected
+  def employee_access!
+    if account_signed_in? && !current_account.admin? && !current_account.employee?
+      begin
+        redirect_to :back, notice: 'You are attempting to access an employee-only zone.'
+      rescue
+        redirect_to "/", notice: 'You are attempting to access an employee-only zone.'
+      end
     end
   end
 end

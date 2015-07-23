@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_account!
-  before_action :authenticate_broker!
+  before_action :authenticate_broker!, if: :account_signed_in?
   before_action :set_acct!, if: :account_signed_in?
 
   protected
@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_broker!
-    if account_signed_in? && current_account.broker? && current_account.meta.nil?
-      redirect_to new_broker_acct_path, notice: 'You must create an account to continue.'
+    if current_account.broker? && current_account.meta.nil?
+      redirect_to new_broker_acct_path, notice: 'You must complete your broker profile to continue.'
     end
   end
 
