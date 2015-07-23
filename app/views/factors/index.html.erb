@@ -87,7 +87,7 @@
                       <tbody>
                         <% @entity_factors.each  do |factor| %>
                           <tr>
-                            <td><%= factor.entity %></td>
+                            <td><%= factor.entity ? "Yes" : "No" %></td>
                             <td><%= factor.factor %></td>
                           </tr>
                         <% end %>
@@ -307,7 +307,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="tab-pane" id="limit_f">
+                  <div class="tab-pane" id="allied_r">
                     <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
                       <thead>
                         <tr>
@@ -326,7 +326,7 @@
                       <tbody>
                         <% @allied_rates.each  do |rate| %>
                           <tr>
-                            <td><%= rate.group %></td>
+                            <td><%= rate.group.capitalize %></td>
                             <td><%= rate.constituents.join(', ') %></td>
                             <td><%= rate.rate %></td>
                           </tr>
