@@ -6,9 +6,9 @@ DedFactor.destroy_all
 EntityFactor.destroy_all
 LimitFactor.destroy_all
 StepFactor.destroy_all
-TerritoryFactory.destroy_all
+TerritoryFactor.destroy_all
 RiskFactor.destroy_all
-SpecialtyFactory.destroy_all
+SpecialtyFactor.destroy_all
 
 BaseRate.destroy_all
 NasRate.destroy_all
@@ -420,9 +420,9 @@ BaseRate.create!(rate: 17497, state: "GA")
 BaseRate.create!(rate:  7476, state: "NY")
 BaseRate.create!(rate: 13113, state: "WA")
 
-NasRate.create!(rate:  435, limit_nas:  25000)
-NasRate.create!(rate:  985, limit_nas:  50000)
-NasRate.create!(rate: 1235, limit_nas: 100000)
+NasRate.create!(rate:  435, limit:  25000)
+NasRate.create!(rate:  985, limit:  50000)
+NasRate.create!(rate: 1235, limit: 100000)
 
 AlliedRate.create!(rate:  500, group: "allied1", constituents: [ "PA" ] )
 AlliedRate.create!(rate: 1000, group: "allied2", constituents: [ "NP" ] )
