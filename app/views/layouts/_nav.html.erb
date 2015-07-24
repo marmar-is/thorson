@@ -33,22 +33,24 @@
       <!-- /dashboard -->
 
       <!-- broker portal -->
+      <%- if current_account.broker? %>
       <li>
         <%= link_to new_risk_profile_path do %>
           <i class="fa fa-users"></i>
           <span>Brokers Portal</span>
         <% end %>
       </li>
+      <% end -%>
       <!-- /broker portal -->
 
-      <!-- policies -->
+      <!-- policies ->
       <li>
         <a href="#policies">
           <i class="fa fa-archive"></i>
           <span>Policies</span>
         </a>
       </li>
-      <!-- /policies -->
+      <!- /policies -->
 
       <!-- underwriting -->
       <li class="menu-accordion">
@@ -58,9 +60,9 @@
         </a>
         <ul class="sub-menu">
           <li>
-            <a href="#review">
+            <%= link_to risk_profiles_path do %>
               <span>Review</span>
-            </a>
+            <% end %>
           </li>
           <li>
             <a href="#quote">
