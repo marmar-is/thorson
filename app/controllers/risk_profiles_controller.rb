@@ -42,12 +42,17 @@ class RiskProfilesController < ApplicationController
     @risk_profile.broker_acct = @acct
 
     respond_to do |format|
-      if @risk_profile.save
+      if @risk_profile.valid?
 
         calculate_rating()
 
-        format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
-        format.json { render :index, status: :created, location: @risk_profile }
+        @rating.save
+        @risk_profile.ratings << @rating
+
+        if @risk_profile.save # should always save!
+          format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
+          format.json { render :index, status: :created, location: @risk_profile }
+        end
       else
         format.html { render :new }
         format.json { render json: @risk_profile.errors, status: :unprocessable_entity }
@@ -94,36 +99,36 @@ class RiskProfilesController < ApplicationController
       # Create a new rating (save all rates/factors at the time)
       capital_f     = 0.10 # Capital Rate is 10%
 
-      nas_r         = (NasRate.where(limit: @risk_profile.limit_nas).first.rate
+      nas_r         = !@risk_profile.limit_nas.blank? ? NasRate.where(limit: @risk_profile.limit_nas).first.rate : 0
       base_r        = (BaseRate.where(state: @risk_profile.state).first || BaseRate.offset(rand(BaseRate.count)).first).rate
       allied1_r     = AlliedRate.where(group: 'allied1').first.rate
       allied2_r     = AlliedRate.where(group: 'allied2').first.rate
       allied3_r     = AlliedRate.where(group: 'allied3').first.rate
 
-      limit_f       = (LimitFactor.where(limit: @risk_profile.limit, state: @risk_profile.state).first || LimitFactor.offset(rand(LimitFactor.count)).first)).factor
-      deductible_f  = DeductibleFactor.where(deductible: @risk_profile.deductible).first.factor
+      limit_f       = (LimitFactor.where(limit: @risk_profile.limit, state: @risk_profile.state).first || LimitFactor.offset(rand(LimitFactor.count)).first).factor
+      deductible_f  = DedFactor.where(deductible: @risk_profile.deductible).first.factor
       step_f        = (StepFactor.where(policy_year: "1", state: @risk_profile.state).first || StepFactor.offset(rand(StepFactor.count)).first).factor
-      #risk_f        = RiskFactor.where
+      risk_f        = 1#RiskFactor.where
 
       entity_f      = EntityFactor.where(entity: @risk_profile.entity).first.factor
       entity_p      = 0
 
-      spec          = (SpecialtyFactor.where(spec_name: @risk_profile.specialty, state: @risk_profile.state).first || SpecialtyFactor.offset(rand(SpecialtyFactor.count)).first)
-      specialty_f   = spec.factor
-      specialty_c   = spec.spec_class
+      specialty      = (SpecialtyFactor.where(spec_name: @risk_profile.specialty, state: @risk_profile.state).first || SpecialtyFactor.offset(rand(SpecialtyFactor.count)).first)
+      specialty_f   = specialty.factor
+      specialty_c   = specialty.spec_class
 
-      territory     = (TerritoryFactory.where(territory: @risk_profile.county, state: @risk_profile.state).first || TerritoryFactor.offset(rand(TerritoryFactor.count)).first)
+      territory     = (TerritoryFactor.where(territory: @risk_profile.territory, state: @risk_profile.state).first || TerritoryFactor.offset(rand(TerritoryFactor.count)).first)
       territory_n   = territory.number
       territory_e   = territory.exposure
       territory_f   = territory.factor
 
-      physician_p   = (base_r * spec_f * territy_f * ded_f * step_f)
+      physician_p   = (base_r * specialty_f * territory_f * deductible_f * step_f)
       allied_p      = (allied1_r * @risk_profile.allied1 * allied2_r * @risk_profile.allied2 * allied3_r * @risk_profile.allied3)
       fairway_p     = (((physician_p * risk_f * entity_f) + entity_p) * limit_f)
       capital_c     = (capital_f * fairway_p)
 
-      @risk_profile.ratings.create!(
-        # @rating = Rating.new(
+      #@risk_profile.ratings.create!(
+      @rating = Rating.new(
         risk_profile_id: @risk_profile.id,
         risk_prof: @risk_profile.attributes,
         rates: {
@@ -138,7 +143,7 @@ class RiskProfilesController < ApplicationController
           specialty_factor:   specialty_f,
           specialty_class:    specialty_c,
           step_factor:        step_f,
-          capital_factor:     CAPITAL_F,
+          capital_factor:     capital_f,
           #risk_factor:       risk_f,
           territory_number:   territory_n,
           territory_exposure: territory_e,
