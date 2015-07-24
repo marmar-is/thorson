@@ -25,6 +25,4 @@ class RiskProfile < ActiveRecord::Base
     # accepted/declinded -- underwriter's decision
     # active/inactive    -- broker's decision
 
-
-
 end

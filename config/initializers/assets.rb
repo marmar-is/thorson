@@ -43,6 +43,7 @@ Rails.application.config.assets.precompile += %w(
 datatables/css/jquery.dataTables.css
 datatables/js/jquery.dataTables.js
 bootstrap-datatables.js
+table-edit.js
 )
 #datatables/css/jquery.dataTables_themeroller.css
 
