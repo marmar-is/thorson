@@ -34,12 +34,36 @@
 
       <!-- broker portal -->
       <%- if current_account.broker? %>
+
+      <!-- profile -->
       <li>
-        <%= link_to new_risk_profile_path do %>
+        <%= link_to broker_profile_path do %>
           <i class="fa fa-users"></i>
-          <span>Brokers Portal</span>
+          <span>Broker Profile</span>
         <% end %>
       </li>
+      <!-- /profile -->
+
+      <!-- risk profiles -->
+      <li class="menu-accordion">
+        <a href="javascript:;">
+          <i class="fa fa-binoculars"></i>
+          <span>Risk Profiles</span>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <%= link_to risk_profiles_path do %>
+              <span>My Risk Profiles</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_risk_profile_path do %>
+              <span>Submit New Profile</span>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <!-- /risk profiles -->
       <% end -%>
       <!-- /broker portal -->
 
@@ -51,6 +75,9 @@
         </a>
       </li>
       <!- /policies -->
+
+      <!-- employee portal -->
+      <%- if current_account.employee? %>
 
       <!-- underwriting -->
       <li class="menu-accordion">
@@ -126,6 +153,8 @@
         </ul>
       </li>
       <!-- /administration -->
+      <% end -%>
+      <!-- /employee portal -->
 
       <!-- service &  billing -->
       <li class="menu-accordion">

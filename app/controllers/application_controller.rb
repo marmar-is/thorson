@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
     if current_account.admin?
       "/"
     elsif current_account.broker?
-      "/"#risk_profiles_path
+      "/"
     elsif current_account.employee?
-      "/"#ratings_path
+      "/"
     else
       raise AbstractController::ActionNotFound
     end

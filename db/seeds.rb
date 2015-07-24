@@ -419,6 +419,7 @@ BaseRate.create!(rate: 17999, state: "OH")
 BaseRate.create!(rate: 17497, state: "GA")
 BaseRate.create!(rate:  7476, state: "NY")
 BaseRate.create!(rate: 13113, state: "WA")
+#BaseRate.create!(rate:     0, state: "CA")
 
 NasRate.create!(rate:  435, limit:  25000)
 NasRate.create!(rate:  985, limit:  50000)

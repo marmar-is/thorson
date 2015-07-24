@@ -42,7 +42,7 @@
       <tbody>
         <% @risk_profiles.each do |risk_profile| %>
           <tr>
-            <td><%= risk_profile.name %></td>
+            <td><%= link_to risk_profile.name, risk_profile, class:'text-info' %></td>
             <td><%= risk_profile.territory %></td>
             <td><%= risk_profile.state %></td>
             <td><%= risk_profile.effective %></td>
