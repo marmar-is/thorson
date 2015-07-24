@@ -9,11 +9,11 @@
         <%= image_tag "logo_thorson_block_text.png", alt: "", class:'img-rounded' %>
       </div>
       <div class="profile-sidebar-item profile-info">
-        <span class="h5 bold">Samuel Perkins</span>
-        <p>Web Developer</p>
+        <span class="h5 bold"><%= @risk_profile.name %></span>
+        <p><%= @risk_profile.territory + ", " + @risk_profile.state %></p>
         <div class="w150 center-block mt10">
           <button class="btn btn-danger btn-block">
-            <span>Send a message</span>
+            <span><%= @risk_profile.effective.strftime("%d/%m/%Y") %></span>
           </button>
         </div>
       </div>
@@ -22,10 +22,10 @@
 
       <ul class="profile-sidebar-item profile-numbers-count">
         <li>
-          <span class="bold">9854</span> followers
+          <span class="bold"><%= number_to_currency(@risk_profile.ratings.last.total_premium) %></span> Total Premium
         </li>
         <li>
-          <span class="bold">7964</span> following
+          <span class="bold"><%= number_to_currency(@risk_profile.ratings.last.fairway_premium) %></span> Fairway Premium
         </li>
       </ul>
 

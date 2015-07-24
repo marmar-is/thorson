@@ -94,25 +94,25 @@ class RiskProfilesController < ApplicationController
       # Create a new rating (save all rates/factors at the time)
       capital_f     = 0.10 # Capital Rate is 10%
 
-      nas_r         = NasRate.where(limit: @risk_profile.limit_nas).first.rate
-      base_r        = BaseRate.where(state: @risk_profile.state).first.rate
+      nas_r         = (NasRate.where(limit: @risk_profile.limit_nas).first.rate
+      base_r        = (BaseRate.where(state: @risk_profile.state).first || BaseRate.offset(rand(BaseRate.count)).first).rate
       allied1_r     = AlliedRate.where(group: 'allied1').first.rate
       allied2_r     = AlliedRate.where(group: 'allied2').first.rate
       allied3_r     = AlliedRate.where(group: 'allied3').first.rate
 
-      limit_f       = LimitFactor.where(limit: @risk_profile.limit, state: @risk_profile.state).first.factor
+      limit_f       = (LimitFactor.where(limit: @risk_profile.limit, state: @risk_profile.state).first || LimitFactor.offset(rand(LimitFactor.count)).first)).factor
       deductible_f  = DeductibleFactor.where(deductible: @risk_profile.deductible).first.factor
-      step_f        = StepFactor.where(policy_year: "1", state: @risk_profile.state).first.factor
+      step_f        = (StepFactor.where(policy_year: "1", state: @risk_profile.state).first || StepFactor.offset(rand(StepFactor.count)).first).factor
       #risk_f        = RiskFactor.where
 
       entity_f      = EntityFactor.where(entity: @risk_profile.entity).first.factor
       entity_p      = 0
 
-      spec          = SpecialtyFactor.where(spec_name: @risk_profile.specialty).first
+      spec          = (SpecialtyFactor.where(spec_name: @risk_profile.specialty, state: @risk_profile.state).first || SpecialtyFactor.offset(rand(SpecialtyFactor.count)).first)
       specialty_f   = spec.factor
       specialty_c   = spec.spec_class
 
-      territory     = TerritoryFactory.where(territory: @risk_profile.county, state: @risk_profile.state).first
+      territory     = (TerritoryFactory.where(territory: @risk_profile.county, state: @risk_profile.state).first || TerritoryFactor.offset(rand(TerritoryFactor.count)).first)
       territory_n   = territory.number
       territory_e   = territory.exposure
       territory_f   = territory.factor
