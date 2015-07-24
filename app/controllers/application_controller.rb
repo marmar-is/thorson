@@ -52,6 +52,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def employee_access!
+    if account_signed_in? && !current_account.employee? && !current_account.admin?
+      begin
+        redirect_to :back, notice: 'You are attempting to access an employee-only zone.'
+      rescue
+        redirect_to "/", notice: 'You are attempting to access an employee-only zone.'
+      end
+    end
+  end
+
   def set_acct!
     @acct = current_account.meta
   end

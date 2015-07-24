@@ -42,17 +42,6 @@ class EmployeeAcctsController < ApplicationController
   def profile
   end
 
-  protected
-  def employee_access!
-    if account_signed_in? && !current_account.employee? && !current_account.admin?
-      begin
-        redirect_to :back, notice: 'You are attempting to access an employee-only zone.'
-      rescue
-        redirect_to "/", notice: 'You are attempting to access an employee-only zone.'
-      end
-    end
-  end
-
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_employee_acct

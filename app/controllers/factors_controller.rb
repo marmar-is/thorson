@@ -17,13 +17,13 @@ class FactorsController < ApplicationController
   end
 
   protected
-  #def employee_access!
-  #  if account_signed_in? && !current_account.admin? && !current_account.employee?
-  #    begin
-  #      redirect_to :back, notice: 'You are attempting to access an employee-only zone.'
-  #    rescue
-  #      redirect_to "/", notice: 'You are attempting to access an employee-only zone.'
-  #    end
-  #  end
-  #end
+  def employee_access!
+    if account_signed_in? && !current_account.admin? && !current_account.employee?
+      begin
+        redirect_to :back, notice: 'You are attempting to access an employee-only zone.'
+      rescue
+        redirect_to "/", notice: 'You are attempting to access an employee-only zone.'
+      end
+    end
+  end
 end
