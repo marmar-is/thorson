@@ -4,6 +4,7 @@ class AddFieldsToAccount < ActiveRecord::Migration
     add_column :accounts, :fname, :string, default: ""
     add_column :accounts, :lname, :string, default: ""
 
-    add_reference :accounts, :broker_acct, index: true, foreign_key: true
+    #add_reference :accounts, :broker_acct, index: true, foreign_key: true
+    #add_reference :accounts, :employee_acct, index:true, foreign_key: true
   end
 end

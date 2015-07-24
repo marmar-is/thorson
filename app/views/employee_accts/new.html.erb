@@ -1,0 +1,53 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
+<% end %>
+
+<div class="panel mb25">
+  <div class="panel-heading border">
+    <h4>Create Your New Employee Account</h4>
+  </div>
+  <div class="panel-body">
+    <div class="row no-margin">
+      <div class="col-lg-10 col-lg-offset-1">
+        <%= form_for(@acct, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
+          <% if @acct.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@acct.errors.count, "error") %> prohibited this broker from being saved:</h2>
+
+              <ul>
+                <% @acct.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <p>Select Your Account's Role?</p>
+            <div class="row">
+              <div class="col-sm-4">
+                <%= f.select :role, options_for_select([ ['Underwriter', 1], ['Reviewer', 2], ['Manager', 3] ]), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'Account Role' } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "Save Information", class:'btn btn-success btn-lg' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :js_includes do %>
+  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
+  <script>
+
+    $('document').ready(function() {
+      'use strict';
+
+      $('.chosen').chosen();
+    });
+  </script>
+<% end %>

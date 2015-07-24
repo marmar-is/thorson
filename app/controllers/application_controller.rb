@@ -4,8 +4,20 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_account!
-  before_action :authenticate_broker!, if: :account_signed_in?
+  before_action :authenticate_meta!, if: :account_signed_in?
   before_action :set_acct!, if: :account_signed_in?
+
+  def after_sign_in_path_for(resource)
+    if current_account.admin?
+      "/"
+    elsif current_account.broker?
+      risk_profiles_path
+    elsif current_account.employee?
+      ratings_path
+    else
+      raise AbstractController::ActionNotFound
+    end
+  end
 
   protected
   def devise_parameter_sanitizer
@@ -22,9 +34,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_broker!
+  def authenticate_meta!
     if current_account.broker? && current_account.meta.nil?
       redirect_to new_broker_acct_path, notice: 'You must complete your broker profile to continue.'
+    elsif current_account.employee? && current_account.meta.nil?
+      redirect_to new_employee_acct_path, notice: 'You must verify your employee profile to continue.'
     end
   end
 

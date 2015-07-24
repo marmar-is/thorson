@@ -5,7 +5,7 @@ class RiskProfile < ActiveRecord::Base
 
   # Validations
   validates :name, presence: true
-  validates :county, presence: true
+  validates :territory, presence: true
   validates :state, presence: true
   validates :effective, presence: true
   #validates :retro, presence: true

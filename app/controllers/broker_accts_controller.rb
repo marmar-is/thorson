@@ -15,6 +15,7 @@ class BrokerAcctsController < ApplicationController
     #@broker_acct = BrokerAcct.new(broker_acct_params)
     #@broker_acct.account = current_account
     @acct = BrokerAcct.new(broker_acct_params)
+    @acct.email.blank? ? @acct.email = current_account.email : 
     @acct.account = current_account
 
     respond_to do |format|

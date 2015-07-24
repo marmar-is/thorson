@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723201506) do
+ActiveRecord::Schema.define(version: 20150724020526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,10 @@ ActiveRecord::Schema.define(version: 20150723201506) do
     t.integer  "role",               default: 0
     t.string   "fname",              default: ""
     t.string   "lname",              default: ""
-    t.integer  "broker_acct_id"
     t.integer  "meta_id"
     t.string   "meta_type"
   end
 
-  add_index "accounts", ["broker_acct_id"], name: "index_accounts_on_broker_acct_id", using: :btree
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["meta_id", "meta_type"], name: "index_accounts_on_meta_id_and_meta_type", using: :btree
 
@@ -79,6 +77,12 @@ ActiveRecord::Schema.define(version: 20150723201506) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "employee_accts", force: :cascade do |t|
+    t.integer  "role",       default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "entity_factors", force: :cascade do |t|
     t.decimal  "factor"
     t.boolean  "entity"
@@ -103,18 +107,19 @@ ActiveRecord::Schema.define(version: 20150723201506) do
 
   create_table "ratings", force: :cascade do |t|
     t.hstore   "risk_prof"
-    t.integer  "policy_year"
-    t.boolean  "capital"
     t.hstore   "rates"
     t.hstore   "factors"
+    t.integer  "policy_year"
+    t.boolean  "capital"
     t.decimal  "physician_premium",    default: 0.0
     t.decimal  "allied_premium",       default: 0.0
     t.decimal  "nas_premium",          default: 0.0
     t.decimal  "fairway_premium",      default: 0.0
     t.decimal  "total_premium",        default: 0.0
     t.integer  "capital_contribution", default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.boolean  "accepted",             default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "risk_profile_id"
   end
 
@@ -130,9 +135,8 @@ ActiveRecord::Schema.define(version: 20150723201506) do
 
   create_table "risk_profiles", force: :cascade do |t|
     t.string   "name"
-    t.string   "county"
-    t.string   "state"
     t.string   "territory"
+    t.string   "state"
     t.date     "effective"
     t.date     "retro"
     t.string   "specialty"
@@ -183,7 +187,6 @@ ActiveRecord::Schema.define(version: 20150723201506) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "accounts", "broker_accts"
   add_foreign_key "ratings", "risk_profiles"
   add_foreign_key "risk_profiles", "broker_accts"
 end
