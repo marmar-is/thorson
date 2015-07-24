@@ -4,9 +4,9 @@
   <div class="brand">
     <!-- logo -->
     <div class="brand-logo">
-      <%#= link_to "/" do %>
+      <%= link_to "/" do %>
         <%= image_tag 'logo_thorson.png', height:'32', alt:'Thorson Insurance' %>
-      <%# end %>
+      <% end %>
     </div>
     <!-- /logo -->
 
@@ -32,16 +32,14 @@
       </li>
       <!-- /dashboard -->
 
-      <%- if current_account.broker? %>
       <!-- broker portal -->
       <li>
-        <%= link_to broker_profile_path do %>
-        <i class="fa fa-users"></i>
-        <span>Brokers Portal</span>
+        <%= link_to new_risk_profile_path do %>
+          <i class="fa fa-users"></i>
+          <span>Brokers Portal</span>
         <% end %>
       </li>
       <!-- /broker portal -->
-      <% end -%>
 
       <!-- policies -->
       <li>
@@ -52,7 +50,6 @@
       </li>
       <!-- /policies -->
 
-      <%- if current_account.employee? && @acct.underwriter? %>
       <!-- underwriting -->
       <li class="menu-accordion">
         <a href="javascript:;">
@@ -61,9 +58,9 @@
         </a>
         <ul class="sub-menu">
           <li>
-            <%= link_to risk_profiles_path do %>
+            <a href="#review">
               <span>Review</span>
-            <% end %>
+            </a>
           </li>
           <li>
             <a href="#quote">
@@ -73,7 +70,6 @@
         </ul>
       </li>
       <!-- /underwriting -->
-      <% end -%>
 
       <!-- management -->
       <li class="menu-accordion">
@@ -82,6 +78,11 @@
           <span>Management</span>
         </a>
         <ul class="sub-menu">
+          <li>
+            <%= link_to factors_path do %>
+              <span>Factors & Rates Console</span>
+            <% end %>
+          </li>
           <li>
             <a href="">
               <span>Bind</span>
@@ -153,7 +154,7 @@
     <!-- logo -->
     <div class="brand">
       <div class="brand-logo">
-        <%= image_tag 'logo_thorson_block.png', width:'50%', alt:'Thorson Insurance', class:'text-center nav-img-bottom' %>
+        <%= image_tag 'logo_thorson_block.png', width:'90%', alt:'Thorson Insurance' %>
       </div>
     </div>
     <!-- /logo -->
