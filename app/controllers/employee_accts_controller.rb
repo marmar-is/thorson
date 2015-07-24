@@ -1,24 +1,23 @@
 class EmployeeAcctsController < ApplicationController
   before_action :employee_access!
   #before_action :set_employee_acct, only: [ :profile, :update ]
-  skip_before_action :authenticate_employee!, only: [ :new, :create ]
+  skip_before_action :authenticate_meta!, only: [ :new, :create ]
 
   # GET /employee_accts/new
   def new
-    @acct = employeeAcct.new
+    @acct = EmployeeAcct.new
   end
 
   # POST /employee_accts
   # POST /employee_accts.json
   def create
-    @acct = employeeAcct.new(employee_acct_params)
-    @acct.email.blank? ? @acct.email = current_account.email :
+    @acct = EmployeeAcct.new(employee_acct_params)
     @acct.account = current_account
 
     respond_to do |format|
       if @acct.save
-        format.html { redirect_to ratings_path, notice: 'Employee Account was successfully created.' }
-        format.json { redirect_to ratings_path, status: :created, location: @acct }
+        format.html { redirect_to "/", notice: 'Employee Account was successfully created.' }
+        format.json { redirect_to "/", status: :created, location: @acct }
       else
         format.html { render :new }
         format.json { render json: @acct.errors, status: :unprocessable_entity }

@@ -1,7 +1,7 @@
 class BrokerAcctsController < ApplicationController
   before_action :broker_access!
   #before_action :set_broker_acct, only: [ :profile, :update ]
-  skip_before_action :authenticate_broker!, only: [ :new, :create ]
+  skip_before_action :authenticate_meta!, only: [ :new, :create ]
 
   # GET /broker_accts/new
   def new
@@ -15,7 +15,7 @@ class BrokerAcctsController < ApplicationController
     #@broker_acct = BrokerAcct.new(broker_acct_params)
     #@broker_acct.account = current_account
     @acct = BrokerAcct.new(broker_acct_params)
-    @acct.email.blank? ? @acct.email = current_account.email : 
+    @acct.email.blank? ? @acct.email = current_account.email :
     @acct.account = current_account
 
     respond_to do |format|
@@ -44,17 +44,6 @@ class BrokerAcctsController < ApplicationController
 
   # GET /profile
   def profile
-  end
-
-  protected
-  def broker_access!
-    if account_signed_in? && !current_account.broker? && !current_account.admin?
-      begin
-        redirect_to :back, notice: 'You are attempting to access a broker-only zone.'
-      rescue
-        redirect_to "/", notice: 'You are attempting to access a broker-only zone.'
-      end
-    end
   end
 
   private

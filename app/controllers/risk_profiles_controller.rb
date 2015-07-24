@@ -1,10 +1,17 @@
 class RiskProfilesController < ApplicationController
+  before_action :broker_access!, only: [ :new, :create ]
   before_action :set_risk_profile, only: [:show, :edit, :update, :destroy]
 
   # GET /risk_profiles
   # GET /risk_profiles.json
   def index
-    @risk_profiles = @acct.risk_profiles
+    if current_account.broker?
+      @risk_profiles = @acct.risk_profiles
+    elsif current_account.employee?
+      @risk_profiles = RiskProfile.all
+    else
+      @risk_profiles = RiskProfile.all
+    end
   end
 
   # GET /risk_profiles/1

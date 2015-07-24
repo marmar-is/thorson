@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
     if current_account.admin?
       "/"
     elsif current_account.broker?
-      risk_profiles_path
+      "/"#risk_profiles_path
     elsif current_account.employee?
-      ratings_path
+      "/"#ratings_path
     else
       raise AbstractController::ActionNotFound
     end
@@ -39,6 +39,16 @@ class ApplicationController < ActionController::Base
       redirect_to new_broker_acct_path, notice: 'You must complete your broker profile to continue.'
     elsif current_account.employee? && current_account.meta.nil?
       redirect_to new_employee_acct_path, notice: 'You must verify your employee profile to continue.'
+    end
+  end
+
+  def broker_access!
+    if account_signed_in? && !current_account.broker? && !current_account.admin?
+      begin
+        redirect_to :back, notice: 'You are attempting to access a broker-only zone.'
+      rescue
+        redirect_to "/", notice: 'You are attempting to access a broker-only zone.'
+      end
     end
   end
 

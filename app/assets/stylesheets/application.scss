@@ -21,3 +21,12 @@
  *= require_tree .
  *= require_self
  */
+
+img.img-bottom {
+  opacity:0.5;
+  position: absolute;
+  bottom: 1em;
+
+  left:50%;
+  margin-left:-25%;
+}

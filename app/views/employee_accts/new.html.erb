@@ -26,7 +26,7 @@
             <p>Select Your Account's Role?</p>
             <div class="row">
               <div class="col-sm-4">
-                <%= f.select :role, options_for_select([ ['Underwriter', 1], ['Reviewer', 2], ['Manager', 3] ]), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'Account Role' } %>
+                <%= f.select :role, options_for_select([ ['Underwriter', 'underwriter'], ['Reviewer', 'reviewer'], ['Manager', 'manager'] ]), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'Account Role' } %>
               </div>
             </div>
           </div>

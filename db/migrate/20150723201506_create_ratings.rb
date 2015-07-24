@@ -19,8 +19,6 @@ class CreateRatings < ActiveRecord::Migration
       t.decimal :total_premium, default: 0
       t.integer :capital_contribution, default: 0
 
-      t.boolean :accepted, default: false
-
       t.timestamps null: false
     end
 

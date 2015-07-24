@@ -6,7 +6,13 @@
   <div class="panel-heading border">
     <ol class="breadcrumb mb0 no-padding">
       <li>
-        <h3>My Risk Profiles</h3>
+        <h3>
+          <%- if current_account.broker? %>
+            My Risk Profiles
+          <% elsif current_account.employee? %>
+            All Risk Profiles
+          <% end -%>
+        </h3>
       </li>
     </ol>
   </div>
@@ -15,7 +21,7 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>County</th>
+          <th>Territory</th>
           <th>State</th>
           <th>Effective</th>
           <th>Retro</th>
@@ -25,7 +31,7 @@
       <tfoot>
         <tr>
           <th>Name</th>
-          <th>County</th>
+          <th>Territory</th>
           <th>State</th>
           <th>Effective</th>
           <th>Retro</th>
@@ -37,26 +43,34 @@
         <% @risk_profiles.each do |risk_profile| %>
           <tr>
             <td><%= risk_profile.name %></td>
-            <td><%= risk_profile.county %></td>
+            <td><%= risk_profile.territory %></td>
             <td><%= risk_profile.state %></td>
             <td><%= risk_profile.effective %></td>
             <td><%= risk_profile.retro %></td>
             <td><%= risk_profile.sub_specialty %></td>
-            <%if false%><td><%= link_to 'Show', risk_profile %></td>
-            <td><%= link_to 'Edit', edit_risk_profile_path(risk_profile) %></td>
-            <td><%= link_to 'Destroy', risk_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+              <%if false%>
+              <td><%= link_to 'Show', risk_profile %></td>
+              <td><%= link_to 'Edit', edit_risk_profile_path(risk_profile) %></td>
+              <td><%= link_to 'Destroy', risk_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
+
+    <%- if current_account.broker? %>
+      <div class="text-center">
+        <%= link_to 'New Risk Profile', new_risk_profile_path, class:'btn btn-info btn-lg' %>
+      </div>
+    <% end -%>
   </div>
 </div>
 
-<%= link_to 'New Risk profile', new_risk_profile_path %>
+
 
 <%= content_for :js_includes do %>
   <%= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'datatables/js/bootstrap-datatables.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'bootstrap-datatables.js', 'data-turbolinks-track' => true %>
 
   <script>
   $('document').ready(function() {

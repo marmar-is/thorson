@@ -32,14 +32,16 @@
       </li>
       <!-- /dashboard -->
 
+      <%- if current_account.broker? %>
       <!-- broker portal -->
       <li>
         <%= link_to broker_profile_path do %>
-          <i class="fa fa-users"></i>
-          <span>Brokers Portal</span>
+        <i class="fa fa-users"></i>
+        <span>Brokers Portal</span>
         <% end %>
       </li>
       <!-- /broker portal -->
+      <% end -%>
 
       <!-- policies -->
       <li>
@@ -50,6 +52,7 @@
       </li>
       <!-- /policies -->
 
+      <%- if current_account.employee? && @acct.underwriter? %>
       <!-- underwriting -->
       <li class="menu-accordion">
         <a href="javascript:;">
@@ -58,9 +61,9 @@
         </a>
         <ul class="sub-menu">
           <li>
-            <a href="#review">
+            <%= link_to risk_profiles_path do %>
               <span>Review</span>
-            </a>
+            <% end %>
           </li>
           <li>
             <a href="#quote">
@@ -70,6 +73,7 @@
         </ul>
       </li>
       <!-- /underwriting -->
+      <% end -%>
 
       <!-- management -->
       <li class="menu-accordion">
@@ -148,8 +152,8 @@
 
     <!-- logo -->
     <div class="brand">
-      <div class="brand-logo">
-        <%= image_tag 'logo_thorson_nav_icon.png', width:'90%', alt:'Thorson Insurance' %>
+      <div class="brand-logo img-bottom-container">
+        <%= image_tag 'logo_thorson_block.png', width:'50%', alt:'Thorson Insurance', class:'text-center img-bottom' %>
       </div>
     </div>
     <!-- /logo -->

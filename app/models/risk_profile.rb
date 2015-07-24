@@ -19,4 +19,8 @@ class RiskProfile < ActiveRecord::Base
   validates :allied3, presence: true
   #validates :sub_specialty, presence: true
 
+  # Enumerations
+  enum role: [:pending, :accepted, :declined]
+
+
 end

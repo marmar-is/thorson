@@ -20,6 +20,8 @@ class CreateRiskProfiles < ActiveRecord::Migration
       t.boolean :capital
       t.string :license
 
+      t.integer :status, default: 0
+
       t.timestamps null: false
     end
 

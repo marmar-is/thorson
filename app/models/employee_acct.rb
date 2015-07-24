@@ -6,5 +6,5 @@ class EmployeeAcct < ActiveRecord::Base
   enum role: [:error, :underwriter, :reviewer, :manager]
 
   # Validations
-  validate :role, presence: true
+  validates :role, presence: true
 end
