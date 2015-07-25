@@ -11,6 +11,8 @@ class CreateRiskProfiles < ActiveRecord::Migration
       t.integer :deductible
       t.string :limit
       t.string :limit_nas
+      t.string :addl_shared
+      t.string :addl_separate
       t.boolean :entity
       t.integer :allied1
       t.integer :allied2

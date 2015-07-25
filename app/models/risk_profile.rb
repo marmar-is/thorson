@@ -20,7 +20,7 @@ class RiskProfile < ActiveRecord::Base
   #validates :sub_specialty, presence: true
 
   # Enumerations
-  enum role: [:pending, :accepted, :declined, :active, :inactive]
+  enum status: [:submitted, :accepted, :declined, :withdrawn]
     # pending            -- actions have not yet been taken
     # accepted/declinded -- underwriter's decision
     # active/inactive    -- broker's decision
