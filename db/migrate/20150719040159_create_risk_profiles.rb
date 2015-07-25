@@ -22,6 +22,7 @@ class CreateRiskProfiles < ActiveRecord::Migration
       t.string :license
 
       t.integer :status, default: 0
+      t.datetime :status_date
 
       t.timestamps null: false
     end
@@ -29,21 +30,3 @@ class CreateRiskProfiles < ActiveRecord::Migration
     add_reference :risk_profiles, :broker_acct, index: true, foreign_key: true
   end
 end
-
-=begin
-, default: ""
-, default: ""
-, default: ""
-, default: ""
-, default: "11/08/1995"
-, default: nil
-, default: ""
-, default: 0
-, default: ""
-, default: ""
-, default: false
-, default: 0
-, default: 0
-, default: 0
-, default: ""
-=end

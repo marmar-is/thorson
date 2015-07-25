@@ -2,11 +2,12 @@
   <style>
 
   </style>
-  <%#= stylesheet_link_tag 'datatables/css/jquery.dataTables.css', 'data-turbolinks-track' => true %>
 <% end %>
 
 <ol class="breadcrumb no-bg pl0 mb0">
-  <li><h3 class="mb0 mt0">Risk Profile</h3></li>
+  <li>
+    <h3 id="risk_profile_title" class="mb0 mt0">Risk Profile: <%= @risk_profile.name %></h3>
+  </li>
 </ol>
 
 <div class="row mb15">
@@ -35,13 +36,13 @@
     <div class="chat-users">
       <div class="nav-justified-xs">
         <ul class="nav nav-tabs nav-justified ">
-          <li class="active">
+          <li class="active" id="profile-tab">
             <a href="#profile" data-toggle="tab">Profile</a>
           </li>
-          <li>
+          <li id="objects-tab">
             <a href="#objects" data-toggle="tab">Objects</a>
           </li>
-          <li>
+          <li id="interactions-tab">
             <a href="#interactions" data-toggle="tab">Interactions</a>
           </li>
         </ul>
@@ -413,12 +414,27 @@
     $('document').ready(function() {
       'use strict';
 
+      /* change page title when changing tab */
+      $('#profile-tab').on('click', function(){
+        var new_title = $('#risk_profile_title').text().split(' ');
+        new_title[1] = "Profile:";
+        $('#risk_profile_title').text(new_title.join(' '));
+      });
+
+      $('#objects-tab').on('click', function(){
+        var new_title = $('#risk_profile_title').text().split(' ');
+        new_title[1] = "Objects:";
+        $('#risk_profile_title').text(new_title.join(' '));
+      });
+
+      $('#interactions-tab').on('click', function(){
+        var new_title = $('#risk_profile_title').text().split(' ');
+        new_title[1] = "Interactions:";
+        $('#risk_profile_title').text(new_title.join(' '));
+      });
+
+      /* open contextual action menu on page load */
       $('#contextual-menu-toggle').trigger('click');
     });
   </script>
-
-  <%#= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
-  <%#= javascript_include_tag 'bootstrap-datatables.js', 'data-turbolinks-track' => true %>
-
-  <%#= javascript_include_tag 'table-edit.js', 'data-turbolinks-track' => true %>
 <% end %>

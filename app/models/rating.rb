@@ -4,4 +4,6 @@ class Rating < ActiveRecord::Base
 
   # Enumerations
   enum status: [:provisional, :determined]
+    # provisional     -- actions have not yet been taken
+    # determined      -- underwriter's decision to modify
 end

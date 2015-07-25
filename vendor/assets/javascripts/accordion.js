@@ -9,8 +9,8 @@
     accordionBody.hide();
 
     $('.accordion').each(function () {
-      $(this).find('.accordion-body').first().show();
-      $(this).find('.accordion-container').first().addClass('active');
+      //$(this).find('.accordion-body').first().show();
+      //$(this).find('.accordion-container').first().addClass('active');
     });
   }
 

@@ -21,8 +21,9 @@ class RiskProfile < ActiveRecord::Base
 
   # Enumerations
   enum status: [:submitted, :accepted, :declined, :withdrawn]
-    # pending            -- actions have not yet been taken
-    # accepted/declinded -- underwriter's decision
-    # active/inactive    -- broker's decision
+    # pending       -- actions have not yet been taken
+    # accepted      -- underwriter's decision to accept the risk
+    # declined      -- underwriter's decision to decline the risk
+    # withdrawn     -- broker's decision to withdraw the risk
 
 end
