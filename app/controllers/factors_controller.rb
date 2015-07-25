@@ -15,5 +15,5 @@ class FactorsController < ApplicationController
     @base_rates          = BaseRate.all
     @allied_rates        = AlliedRate.all
   end
-
+  
 end

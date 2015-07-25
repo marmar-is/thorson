@@ -1,274 +1,334 @@
 <%= content_for :head do %>
   <style>
-    .profile-sidebar-item.profile-numbers-count span {
-      font-size: 20px!important;
-    }
+
   </style>
   <%#= stylesheet_link_tag 'datatables/css/jquery.dataTables.css', 'data-turbolinks-track' => true %>
 <% end %>
 
-<div class="row">
-  <div class="col-sm-3">
-    <div class="profile-sidebar">
-      <div class="profile-sidebar-item profile-avatar">
-        <%= image_tag "logo_thorson_block_text.png", alt: "", class:'img-rounded' %>
-      </div>
-      <div class="profile-sidebar-item profile-info">
-        <span class="h5 bold"><%= @risk_profile.name %></span>
-        <p><%= @risk_profile.territory + ", " + @risk_profile.state %></p>
-        <div class="w150 center-block mt10">
-          <button class="btn btn-danger btn-block">
-            <span><%= @risk_profile.effective.strftime("%d/%m/%Y") %></span>
-          </button>
+<ol class="breadcrumb no-bg pl0 mb0">
+  <li><h3 class="mb0 mt0">Risk Profile</h3></li>
+</ol>
+
+<div class="row mb15">
+  <div class="col-sm-12">
+    <div class="box-tab">
+      <div class="tab-content no-bg">
+        <div class="tab-pane active in" id="profile">
+          <%= render partial: 'risk_profiles/show/profile' %>
+        </div>
+
+        <div class="tab-pane" id="objects">
+          <%= render partial: 'risk_profiles/show/objects' %>
+        </div>
+
+        <div class="tab-pane" id="interactions">
+          <%= render partial: 'risk_profiles/show/interactions' %>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-      <hr>
-
-      <ul class="profile-sidebar-item profile-numbers-count">
-        <li>
-          <span class="bold"><%= number_to_currency(@risk_profile.ratings.last.total_premium) %></span> Total Premium
-        </li>
-        <li>
-          <span class="bold"><%= number_to_currency(@risk_profile.ratings.last.fairway_premium) %></span> Fairway Premium
-        </li>
-      </ul>
-
-      <hr>
-
-      <div class="profile-sidebar-item profile-bio">
-        <small class="bold text-uppercase">About</small>
-        <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Vestibulum id ligula porta felis euismod semper.</p>
-      </div>
-
-      <hr>
-
-      <div class="profile-sidebar-item profile-reccomendations">
-        <small class="bold text-uppercase">Reccomendations</small>
-        <ul class="user-meta">
-          <li>
-            <a href="javascript:;">All stream</a>
+<!-- chat -->
+<div class="chat-panel">
+  <div class="chat-inner">
+    <div class="chat-users">
+      <div class="nav-justified-xs">
+        <ul class="nav nav-tabs nav-justified ">
+          <li class="active">
+            <a href="#profile" data-toggle="tab">Profile</a>
           </li>
           <li>
-            <a href="javascript:;">Connected Apps</a>
+            <a href="#objects" data-toggle="tab">Objects</a>
           </li>
           <li>
-            <a href="javascript:;">Photos</a>
-          </li>
-          <li>
-            <a href="javascript:;">Most recent</a>
+            <a href="#interactions" data-toggle="tab">Interactions</a>
           </li>
         </ul>
       </div>
-    </div>
-
-  </div>
-  <div class="col-sm-9">
-
-    <section class="profile-timeline composer">
-      <textarea placeholder="What's on your mind" rows="3" class="form-control"></textarea>
-
-      <div class="composer-options">
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-map-marker"></i>
-        </button>
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-image"></i>
-        </button>
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-video-camera"></i>
-        </button>
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-clock-o"></i>
-        </button>
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-success small">Submitted a new post</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-danger small">Added 4 new pictures</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-
-        <div class="profile-timeline-images clearfix">
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?1" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?2" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?3" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?4" alt="" class="img-responsive">
-          </a>
-        </div>
-
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-warning small">is listening to the Evantonites</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <div class="profile-timeline-audio clearfix">
-          <div class="audio">
-            <div class="fa fa-pause play_pause"></div>
-            <div class="audio-timeline">
-              <span class="progress">
-                        <span class="done"></span>
-              </span>
+      <!--
+      <div class="tab-content">
+        <div class="tab-pane active" id="chat-list">
+          <div class="chat-group">
+            <div class="chat-group-header">
+              Favourites
             </div>
-            <div class="time">01:24</div>
-          </div>
-        </div>
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-info small">created an album collection</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-
-        <div class="profile-timeline-images clearfix">
-          <a href="javascript:;" class="image-link">
-            <img src="http://placeimg.com/400/300?5" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?6" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?7" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link">
-            <img src="http://placeimg.com/400/150?8" alt="" class="img-responsive">
-          </a>
-        </div>
-
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-
-        <div class="post-comments">
-          <div class="media">
-            <a class="pull-left" href="javascript:;">
-              <img class="media-object avatar" src="images/face3.jpg" alt="">
+            <a href="javascript:;">
+              <span class="status-online"></span>
+              <span>Catherine Moreno</span>
             </a>
-            <div class="comment">
-              <div class="comment-author heading-font">
-                <a href="javascript:;">
-                    Jane Doe
-                    <time datetime="2015-09-01" class="time">September 1st, 2015</time>
-                </a>
-              </div>
-              <p>Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.</p>
-              <hr>
+            <a href="javascript:;">
+              <span class="status-online"></span>
+              <span>Denise Peterson</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-away"></span>
+              <span>Charles Wilson</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-away"></span>
+              <span>Melissa Welch</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-no-disturb"></span>
+              <span>Vincent Peterson</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Pamela Wood</span>
+            </a>
+          </div>
+          <div class="chat-group">
+            <div class="chat-group-header">
+              Online Friends
             </div>
-            <div class="media">
-              <a class="pull-left" href="javascript:;">
-                <img class="media-object avatar" src="images/avatar.jpg" alt="">
-              </a>
-              <div class="comment">
-                <div class="comment-author heading-font">
-                  <a href="javascript:;">
-                        Jane Doe
-                        <time datetime="2015-09-02" class="time">September 2nd, 2015</time>
-                    </a>
-                </div>
-                <p>Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.</p>
-              </div>
+            <a href="javascript:;">
+              <span class="status-online"></span>
+              <span>Tammy Carpenter</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-away"></span>
+              <span>Emma Sullivan</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-no-disturb"></span>
+              <span>Andrea Brewer</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-online"></span>
+              <span>Sean Carpenter</span>
+            </a>
+          </div>
+          <div class="chat-group">
+            <div class="chat-group-header">
+              Offline
             </div>
-
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Denise Peterson</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Jose Rivera</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Diana Robertson</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>William Fields</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Emily Stanley</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Jack Hunt</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Sharon Rice</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Mary Holland</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Diane Hughes</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Steven Smith</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Emily Henderson</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Wayne Kelly</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Jane Garcia</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Jose Jimenez</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Rachel Burton</span>
+            </a>
+            <a href="javascript:;">
+              <span class="status-offline"></span>
+              <span>Samantha Ruiz</span>
+            </a>
+          </div>
+        </div>
+        <div class="tab-pane" id="market">
+          <div class="favourite-list">
+            <a href="#">
+              <div class="media-left relative">
+                <img class="img-circle avatar avatar-xs" src="images/avatar.jpg" alt="avatar">
+                <div class="status bg-success border-white mr10"></div>
+              </div>
+              <div class="media-body">
+                <span class="block">Catherine Moreno</span>
+                <span class="text-muted">Online</span>
+              </div>
+            </a>
+            <a href="#">
+              <div class="media-left relative">
+                <img class="img-circle avatar avatar-xs" src="images/face1.jpg" alt="avatar">
+                <div class="status bg-success border-white mr10"></div>
+              </div>
+              <div class="media-body">
+                <span class="block">Denise Peterson</span>
+                <span class="text-muted">Online</span>
+              </div>
+            </a>
+            <a href="#">
+              <div class="media-left relative">
+                <img class="img-circle avatar avatar-xs" src="images/face3.jpg" alt="avatar">
+                <div class="status bg-default border-white mr10"></div>
+              </div>
+              <div class="media-body">
+                <span class="block">Charles Wilson</span>
+                <span class="text-muted">Busy</span>
+              </div>
+            </a>
+            <a href="#">
+              <div class="media-left relative">
+                <img class="img-circle avatar avatar-xs" src="images/face4.jpg" alt="avatar">
+                <div class="status bg-danger border-white mr10"></div>
+              </div>
+              <div class="media-body">
+                <span class="block">Melissa Welch</span>
+                <span class="text-muted">Offline</span>
+              </div>
+            </a>
+            <a href="#">
+              <div class="media-left relative">
+                <img class="img-circle avatar avatar-xs" src="images/face5.jpg" alt="avatar">
+                <div class="status bg-danger border-white mr10"></div>
+              </div>
+              <div class="media-body">
+                <span class="block">Vincent Peterson</span>
+                <span class="text-muted">Offline</span>
+              </div>
+            </a>
+            <a href="#">
+              <div class="media-left relative">
+                <img class="img-circle avatar avatar-xs" src="images/avatar.jpg" alt="avatar">
+                <div class="status bg-danger border-white mr10"></div>
+              </div>
+              <div class="media-body">
+                <span class="block">Pamela Wood</span>
+                <span class="text-muted">Offline</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="tab-pane" id="activity">
+          <ol class="activity-feed">
+            <li class="feed-item">
+              <span>Launched a new application</span>
+              <time datetime="2015-01-30 00:00">2 seconds ago</time>
+            </li>
+            <li class="feed-item inactive">
+              <span>Removed chrome from app list</span>
+              <time datetime="2015-01-20 00:00">Jan 20</time>
+            </li>
+            <li class="feed-item">
+              <span>Approved new user "Jack hunt"</span>
+              <time datetime="2015-01-02 00:00">Jan 02</time>
+            </li>
+            <li class="feed-item active">
+              <span>Executed new cron jobs on server with id 67gyu789</span>
+              <time datetime="2014-12-12 00:00">Dec 12</time>
+            </li>
+            <li class="feed-item">
+              <span class="text">Added paypal to list payment options</span>
+              <time datetime="2014-12-01 00:00">Dec 01</time>
+            </li>
+            <li class="feed-item">
+              <span>Added 6 new calendar events</span>
+              <time datetime="2014-08-30 00:00">Aug 30</time>
+            </li>
+          </ol>
+        </div>
+      </div>
+      -->
+    </div>
+    <!--
+    <div class="chat-conversation">
+      <div class="chat-header">
+        <a class="chat-back" href="javascript:;">
+          <i class="fa fa-angle-left"></i>
+        </a>
+        <div class="chat-header-title">
+          Charles Wilson
+        </div>
+        <a class="chat-right" href="javascript:;">
+          <i class="fa fa-circle-thin"></i>
+        </a>
+      </div>
+      <div class="chat-conversation-content">
+        <p class="text-center text-muted small text-uppercase bold pb15">
+          Yesterday
+        </p>
+        <div class="chat-conversation-user them">
+          <div class="chat-conversation-message">
+            <p>Hey.</p>
+          </div>
+        </div>
+        <div class="chat-conversation-user them">
+          <div class="chat-conversation-message">
+            <p>How are the wife and kids, Taylor?</p>
+          </div>
+        </div>
+        <div class="chat-conversation-user me">
+          <div class="chat-conversation-message">
+            <p>Pretty good, Samuel.</p>
+          </div>
+        </div>
+        <p class="text-center text-muted small text-uppercase bold pb15">
+          Today
+        </p>
+        <div class="chat-conversation-user them">
+          <div class="chat-conversation-message">
+            <p>Curabitur blandit tempus porttitor.</p>
+          </div>
+        </div>
+        <div class="chat-conversation-user me">
+          <div class="chat-conversation-message">
+            <p>Goodnight!</p>
+          </div>
+        </div>
+        <div class="chat-conversation-user them">
+          <div class="chat-conversation-message">
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
           </div>
         </div>
       </div>
-    </section>
+      <div class="chat-conversation-footer">
+        <button class="chat-input-tool">
+          <i class="fa fa-camera"></i>
+        </button>
+        <div class="chat-input" contenteditable=""></div>
+        <button class="chat-send">
+          <i class="fa fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+    -->
   </div>
 </div>
+<!-- /chat -->
 
 <% if false %>
 <p id="notice"><%= notice %></p>
@@ -349,6 +409,14 @@
 
 
 <%= content_for :js_includes do %>
+  <script>
+    $('document').ready(function() {
+      'use strict';
+
+      $('#contextual-menu-toggle').trigger('click');
+    });
+  </script>
+
   <%#= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
   <%#= javascript_include_tag 'bootstrap-datatables.js', 'data-turbolinks-track' => true %>
 
