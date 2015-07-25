@@ -117,9 +117,10 @@ ActiveRecord::Schema.define(version: 20150724020526) do
     t.decimal  "fairway_premium",      default: 0.0
     t.decimal  "total_premium",        default: 0.0
     t.integer  "capital_contribution", default: 0
-    t.boolean  "accepted",             default: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "status",               default: 0
+    t.datetime "status_date"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "risk_profile_id"
   end
 
@@ -135,8 +136,8 @@ ActiveRecord::Schema.define(version: 20150724020526) do
 
   create_table "risk_profiles", force: :cascade do |t|
     t.string   "name"
-    t.string   "territory"
     t.string   "state"
+    t.string   "territory"
     t.date     "effective"
     t.date     "retro"
     t.string   "specialty"
@@ -144,6 +145,8 @@ ActiveRecord::Schema.define(version: 20150724020526) do
     t.integer  "deductible"
     t.string   "limit"
     t.string   "limit_nas"
+    t.string   "addl_shared"
+    t.string   "addl_separate"
     t.boolean  "entity"
     t.integer  "allied1"
     t.integer  "allied2"
@@ -151,8 +154,10 @@ ActiveRecord::Schema.define(version: 20150724020526) do
     t.string   "sub_specialty"
     t.boolean  "capital"
     t.string   "license"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "status",            default: 0
+    t.datetime "status_date"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "broker_acct_id"
   end
 

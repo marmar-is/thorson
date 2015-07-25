@@ -14,7 +14,7 @@
   <div class="col-sm-12">
     <div class="box-tab">
       <div class="tab-content no-bg">
-        <div class="tab-pane active in" id="profile">
+        <div class="tab-pane in" id="profile">
           <%= render partial: 'risk_profiles/show/profile' %>
         </div>
 
@@ -22,7 +22,7 @@
           <%= render partial: 'risk_profiles/show/objects' %>
         </div>
 
-        <div class="tab-pane" id="interactions">
+        <div class="tab-pane active" id="interactions">
           <%= render partial: 'risk_profiles/show/interactions' %>
         </div>
       </div>
@@ -434,7 +434,7 @@
       });
 
       /* open contextual action menu on page load */
-      $('#contextual-menu-toggle').trigger('click');
+      //$('#contextual-menu-toggle').trigger('click');
     });
   </script>
 <% end %>

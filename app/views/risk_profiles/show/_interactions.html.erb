@@ -1,19 +1,95 @@
-<div class="timeline">
+<%= content_for :head do %>
+  <style>
 
+  </style>
+<% end %>
+
+<div class="timeline">
   <div class="timeline-panel">
-    <div class="timeline-icon bg-danger">
-      <i class="fa fa-bell"></i>
+    <div class="timeline-icon bg-success">
+      <i class="fa fa-male"></i>
     </div>
 
     <section class="timeline-content">
       <div class="timeline-heading border">
-        Message from Rachael
+        Broker Submitted Risk
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas faucibus mollis interdum.</p>
-      <p>Maecenas faucibus mollis interdum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <div class="timeline-date">13:12 am</div>
+      <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
+      <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
+
+      <div class="timeline-date"><%= @risk_profile.created_at.strftime("%l:%M %P %b %d, %Y") %></div>
     </section>
   </div>
+
+  <%- if !@risk_profile.submitted? %>
+    <%- if @risk_profile.accepted? %>
+      <div class="timeline-panel">
+        <div class="timeline-icon bg-success">
+          <i class="fa fa-check"></i>
+        </div>
+        <section class="timeline-content">
+          <div class="timeline-heading border">
+            Risk Profile Accepted!
+          </div>
+          <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
+          <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
+
+          <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+        </section>
+      </div>
+
+    <% elsif @risk_profile.declined? %>
+      <div class="timeline-panel">
+        <div class="timeline-icon bg-danger">
+          <i class="fa fa-cross"></i>
+        </div>
+        <section class="timeline-content">
+          <div class="timeline-heading border">
+            Risk Profile Declined!
+          </div>
+          <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
+          <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
+
+          <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+        </section>
+      </div>
+    <% elsif @risk_profile.withdrawn? %>
+      <div class="timeline-panel hide"></div>
+
+      <div class="timeline-panel">
+        <div class="timeline-icon bg-warning">
+          <i class="fa fa-minus"></i>
+        </div>
+        <section class="timeline-content">
+          <div class="timeline-heading border">
+            Broker Withdrew Risk Profile
+          </div>
+          <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
+          <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
+
+          <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+        </section>
+      </div>
+    <% else %>
+    <div class="timeline-panel">
+      <div class="timeline-icon bg-danger">
+        <i class="fa fa-plane"></i>
+      </div>
+      <section class="timeline-content">
+        <div class="timeline-heading border">
+          Error with Broker Status!
+        </div>
+        <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
+        <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
+
+        <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+      </section>
+    </div>
+    <% end -%>
+  <% end -%>
+
+
+
 
   <div class="timeline-panel">
     <div class="timeline-icon bg-info">
