@@ -1,0 +1,32 @@
+<div class="chat-group-header">
+  Actions
+</div>
+<div class="actions">
+  <%= button_to "Accept Risk", update_status_risk_profile_path(new_status: "accepted"), class:'btn btn-success', method: :patch, remote: true, disabled:  !@risk_profile.submitted? %>
+  <%= button_to "Decline Risk", update_status_risk_profile_path(new_status: "declined"), class:'btn btn-danger', method: :patch, remote: true, disabled:  !@risk_profile.submitted?  %>
+  <%= button_to "Submit Risk", update_status_risk_profile_path(new_status: "submitted"), class:'btn btn-danger', method: :patch, remote: true, disabled:  @risk_profile.submitted?  %>
+</div>
+<a href="javascript:;">
+  <span class="status-online"></span>
+  <span>Catherine Moreno</span>
+</a>
+<a href="javascript:;">
+  <span class="status-online"></span>
+  <span>Denise Peterson</span>
+</a>
+<a href="javascript:;">
+  <span class="status-away"></span>
+  <span>Charles Wilson</span>
+</a>
+<a href="javascript:;">
+  <span class="status-away"></span>
+  <span>Melissa Welch</span>
+</a>
+<a href="javascript:;">
+  <span class="status-no-disturb"></span>
+  <span>Vincent Peterson</span>
+</a>
+<a href="javascript:;">
+  <span class="status-offline"></span>
+  <span>Pamela Wood</span>
+</a>

@@ -28,12 +28,7 @@
           <i class="fa fa-check"></i>
         </div>
         <section class="timeline-content">
-          <div class="timeline-heading border">
             Risk Profile Accepted!
-          </div>
-          <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
-          <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
-
           <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
         </section>
       </div>
@@ -41,15 +36,10 @@
     <% elsif @risk_profile.declined? %>
       <div class="timeline-panel">
         <div class="timeline-icon bg-danger">
-          <i class="fa fa-cross"></i>
+          <i class="fa fa-times"></i>
         </div>
         <section class="timeline-content">
-          <div class="timeline-heading border">
-            Risk Profile Declined!
-          </div>
-          <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
-          <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
-
+          Risk Profile Declined!
           <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
         </section>
       </div>
@@ -61,12 +51,7 @@
           <i class="fa fa-minus"></i>
         </div>
         <section class="timeline-content">
-          <div class="timeline-heading border">
             Broker Withdrew Risk Profile
-          </div>
-          <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
-          <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
-
           <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
         </section>
       </div>
@@ -76,12 +61,7 @@
         <i class="fa fa-plane"></i>
       </div>
       <section class="timeline-content">
-        <div class="timeline-heading border">
           Error with Broker Status!
-        </div>
-        <p>Brokerage Name: <%= @risk_profile.broker_acct.name %></p>
-        <p>Brokerage Code: <%= @risk_profile.broker_acct.code %></p>
-
         <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
       </section>
     </div>

@@ -1,6 +1,6 @@
 class RiskProfilesController < ApplicationController
   before_action :broker_access!, only: [ :new, :create ]
-  before_action :set_risk_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_risk_profile, only: [:show, :edit, :update, :destroy, :update_status]
 
   # GET /risk_profiles
   # GET /risk_profiles.json
@@ -83,6 +83,16 @@ class RiskProfilesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def update_status
+    @risk_profile.update(status: params[:new_status])
+
+    respond_to do |format|
+      format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
+      format.js
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

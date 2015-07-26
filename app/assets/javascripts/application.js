@@ -17,3 +17,17 @@
 
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+    $('#loading-ajax').hide();
+    $('#overlay-ajax').hide();
+
+    $(document).ajaxStart(function() {
+      $('#loading-ajax').show();
+      $('#overlay-ajax').show();
+    });
+    $(document).ajaxStop(function() {
+      $('#loading-ajax').hide();
+      $('#overlay-ajax').hide();
+    });
+});
