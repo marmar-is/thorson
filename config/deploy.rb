@@ -70,7 +70,6 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       #invoke 'unicorn:restart'
       invoke 'unicorn:stop'
-      invoke 'unicorn:stop'
       invoke 'unicorn:start'
     end
   end
