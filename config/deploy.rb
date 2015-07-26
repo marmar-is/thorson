@@ -1,10 +1,10 @@
-# Change these
+# Capistrano Deploy Configurations
 server '104.154.75.247', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:marmar-is/Thorson.git'
 set :application,     'Thorson'
 set :user,            'Matthew'
-set :branch, :production # push from production branch
+set :branch, :production # Push from production branch
 
 #set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 #set :linked_dirs, fetch(:linked_dirs, []).push('shared/log', 'shared/tmp/pids', 'shared/tmp/cache', 'shared/tmp/sockets', 'vendor/bundle', 'public/system')
