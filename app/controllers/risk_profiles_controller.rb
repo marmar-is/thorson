@@ -52,6 +52,8 @@ class RiskProfilesController < ApplicationController
         @risk_profile.ratings << @rating
 
         if @risk_profile.save # should always save!
+          DefaultMailer.send_new_risk_email(@risk_profile).deliver
+
           format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
           format.json { render :index, status: :created, location: @risk_profile }
         end
