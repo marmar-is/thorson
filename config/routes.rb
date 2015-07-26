@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :risk_profiles do
     member do
       patch 'update_status'
+      #patch 'update_rating_status'
     end
   end
   resources :factors, only: [ :index ]

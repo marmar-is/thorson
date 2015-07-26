@@ -2,6 +2,8 @@ class RiskProfilesController < ApplicationController
   before_action :broker_access!, only: [ :new, :create ]
   before_action :set_risk_profile, only: [:show, :edit, :update, :destroy, :update_status]
 
+  before_action :broker_possession!
+
   # GET /risk_profiles
   # GET /risk_profiles.json
   def index
@@ -85,7 +87,14 @@ class RiskProfilesController < ApplicationController
   end
 
   def update_status
-    @risk_profile.update(status: params[:new_status])
+    case params[:for]
+    when "risk_profile"
+      @risk_profile.update(status: params[:new_status], status_date: Time.now)
+    when "rating"
+      @risk_profile.ratings.last.update(status: params[:new_status], status_date: Time.now)
+    else
+      raise AbstractController::ActionNotFound
+    end
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
@@ -103,6 +112,13 @@ class RiskProfilesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def risk_profile_params
       params.require(:risk_profile).permit(:name, :county, :state, :territory, :effective, :retro, :specialty, :specialty_surgery, :deductible, :limit, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty, :capital, :license )
+    end
+
+    # A broker may only view his own risk profiles
+    def broker_possession!
+      if @risk_profile.broker_acct_id != @acct.id
+        raise ActionController::RoutingError.new('Not Found')
+      end
     end
 
     def calculate_rating

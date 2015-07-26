@@ -2,9 +2,17 @@
   Actions
 </div>
 <div class="actions">
-  <%= button_to "Accept Risk", update_status_risk_profile_path(new_status: "accepted"), class:'btn btn-success', method: :patch, remote: true, disabled:  !@risk_profile.submitted? %>
-  <%= button_to "Decline Risk", update_status_risk_profile_path(new_status: "declined"), class:'btn btn-danger', method: :patch, remote: true, disabled:  !@risk_profile.submitted?  %>
-  <%= button_to "Submit Risk", update_status_risk_profile_path(new_status: "submitted"), class:'btn btn-danger', method: :patch, remote: true, disabled:  @risk_profile.submitted?  %>
+  <%- if true #current_account.employee? && @acct.underwriter? %>
+    <%= button_to "Accept Risk", update_status_risk_profile_path(new_status: "accepted", for: "risk_profile"), class:'btn btn-success', method: :patch, remote: true, disabled:  !@risk_profile.submitted? %>
+    <%= button_to "Decline Risk", update_status_risk_profile_path(new_status: "declined", for: "risk_profile"), class:'btn btn-danger', method: :patch, remote: true, disabled:  !@risk_profile.submitted?  %>
+
+    <%= button_to "Determine Rating", update_status_risk_profile_path(new_status: "determined", for: "rating"), class:'btn btn-info', method: :patch, remote: true, disabled:  (!@risk_profile.accepted? || @risk_profile.ratings.last.determined?) %>
+
+    <%= button_to "Submit Risk", update_status_risk_profile_path(new_status: "submitted", for: "risk_profile"), class:'btn btn-warning', method: :patch, remote: true, disabled:  @risk_profile.submitted?  %>
+
+  <% elsif current_account.broker? %>
+    
+  <% end -%>
 </div>
 <a href="javascript:;">
   <span class="status-online"></span>
