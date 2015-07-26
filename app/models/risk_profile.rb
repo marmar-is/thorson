@@ -1,7 +1,7 @@
 class RiskProfile < ActiveRecord::Base
   # Associations
   belongs_to :broker_acct
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
 
   # Validations
   validates :name, presence: true
