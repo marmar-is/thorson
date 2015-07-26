@@ -91,7 +91,7 @@
 
           <div class="col-xs-12 mb25">
             <p>Specialty</p>
-            <%= f.select :specialty, options_for_select(@spec_names), {}, { class:'chosen', style:'width:100%;', 'data-placeholder':'Specialty' } %>
+            <%= f.select :specialty, options_for_select(@spec_names), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'Select Specialty' } %>
           </div>
 
           <div class="col-xs-12 mb25">
@@ -178,6 +178,8 @@
   $('document').ready(function() {
     'use strict';
     $('.chosen').chosen();
+
+    $('[data-provide=datepicker]').datepicker({format: 'yyyy-mm-dd'});
 
     $('.spinner-ar').TouchSpin({
       initval: 0,

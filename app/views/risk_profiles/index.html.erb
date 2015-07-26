@@ -25,7 +25,7 @@
           <th>State</th>
           <th>Effective</th>
           <th>Retro</th>
-          <th>Sub specialty</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tfoot>
@@ -35,19 +35,19 @@
           <th>State</th>
           <th>Effective</th>
           <th>Retro</th>
-          <th>Sub specialty</th>
+          <th>Status</th>
         </tr>
       </tfoot>
 
       <tbody>
         <% @risk_profiles.each do |risk_profile| %>
-          <tr>
+          <tr class="bg-<%= risk_profile.status %>">
             <td><%= link_to risk_profile.name, risk_profile, class:'text-info' %></td>
             <td><%= risk_profile.territory %></td>
             <td><%= risk_profile.state %></td>
             <td><%= risk_profile.effective %></td>
             <td><%= risk_profile.retro %></td>
-            <td><%= risk_profile.sub_specialty %></td>
+            <td><%= risk_profile.status.capitalize %></td>
               <%if false%>
               <td><%= link_to 'Show', risk_profile %></td>
               <td><%= link_to 'Edit', edit_risk_profile_path(risk_profile) %></td>

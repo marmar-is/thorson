@@ -20,6 +20,7 @@ class CreateRatings < ActiveRecord::Migration
       t.integer :capital_contribution, default: 0
 
       t.integer :status, default: 0
+      t.datetime :status_date
 
       t.timestamps null: false
     end

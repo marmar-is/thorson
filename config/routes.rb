@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   root 'statics#portal', as: :unauthenticated_root
 
-  resources :risk_profiles
+  resources :risk_profiles do
+    member do
+      patch 'update_status'
+      #patch 'update_rating_status'
+    end
+  end
   resources :factors, only: [ :index ]
 
   resources :broker_accts, only: [ :new, :create, :update ]

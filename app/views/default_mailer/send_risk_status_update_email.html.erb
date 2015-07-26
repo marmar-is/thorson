@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Your risk profile for <%= link_to @risk.name, risk_profile_url(@risk) %> has been updated!</h1>
+  <h2>Risk Status: <%= @risk.status %></h2>
+  <h2>Latest Rating Status: <%= @risk.ratings.last.status %></h2>
+  <h2>Your Brokerage Code: <%= @broker.code %></h2>
+  <p>Please review the changes.</p>
+</body>
+</html>

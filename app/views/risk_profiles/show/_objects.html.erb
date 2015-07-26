@@ -1,0 +1,79 @@
+<%= content_for :head do %>
+  <style>
+    .accordion-title {
+      padding: 5px;
+      font-size:14px;
+      border-radius:2px;
+    }
+
+    .accordion-body {
+      padding: 5px;
+      padding-left:10px;
+    }
+
+  </style>
+<% end %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="accordion accordion-toggle">
+
+      <%- (@risk_profile.ratings*2).each do |rating| %>
+        <div class="accordion-container mb30">
+          <!-- rating -->
+          <div class="accordion-title bg-white">
+            <a href="javascript:;" class="bold">
+              Rating
+              <span class="pull-right text-info">
+                (Accepted <%= rating.created_at.strftime("%b %d, %Y") %>)
+              </span>
+            </a>
+          </div>
+          <div class="accordion-body bg-white bt">
+            <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+          </div>
+          <!-- /rating -->
+
+          <div class="pt10"></div>
+
+          <!-- quotes -->
+          <%- (1..3).each do |quote| #rating.quotes.each do |quote| %>
+            <div class="accordion-title bg-white ml5">
+              <a href="javascript:;" class="bold">
+                Quote
+                <span class="pull-right text-info">
+                  (Issued Jul 15, 2015<%#= quote.created_at.strftime("%b %d, %Y") %>)
+                </span>
+              </a>
+            </div>
+            <div class="accordion-body bg-white bt ml5">
+              <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+            </div>
+            <div class="pt5"></div>
+          <% end -%>
+          <!-- /quotes -->
+
+          <div class="pt5"></div>
+
+          <!-- policy -->
+          <div class="accordion-title bg-white">
+            <a href="javascript:;" class="bold">
+              Policy
+              <span class="pull-right text-info">
+                (Bound Jul 15, 2015<%#= quote.created_at.strftime("%b %d, %Y") %>)
+              </span>
+            </a>
+          </div>
+          <div class="accordion-body bg-white bt">
+            <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+          </div>
+          <!-- /policy -->
+
+        </div>
+      <% end -%>
+    </div>
+  </div>
+</div>

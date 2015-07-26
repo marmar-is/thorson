@@ -1,356 +1,106 @@
 <%= content_for :head do %>
   <style>
-    .profile-sidebar-item.profile-numbers-count span {
-      font-size: 20px!important;
+    .chat-panel .actions form {
+      width:60%;
+      margin: 15px auto 5px auto;
+    }
+
+    .chat-panel .actions form input.btn {
+      width:100%;
+    }
+
+    .chat-panel .actions form input.btn:hover {
+      border-color:#000;
     }
   </style>
-  <%#= stylesheet_link_tag 'datatables/css/jquery.dataTables.css', 'data-turbolinks-track' => true %>
 <% end %>
 
-<div class="row">
-  <div class="col-sm-3">
-    <div class="profile-sidebar">
-      <div class="profile-sidebar-item profile-avatar">
-        <%= image_tag "logo_thorson_block_text.png", alt: "", class:'img-rounded' %>
-      </div>
-      <div class="profile-sidebar-item profile-info">
-        <span class="h5 bold"><%= @risk_profile.name %></span>
-        <p><%= @risk_profile.territory + ", " + @risk_profile.state %></p>
-        <div class="w150 center-block mt10">
-          <button class="btn btn-danger btn-block">
-            <span><%= @risk_profile.effective.strftime("%d/%m/%Y") %></span>
-          </button>
+<ol class="breadcrumb no-bg pl0 mb0">
+  <li>
+    <h3 id="risk_profile_title" class="mb0 mt0">Risk Profile: <%= @risk_profile.name %></h3>
+  </li>
+</ol>
+
+<div id="withdrawn-alert" class="alert alert-danger text-center <%= 'hide' if !@risk_profile.withdrawn? %>">
+  <h2>This Risk Profile has been <u>Withdrawn</u> by Broker!</h2>
+</div>
+
+<div class="row mb15">
+  <div class="col-sm-12">
+    <div class="box-tab">
+      <div class="tab-content no-bg">
+        <div class="tab-pane active in" id="profile">
+          <%= render partial: 'risk_profiles/show/profile' %>
         </div>
-      </div>
 
-      <hr>
+        <div class="tab-pane" id="objects">
+          <%= render partial: 'risk_profiles/show/objects' %>
+        </div>
 
-      <ul class="profile-sidebar-item profile-numbers-count">
-        <li>
-          <span class="bold"><%= number_to_currency(@risk_profile.ratings.last.total_premium) %></span> Total Premium
-        </li>
-        <li>
-          <span class="bold"><%= number_to_currency(@risk_profile.ratings.last.fairway_premium) %></span> Fairway Premium
-        </li>
-      </ul>
-
-      <hr>
-
-      <div class="profile-sidebar-item profile-bio">
-        <small class="bold text-uppercase">About</small>
-        <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Vestibulum id ligula porta felis euismod semper.</p>
-      </div>
-
-      <hr>
-
-      <div class="profile-sidebar-item profile-reccomendations">
-        <small class="bold text-uppercase">Reccomendations</small>
-        <ul class="user-meta">
-          <li>
-            <a href="javascript:;">All stream</a>
-          </li>
-          <li>
-            <a href="javascript:;">Connected Apps</a>
-          </li>
-          <li>
-            <a href="javascript:;">Photos</a>
-          </li>
-          <li>
-            <a href="javascript:;">Most recent</a>
-          </li>
-        </ul>
+        <div class="tab-pane" id="interactions">
+          <%= render partial: 'risk_profiles/show/interactions' %>
+        </div>
       </div>
     </div>
-
-  </div>
-  <div class="col-sm-9">
-
-    <section class="profile-timeline composer">
-      <textarea placeholder="What's on your mind" rows="3" class="form-control"></textarea>
-
-      <div class="composer-options">
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-map-marker"></i>
-        </button>
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-image"></i>
-        </button>
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-video-camera"></i>
-        </button>
-        <button class="btn btn-default btn-sm" type="button">
-          <i class="fa fa-clock-o"></i>
-        </button>
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-success small">Submitted a new post</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-danger small">Added 4 new pictures</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-
-        <div class="profile-timeline-images clearfix">
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?1" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?2" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?3" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?4" alt="" class="img-responsive">
-          </a>
-        </div>
-
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-warning small">is listening to the Evantonites</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <div class="profile-timeline-audio clearfix">
-          <div class="audio">
-            <div class="fa fa-pause play_pause"></div>
-            <div class="audio-timeline">
-              <span class="progress">
-                        <span class="done"></span>
-              </span>
-            </div>
-            <div class="time">01:24</div>
-          </div>
-        </div>
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="profile-timeline">
-      <div class="profile-timeline-header">
-        <a href="#" class="profile-timeline-user">
-          <img src="images/avatar.jpg" alt="" class="img-circle">
-        </a>
-        <div class="profile-timeline-user-details">
-          <a href="#" class="bold">Samuel Perkins</a>
-          <br>
-          <em class="text-info small">created an album collection</em>
-        </div>
-      </div>
-      <div class="profile-timeline-content">
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-
-        <div class="profile-timeline-images clearfix">
-          <a href="javascript:;" class="image-link">
-            <img src="http://placeimg.com/400/300?5" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?6" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link-smaller">
-            <img src="http://placeimg.com/400/300?7" alt="" class="img-responsive">
-          </a>
-          <a href="javascript:;" class="image-link">
-            <img src="http://placeimg.com/400/150?8" alt="" class="img-responsive">
-          </a>
-        </div>
-
-        <div class="profile-timeline-controls">
-          <a class="pull-right" href="javascript:;">
-            <i class="fa fa-share-alt mr5"></i>
-          </a>
-          <a class="mr15" href="javascript:;">
-            <i class="fa fa-heart mr5"></i>Like
-          </a>
-          <a href="javascript:;">
-            <i class="fa fa-comment mr5"></i>Comment
-          </a>
-        </div>
-
-        <div class="post-comments">
-          <div class="media">
-            <a class="pull-left" href="javascript:;">
-              <img class="media-object avatar" src="images/face3.jpg" alt="">
-            </a>
-            <div class="comment">
-              <div class="comment-author heading-font">
-                <a href="javascript:;">
-                    Jane Doe
-                    <time datetime="2015-09-01" class="time">September 1st, 2015</time>
-                </a>
-              </div>
-              <p>Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.</p>
-              <hr>
-            </div>
-            <div class="media">
-              <a class="pull-left" href="javascript:;">
-                <img class="media-object avatar" src="images/avatar.jpg" alt="">
-              </a>
-              <div class="comment">
-                <div class="comment-author heading-font">
-                  <a href="javascript:;">
-                        Jane Doe
-                        <time datetime="2015-09-02" class="time">September 2nd, 2015</time>
-                    </a>
-                </div>
-                <p>Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </div>
 
-<% if false %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @risk_profile.name %>
-</p>
-
-<p>
-  <strong>County:</strong>
-  <%= @risk_profile.county %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @risk_profile.state %>
-</p>
-
-<p>
-  <strong>Effective:</strong>
-  <%= @risk_profile.effective %>
-</p>
-
-<p>
-  <strong>Retro:</strong>
-  <%= @risk_profile.retro %>
-</p>
-
-<p>
-  <strong>Specialty:</strong>
-  <%= @risk_profile.specialty %>
-</p>
-
-<p>
-  <strong>Deductible:</strong>
-  <%= @risk_profile.deductible %>
-</p>
-
-<p>
-  <strong>Limits:</strong>
-  <%= @risk_profile.limit %>
-</p>
-
-<p>
-  <strong>Limit nas:</strong>
-  <%= @risk_profile.limit_nas %>
-</p>
-
-<p>
-  <strong>Entity:</strong>
-  <%= @risk_profile.entity %>
-</p>
-
-<p>
-  <strong>Allied1:</strong>
-  <%= @risk_profile.allied1 %>
-</p>
-
-<p>
-  <strong>Allied2:</strong>
-  <%= @risk_profile.allied2 %>
-</p>
-
-<p>
-  <strong>Allied3:</strong>
-  <%= @risk_profile.allied3 %>
-</p>
-
-<p>
-  <strong>Sub specialty:</strong>
-  <%= @risk_profile.sub_specialty %>
-</p>
-
-<%= link_to 'Edit', edit_risk_profile_path(@risk_profile) %> |
-<%= link_to 'Back', risk_profiles_path %>
-<% end %>
-
+<!-- chat -->
+<div class="chat-panel">
+  <div class="chat-inner">
+    <div class="chat-users">
+      <div class="nav-justified-xs">
+        <ul class="nav nav-tabs nav-justified ">
+          <li class="active" id="profile-tab">
+            <a href="#profile" data-toggle="tab">Profile</a>
+          </li>
+          <li id="objects-tab">
+            <a href="#objects" data-toggle="tab">Objects</a>
+          </li>
+          <li id="interactions-tab">
+            <a href="#interactions" data-toggle="tab">Interactions</a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active">
+          <div id="actions" class="chat-group">
+            <%= render partial: 'risk_profiles/show/actions' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /chat -->
 
 <%= content_for :js_includes do %>
-  <%#= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
-  <%#= javascript_include_tag 'bootstrap-datatables.js', 'data-turbolinks-track' => true %>
+  <script>
+    $('document').ready(function() {
+      'use strict';
 
-  <%#= javascript_include_tag 'table-edit.js', 'data-turbolinks-track' => true %>
+      /* change page title when changing tab */
+      $('#profile-tab').on('click', function(){
+        var new_title = $('#risk_profile_title').text().split(' ');
+        new_title[1] = "Profile:";
+        $('#risk_profile_title').text(new_title.join(' '));
+      });
+
+      $('#objects-tab').on('click', function(){
+        var new_title = $('#risk_profile_title').text().split(' ');
+        new_title[1] = "Objects:";
+        $('#risk_profile_title').text(new_title.join(' '));
+      });
+
+      $('#interactions-tab').on('click', function(){
+        var new_title = $('#risk_profile_title').text().split(' ');
+        new_title[1] = "Interactions:";
+        $('#risk_profile_title').text(new_title.join(' '));
+      });
+
+      /* open contextual action menu on page load */
+      $('#contextual-menu-toggle').trigger('click');
+
+    });
+  </script>
 <% end %>

@@ -17,6 +17,8 @@
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,700', 'data-turbolinks-track' => true %>
 </head>
 <body>
+  <div id="overlay-ajax"></div>
+  <div id="loading-ajax"></div>
 
   <div class="app layout-fixed-header layout-fixed-footer">
     <%= render partial: 'layouts/nav' %>
@@ -27,19 +29,18 @@
       <div class="main-content">
 
         <!-- Notice && Alert -->
-
-        <div class="text-center" style="color:#000;">
+        <div id="notice-alert" class="text-center" style="color:#000;">
           <%- if flash[:notice] %>
-          <p class="alert">
-            <%= link_to "x", "#", data:{dismiss:'alert'}, class:'close' %>
-            <%= flash[:notice] %>
-          </p>
-          <% end -%>
-          <%- if flash[:alert] %>
-          <p class="alert">
-            <%= link_to "x", "#", data:{dismiss:'alert'}, class:'close' %>
-            <%= flash[:alert] %>
-          </p>
+            <p class="alert">
+              <%= link_to "x", "#", data:{dismiss:'alert'}, class:'close' %>
+              <%= flash[:notice] %>
+            </p>
+            <% end -%>
+            <%- if flash[:alert] %>
+            <p class="alert">
+              <%= link_to "x", "#", data:{dismiss:'alert'}, class:'close' %>
+              <%= flash[:alert] %>
+            </p>
           <% end -%>
         </div>
 
