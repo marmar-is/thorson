@@ -1,8 +1,11 @@
-class RiskProfilesController < ApplicationController
-  before_action :broker_access!, only: [ :new, :create ]
-  before_action :set_risk_profile, only: [:show, :edit, :update, :destroy, :update_status]
+require_dependency 'exceptions'
 
-  before_action :broker_possession!
+class RiskProfilesController < ApplicationController
+
+  before_action :broker_access!, only: [ :new, :create ]
+  before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status ]
+
+  before_action :broker_possession!, only: [ :show ]
 
   # GET /risk_profiles
   # GET /risk_profiles.json
@@ -52,7 +55,7 @@ class RiskProfilesController < ApplicationController
         @risk_profile.ratings << @rating
 
         if @risk_profile.save # should always save!
-          DefaultMailer.send_new_risk_email(@risk_profile).deliver
+          DefaultMailer.send_new_risk_email(@risk_profile, Account.where(role: 2).pluck(:email) ).deliver
 
           format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
           format.json { render :index, status: :created, location: @risk_profile }
@@ -89,16 +92,22 @@ class RiskProfilesController < ApplicationController
   end
 
   def update_status
+    # Ensure evil parameters are not injected (i.e. raise error if protocol is broken)
+    raise Exceptions::UnauthorizedAccountRole if (params[:new_status] == 'withdrawn' && !current_account.broker?)
+    #raise Exceptions::UnauthorizedAccountRole if ((params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
+
     case params[:for]
     when "risk_profile"
       @risk_profile.update(status: params[:new_status], status_date: Time.now)
     when "rating"
       @risk_profile.ratings.last.update(status: params[:new_status], status_date: Time.now)
     else
-      raise AbstractController::ActionNotFound
+      raise Exceptions::UnrecognizedParameter
     end
 
     respond_to do |format|
+      DefaultMailer.send_risk_status_update_email(@risk_profile).deliver
+
       format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
       format.js
     end

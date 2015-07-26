@@ -5,3 +5,38 @@
 .coverage-period {
   margin-bottom:10px;
 }
+
+table#risk_profiles tr a {
+  color: inherit;
+  font-weight: bold;
+}
+
+table#risk_profiles tr.bg-submitted {
+  background-color: #61cadd;
+}
+
+table#risk_profiles tr.bg-accepted {
+  background-color: #dff0d8;
+}
+
+table#risk_profiles tr.bg-declined {
+  background-color: #de786c;
+}
+
+table#risk_profiles tr.bg-withdrawn {
+  background-color: #ffcf77;
+}
+/*
+table#risk_profiles tr.bg-submitted:hover {
+  background-color: #c1e2b3;
+}
+table#risk_profiles tr.bg-accepted:hover {
+  background-color: #afd9ee;
+}
+table#risk_profiles tr.bg-declined:hover {
+  background-color: #f7ecb5;
+}
+table#risk_profiles tr.bg-withdrawn:hover {
+  background-color: #e4b9b9;
+}
+*/

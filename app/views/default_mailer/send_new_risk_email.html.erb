@@ -4,7 +4,7 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h1>A risk profile for <%= @risk.name %> has been filed!</h1>
+  <h1>A risk profile for <%= link_to @risk.name, risk_profile_url(@risk) %> has been filed!</h1>
   <h2>Brokerage Name: <%= @broker.name %></h2>
   <h2>Brokerage Code: <%= @broker.code %></h2>
   <p>Please take a look and determine whether it should be accepted or declined.</p>

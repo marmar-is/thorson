@@ -21,6 +21,10 @@
   </li>
 </ol>
 
+<div id="withdrawn-alert" class="alert alert-danger text-center <%= 'hide' if !@risk_profile.withdrawn? %>">
+  <h2>This Risk Profile has been <u>Withdrawn</u> by Broker!</h2>
+</div>
+
 <div class="row mb15">
   <div class="col-sm-12">
     <div class="box-tab">
