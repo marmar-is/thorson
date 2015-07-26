@@ -3,7 +3,9 @@ $("#objects").html("<%= j(render partial: 'risk_profiles/show/objects') %>");
 $("#interactions").html("<%= j(render partial: 'risk_profiles/show/interactions') %>");
 $("#actions").html("<%= j(render partial: 'risk_profiles/show/actions') %>");
 
-$("#withdrawn-alert").removeClass('hide');
+"<%- if @risk_profile.withdrawn? %>"
+  $("#withdrawn-alert").removeClass('hide');
+"<% end -%>"
 //$("#withdrawn-alert").show();
 
 /* Reset Accordion Elements */
