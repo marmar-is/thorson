@@ -22,7 +22,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.integer :capital_contribution
 
       t.string :payment_type
-      t.string :subjectivities
+      t.text :subjectivities, array: true, default: []
 
       t.text :policy_forms, array: true, default: []
       t.string :policy_type
@@ -35,5 +35,6 @@ class CreateQuotes < ActiveRecord::Migration
 
     add_reference :quotes, :rating, index: true, foreign_key: true
     add_index  :quotes, :policy_forms, using: 'gin'
+    add_index  :quotes, :subjectivities, using: 'gin'
   end
 end

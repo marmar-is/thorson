@@ -15,7 +15,19 @@
 <% end %>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-3 pt10 pb10 bg-white round">
+    <%- @risk_profile.attributes.each do |k, v| %>
+      <div class="row">
+        <div class="col-md-4">
+          <%= k %>
+        </div>
+        <div class="col-md-7 col-md-offset-1">
+          <%= v %>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+  <div class="col-md-9 cool-md-offset-1">
     <div class="accordion accordion-toggle">
 
       <%- (@risk_profile.ratings*2).each do |rating| %>
@@ -30,15 +42,23 @@
             </a>
           </div>
           <div class="accordion-body bg-white bt">
-            <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+            <%- rating.attributes.each do |k, v| %>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= k %>
+                </div>
+                <div class="col-md-7 col-md-offset-1">
+                  <%= v %>
+                </div>
+              </div>
+            <% end -%>
           </div>
           <!-- /rating -->
 
           <div class="pt10"></div>
 
           <!-- quotes -->
-          <%- (1..3).each do |quote| #rating.quotes.each do |quote| %>
+          <%- rating.quotes.each do |quote| %>
             <div class="accordion-title bg-white ml5">
               <a href="javascript:;" class="bold">
                 Quote
@@ -48,8 +68,16 @@
               </a>
             </div>
             <div class="accordion-body bg-white bt ml5">
-              <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+              <%- quote.attributes.each do |k, v| %>
+                <div class="row">
+                  <div class="col-md-4">
+                    <%= k %>
+                  </div>
+                  <div class="col-md-7 col-md-offset-1">
+                    <%= v %>
+                  </div>
+                </div>
+              <% end -%>
             </div>
             <div class="pt5"></div>
           <% end -%>
@@ -67,8 +95,7 @@
             </a>
           </div>
           <div class="accordion-body bg-white bt">
-            <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+            <p class="text-info">No Policy has been issued for this rating.</p>
           </div>
           <!-- /policy -->
 
