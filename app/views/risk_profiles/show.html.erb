@@ -34,7 +34,7 @@
 
 <ol class="breadcrumb no-bg pl0 mb0">
   <li>
-    <h3 id="risk_profile_title" class="mb0 mt0">Risk Profile: <%= @risk_profile.name %></h3>
+    <h3 id="risk_profile_title" class="mb0 mt0">Risk Overview: <%= @risk_profile.name %></h3>
   </li>
 </ol>
 
@@ -45,13 +45,13 @@
 <div class="row mb15">
   <div class="col-sm-12">
     <div class="box-tab">
-      <div class="tab-content">
-        <div class="tab-pane active in" id="profile">
-          <%= render partial: 'risk_profiles/show/profile' %>
+      <div class="tab-content no-bg">
+        <div class="tab-pane active in" id="overview">
+          <%= render partial: 'risk_profiles/show/overview' %>
         </div>
 
-        <div class="tab-pane" id="objects">
-          <%= render partial: 'risk_profiles/show/objects' %>
+        <div class="tab-pane" id="profile">
+          <%= render partial: 'risk_profiles/show/profile' %>
         </div>
 
         <div class="tab-pane" id="interactions">
@@ -68,11 +68,11 @@
     <div class="chat-users">
       <div class="nav-justified-xs">
         <ul class="nav nav-tabs nav-justified ">
-          <li class="active" id="profile-tab">
-            <a href="#profile" data-toggle="tab">Profile</a>
+          <li class="active" id="overview-tab">
+            <a href="#overview" data-toggle="tab">Overview</a>
           </li>
-          <li id="objects-tab">
-            <a href="#objects" data-toggle="tab">Objects</a>
+          <li id="profile-tab">
+            <a href="#profile" data-toggle="tab">Profile</a>
           </li>
           <li id="interactions-tab">
             <a href="#interactions" data-toggle="tab">Interactions</a>
@@ -97,15 +97,15 @@
       'use strict';
 
       /* change page title when changing tab */
-      $('#profile-tab').on('click', function(){
+      $('#overview-tab').on('click', function(){
         var new_title = $('#risk_profile_title').text().split(' ');
-        new_title[1] = "Profile:";
+        new_title[1] = "Overview:";
         $('#risk_profile_title').text(new_title.join(' '));
       });
 
-      $('#objects-tab').on('click', function(){
+      $('#profile-tab').on('click', function(){
         var new_title = $('#risk_profile_title').text().split(' ');
-        new_title[1] = "Objects:";
+        new_title[1] = "Profile:";
         $('#risk_profile_title').text(new_title.join(' '));
       });
 
