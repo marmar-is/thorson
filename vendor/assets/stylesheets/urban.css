@@ -1279,7 +1279,8 @@ footer.content-footer li a:active {
 .chat-panel .chat-users .nav-tabs li.active:hover::after,
 .chat-panel .chat-users .nav-tabs li.active:focus::after,
 .chat-panel .chat-users .nav-tabs li:hover::after {
-  background-color: #a2e3b9;
+  /*background-color: #a2e3b9;  162, 227, 185*/
+  background-color: #82b694;
 }
 .chat-panel .chat-users .nav-tabs li > a:hover,
 .chat-panel .chat-users .nav-tabs li > a:focus {

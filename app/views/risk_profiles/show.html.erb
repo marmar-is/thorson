@@ -1,5 +1,10 @@
 <%= content_for :head do %>
   <style>
+    .chat-panel,
+    .chat-panel .chat-inner .chat-users {
+      background: rgba(14, 85, 63, 0.2)!important;
+    }
+
     .chat-panel .actions form {
       width:60%;
       margin: 15px auto 5px auto;
@@ -14,12 +19,14 @@
     }
 
     .chat-panel .actions form input.btn[disabled]{
-      color: #222;
-      -webkit-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.4) inset;
-      -moz-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.3) inset;
-      -ms-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.3) inset;
-      -o-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.3) inset;
-      box-shadow:150px 0px 0px 0px rgba(0,0,0,0.3) inset;
+      color: #333;
+      opacity:1;
+      -webkit-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.5) inset;
+      -moz-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.5) inset;
+      -ms-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.5) inset;
+      -o-box-shadow:150px 0px 0px 0px rgba(0,0,0,0.5) inset;
+      box-shadow:150px 0px 0px 0px rgba(0,0,0,0.5) inset;
+
     }
 
   </style>
@@ -38,7 +45,7 @@
 <div class="row mb15">
   <div class="col-sm-12">
     <div class="box-tab">
-      <div class="tab-content no-bg">
+      <div class="tab-content">
         <div class="tab-pane active in" id="profile">
           <%= render partial: 'risk_profiles/show/profile' %>
         </div>

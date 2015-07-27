@@ -12,8 +12,8 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :limits
       t.text :addl_shared, array: true, default: []
       t.text :addl_separate, array: true, default: []
-      t.text :excl_location, array: true, default: []
-      t.text :excl_procedure, array: true, default: []
+      t.string :excl_location#, array: true, default: []
+      t.string :excl_procedure#, array: true, default: []
       #t.string :addl_employment
       #t.string :addl_electronic
       #t.string :addl_medefense
@@ -38,7 +38,7 @@ class CreateQuotes < ActiveRecord::Migration
     add_index  :quotes, :subjectivities, using: 'gin'
     add_index  :quotes, :addl_shared, using: 'gin'
     add_index  :quotes, :addl_separate, using: 'gin'
-    add_index  :quotes, :excl_location, using: 'gin'
-    add_index  :quotes, :excl_procedure, using: 'gin'
+    #add_index  :quotes, :excl_location, using: 'gin'
+    #add_index  :quotes, :excl_procedure, using: 'gin'
   end
 end
