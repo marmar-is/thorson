@@ -1,5 +1,5 @@
 <div class="chat-group-header">
-  Actions
+
 </div>
 <div class="actions">
   <%- if current_account.employee? && @acct.underwriter? %>
@@ -22,6 +22,6 @@
     <%- if @risk_profile.submitted? %>
       <%= button_to "Withdraw Risk", update_status_risk_profile_path(new_status: "withdrawn", for: "risk_profile"), class:'btn btn-danger', method: :patch, remote: true, disabled:  !@risk_profile.submitted? %>
     <% end -%>
-    
+
   <% end -%>
 </div>
