@@ -66,7 +66,13 @@
               <a href="javascript:;" class="bold">
                 Quote
                 <span class="pull-right text-info">
-                  (Saved <%= quote.created_at.strftime("%b %d, %Y") %>)
+                  <%- if quote.created? %>
+                    (Saved <%= quote.created_at.strftime("%b %d, %Y") %>)
+                  <% elsif quote.issued? %>
+                    (Issue  <%= quote.issue_date.strftime("%b %d, %Y") %>)
+                  <% else %>
+                    (<%= quote.status.capitalize + " " + quote.status_date.strftime("%b %d, %Y") %>)
+                  <% end -%>
                 </span>
               </a>
             </div>
@@ -87,6 +93,7 @@
           <!-- /quotes -->
 
           <!-- new-quote -->
+          <%- if rating == @risk_profile.ratings.last %>
           <div class="new-quote-border bt bl br bb accordion-title no-bg ml5">
             <a href="javascript:;" class="new-quote bold">
               +
@@ -99,6 +106,7 @@
             <%= render partial: 'risk_profiles/show/new_quote', locals: { rating: rating } %>
           </div>
           <div class="pt5"></div>
+          <% end -%>
           <!-- /new-quote -->
 
           <div class="pt5"></div>

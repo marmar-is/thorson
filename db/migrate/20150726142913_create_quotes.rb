@@ -34,7 +34,8 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :payment_type
 
       t.integer :status, default: 0
-      t.datetime :status_date
+      t.datetime :issue_date # Issued
+      t.datetime :status_date # Accepted/Declined
 
       t.timestamps null: false
     end
