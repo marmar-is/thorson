@@ -1,7 +1,7 @@
 <div class="chat-group-header">
 
 </div>
-<div class="actions">
+<div class="actions pl5 pr5">
   <%- if current_account.employee? && @acct.underwriter? %>
 
     <%- if @risk_profile.submitted? %>
@@ -24,4 +24,6 @@
     <% end -%>
 
   <% end -%>
+
+  <hr />
 </div>

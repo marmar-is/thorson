@@ -112,18 +112,22 @@ ActiveRecord::Schema.define(version: 20150726142913) do
     t.string   "specialty"
     t.date     "effective"
     t.date     "retro"
+    t.boolean  "addl_shared"
+    t.boolean  "addl_separate"
+    t.boolean  "addtl_employment"
+    t.boolean  "addtl_electronic"
+    t.boolean  "addtl_medefense"
+    t.boolean  "addtl_sexual"
+    t.text     "excl_location",        default: [],              array: true
+    t.text     "excl_procedure",       default: [],              array: true
+    t.string   "policy_type"
+    t.text     "policy_forms",         default: [],              array: true
+    t.text     "subjectivities",       default: [],              array: true
     t.integer  "deductible"
     t.string   "limits"
-    t.string   "addl_shared"
-    t.string   "addl_separate"
-    t.string   "excl_location"
-    t.string   "excl_procedure"
     t.integer  "fairway_premium"
     t.integer  "capital_contribution"
     t.string   "payment_type"
-    t.text     "subjectivities",       default: [],              array: true
-    t.text     "policy_forms",         default: [],              array: true
-    t.string   "policy_type"
     t.integer  "status",               default: 0
     t.datetime "status_date"
     t.datetime "created_at",                        null: false

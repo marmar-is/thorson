@@ -22,6 +22,7 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/1
   # GET /risk_profiles/1.json
   def show
+    @quote = Quote.new
   end
 
   # GET /risk_profiles/new
@@ -94,7 +95,7 @@ class RiskProfilesController < ApplicationController
   def update_status
     # Ensure evil parameters are not injected (i.e. raise error if protocol is broken)
     raise Exceptions::UnauthorizedAccountRole if (params[:new_status] == 'withdrawn' && !current_account.broker?)
-    #raise Exceptions::UnauthorizedAccountRole if ((params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
+    raise Exceptions::UnauthorizedAccountRole if ((params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
 
     case params[:for]
     when "risk_profile"

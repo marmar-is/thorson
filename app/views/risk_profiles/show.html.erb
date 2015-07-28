@@ -18,6 +18,13 @@
       /*border-color:#000;*/
     }
 
+    .chat-panel .actions hr {
+      border-color:#ccc;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     /*
     .chat-panel .actions form input.btn[disabled]{
       color: #333;
@@ -48,11 +55,11 @@
   <div class="col-sm-12">
     <div class="box-tab">
       <div class="tab-content no-bg">
-        <div class="tab-pane active in" id="overview">
+        <div class="tab-pane in" id="overview">
           <%= render partial: 'risk_profiles/show/overview' %>
         </div>
 
-        <div class="tab-pane" id="profile">
+        <div class="tab-pane active" id="profile">
           <%= render partial: 'risk_profiles/show/profile' %>
         </div>
 

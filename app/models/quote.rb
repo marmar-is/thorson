@@ -3,8 +3,9 @@ class Quote < ActiveRecord::Base
   belongs_to :rating
 
   # Enumerations
-  enum status: [:issued, :accepted, :declined]
-    # issued       -- actions have not yet been taken
+  enum status: [:created, :issued, :accepted, :declined]
+    # created      -- underwriter created the quote/actions have not yet been taken
+    # issued       -- underwriter's decision to issue the quote to the broker
     # accepted     -- broker's decision to accepted the quote
     # declined     -- broker's decision to declined the quote
 

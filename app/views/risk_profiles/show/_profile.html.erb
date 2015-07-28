@@ -11,6 +11,10 @@
       padding-left:10px;
     }
 
+    .new-quote {
+      border-width:2px;
+    }
+
   </style>
 <% end %>
 
@@ -82,6 +86,35 @@
             <div class="pt5"></div>
           <% end -%>
           <!-- /quotes -->
+
+          <!-- new-quote -->
+          <div class="new-quote bt bl br bb accordion-title no-bg ml5">
+            <a href="javascript:;" class="bold">
+              +
+              <span class="pull-right text-info">
+                (New Quote)
+              </span>
+            </a>
+          </div>
+          <div class="accordion-body bg-white ml5">
+            <%= form_for @quote, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
+
+              <div class="form-group">
+                <p>Account Information</p>
+                <div class="row">
+                  <div class="col-sm-5">
+                      <%= f.text_field :name, class:'form-control', placeholder:'Brokerage Name' %>
+                  </div>
+                  <div class="col-sm-5 col-sm-offset-2">
+                      <%= f.text_field :code, class:'form-control', placeholder:'Brokerage Code' %>
+                  </div>
+                </div>
+              </div>
+              
+            <% end %>
+          </div>
+          <div class="pt5"></div>
+          <!-- /new-quote -->
 
           <div class="pt5"></div>
 
