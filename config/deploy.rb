@@ -38,7 +38,7 @@ namespace :unicorn do
     on roles(:app) do
       execute "mkdir #{shared_path}/sockets -p"
       execute "mkdir #{shared_path}/pids -p"
-      execute "mkdir #{root}/tmp/pids -p"
+      execute "mkdir /home/Matthew/apps/Thorson/current/tmp/pids -p"
       execute "mkdir #{shared_path}/logs -p"
     end
   end
