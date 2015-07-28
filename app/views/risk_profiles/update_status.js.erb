@@ -6,7 +6,6 @@ $("#actions").html("<%= j(render partial: 'risk_profiles/show/actions') %>");
 "<%- if @risk_profile.withdrawn? %>"
   $("#withdrawn-alert").removeClass('hide');
 "<% end -%>"
-//$("#withdrawn-alert").show();
 
 /* Reset Accordion Elements */
 var accordionBody = $('.accordion > .accordion-container > .accordion-body'),

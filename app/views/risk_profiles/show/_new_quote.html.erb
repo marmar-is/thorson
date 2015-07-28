@@ -118,7 +118,7 @@
   <%= javascript_include_tag 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'data-turbolinks-track' => true %>
 
   <script>
-  $('document').ready(function() {
+  var ready = function() {
     'use strict';
     $('[data-provide=datepicker]').datepicker({format: 'yyyy-mm-dd', viewformat: 'mm-dd-yyyy'});
 
@@ -146,6 +146,8 @@
     $('.accordion-title .new-quote').on('click', function(){
       $('.chosen').chosen();
     });
-  });
+  };
+
+  $('document').ready(ready);
   </script>
 <% end %>
