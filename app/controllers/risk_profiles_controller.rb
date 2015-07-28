@@ -169,7 +169,7 @@ class RiskProfilesController < ApplicationController
 
     # A broker may only view his own risk profiles
     def broker_possession!
-      if @risk_profile.broker_acct_id != @acct.id
+      if current_account.broker? && @risk_profile.broker_acct_id != @acct.id
         raise ActionController::RoutingError.new('Not Found')
       end
     end
