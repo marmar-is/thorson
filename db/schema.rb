@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726142913) do
+ActiveRecord::Schema.define(version: 20150724020526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,45 +105,6 @@ ActiveRecord::Schema.define(version: 20150726142913) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "quotes", force: :cascade do |t|
-    t.integer  "broker_fee"
-    t.decimal  "broker_commision"
-    t.string   "named_insured"
-    t.string   "specialty"
-    t.date     "effective"
-    t.date     "retro"
-    t.boolean  "addl_employment"
-    t.boolean  "addl_electronic"
-    t.boolean  "addl_medefense"
-    t.boolean  "addl_sexual"
-    t.text     "addl_shared",          default: [],              array: true
-    t.text     "addl_separate",        default: [],              array: true
-    t.text     "excl_locations",       default: [],              array: true
-    t.text     "excl_procedures",      default: [],              array: true
-    t.text     "subjectivities",       default: [],              array: true
-    t.text     "policy_forms",         default: [],              array: true
-    t.string   "policy_type"
-    t.integer  "deductible"
-    t.string   "limits"
-    t.integer  "fairway_premium"
-    t.integer  "capital_contribution"
-    t.string   "payment_type"
-    t.integer  "status",               default: 0
-    t.datetime "issue_date"
-    t.datetime "status_date"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "rating_id"
-  end
-
-  add_index "quotes", ["addl_separate"], name: "index_quotes_on_addl_separate", using: :gin
-  add_index "quotes", ["addl_shared"], name: "index_quotes_on_addl_shared", using: :gin
-  add_index "quotes", ["excl_locations"], name: "index_quotes_on_excl_locations", using: :gin
-  add_index "quotes", ["excl_procedures"], name: "index_quotes_on_excl_procedures", using: :gin
-  add_index "quotes", ["policy_forms"], name: "index_quotes_on_policy_forms", using: :gin
-  add_index "quotes", ["rating_id"], name: "index_quotes_on_rating_id", using: :btree
-  add_index "quotes", ["subjectivities"], name: "index_quotes_on_subjectivities", using: :gin
-
   create_table "ratings", force: :cascade do |t|
     t.hstore   "risk_prof"
     t.hstore   "rates"
@@ -231,7 +192,6 @@ ActiveRecord::Schema.define(version: 20150726142913) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "quotes", "ratings"
   add_foreign_key "ratings", "risk_profiles"
   add_foreign_key "risk_profiles", "broker_accts"
 end

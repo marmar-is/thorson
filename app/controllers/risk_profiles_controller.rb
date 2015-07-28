@@ -192,17 +192,7 @@ class RiskProfilesController < ApplicationController
       fields["SUBJECTIVITY.#{i}"] = s
     end
 
-
-    pdftk.get_field_names("private/fillable/#{f}").each do |n|
-      if n == "POLICYNUMBER"
-        fields[n] = @policy.number
-      else
-        fields[n] = params[n]
-      end
-    end
-
     pdftk.fill_form "app/views/layouts/quote_fairway.pdf", 'tmp/output.pdf', fields, flatten: true
-
   end
 
   private

@@ -13,8 +13,8 @@
   <%= hidden_field_tag :rating_id, rating.id %>
 
   <%= fields_for :quote do |f| %>
-    <%= f.hidden_field :named_insured, @risk_profile.name %>
-    <%= f.hidden_field :specialty, @risk_profile.specialty %>
+    <%#= f.hidden_field :named_insured, @risk_profile.name %>
+    <%#= f.hidden_field :specialty, @risk_profile.specialty %>
 
     <%= f.hidden_field :deductible, rating.risk_prof['deductible'].to_i %>
     <%= f.hidden_field :limit, rating.risk_prof['limit'] %>
