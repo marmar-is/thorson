@@ -1,0 +1,11 @@
+$("#profile").html("<%= j(render partial: 'risk_profiles/show/profile') %>");
+
+/* Reset Accordion Elements */
+var accordionBody = $('.accordion > .accordion-container > .accordion-body'),
+  accordionTitleTarget = $('.accordion > .accordion-container > .accordion-title > a');
+
+if ($('.accordion').length) {
+  accordionBody.hide();
+}
+
+accordionTitleTarget.on('click', accordionOnClick);

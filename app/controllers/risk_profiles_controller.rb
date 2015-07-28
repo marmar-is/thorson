@@ -117,7 +117,33 @@ class RiskProfilesController < ApplicationController
 
   # POST /risk_profiles/1/new_quote
   def new_quote
-    #@quote = Quote.new(params....)
+    @quote = Quote.new(quote_params)
+
+    # Input Tags
+    @quote.addl_shared = params[:quote][:addl_shared].split(',')
+    @quote.addl_separate = params[:quote][:addl_separate].split(',')
+    @quote.excl_locations = params[:quote][:excl_locations].split(',')
+    @quote.excl_procedures = params[:quote][:excl_procedures].split(',')
+    @quote.subjectivities = params[:quote][:subjectivities].split(',')
+
+    # Multi Selects
+    @quote.addtl_employment = params[:quote][:additions].include?('Employment')
+    @quote.addtl_electronic = params[:quote][:additions].include?('Electronic')
+    @quote.addtl_medefense = params[:quote][:additions].include?('Medefense')
+    @quote.addtl_sexual = params[:quote][:additions].include?('Sexual')
+    @quote.policy_forms = params[:quote][:policy_forms].reject(&:empty?)
+
+    @quote.rating = Rating.find(params[:rating_id])
+
+    respond_to do |format|
+      if @quote.save
+        format.html { redirect_to @quote.rating.risk_profile, notice: "Quote was successfully saved." }
+        format.js
+      else
+        format.html { render :show }
+        format.json { render json: @quote.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
@@ -129,6 +155,11 @@ class RiskProfilesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def risk_profile_params
       params.require(:risk_profile).permit(:name, :county, :state, :territory, :effective, :retro, :specialty, :specialty_surgery, :deductible, :limit, :limit_nas, :entity, :allied1, :allied2, :allied3, :sub_specialty, :capital, :license )
+    end
+
+    def quote_params
+      params.require(:quote).permit(:broker_fee, :broker_commission, :named_insured,
+      :specialty, :effective, :retro, :policy_type)
     end
 
     # A broker may only view his own risk profiles

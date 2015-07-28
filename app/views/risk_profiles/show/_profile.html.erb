@@ -66,7 +66,7 @@
               <a href="javascript:;" class="bold">
                 Quote
                 <span class="pull-right text-info">
-                  (Issued Jul 15, 2015<%#= quote.created_at.strftime("%b %d, %Y") %>)
+                  (Saved <%= quote.created_at.strftime("%b %d, %Y") %>)
                 </span>
               </a>
             </div>
@@ -88,7 +88,7 @@
 
           <!-- new-quote -->
           <div class="new-quote-border bt bl br bb accordion-title no-bg ml5">
-            <a href="javascript:;" class="bold">
+            <a href="javascript:;" class="new-quote bold">
               +
               <span class="pull-right text-info">
                 (New Quote)
@@ -125,3 +125,6 @@
     </div>
   </div>
 </div>
+<%= content_for :js_includes do %>
+
+<% end %>
