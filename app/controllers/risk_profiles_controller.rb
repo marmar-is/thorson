@@ -22,7 +22,7 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/1
   # GET /risk_profiles/1.json
   def show
-    @quote = Quote.new
+    #@quote = Quote.new
   end
 
   # GET /risk_profiles/new
@@ -92,6 +92,7 @@ class RiskProfilesController < ApplicationController
     end
   end
 
+  # PATCH /risk_profiles/1/update_status
   def update_status
     # Ensure evil parameters are not injected (i.e. raise error if protocol is broken)
     raise Exceptions::UnauthorizedAccountRole if (params[:new_status] == 'withdrawn' && !current_account.broker?)
@@ -114,6 +115,10 @@ class RiskProfilesController < ApplicationController
     end
   end
 
+  # POST /risk_profiles/1/new_quote
+  def new_quote
+    #@quote = Quote.new(params....)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

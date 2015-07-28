@@ -11,10 +11,9 @@
       padding-left:10px;
     }
 
-    .new-quote {
+    .new-quote-border {
       border-width:2px;
     }
-
   </style>
 <% end %>
 
@@ -34,7 +33,7 @@
   <div class="col-md-9 cool-md-offset-1">
     <div class="accordion accordion-toggle">
       <!-- object -->
-      <%- (@risk_profile.ratings*2).each do |rating| %>
+      <%- @risk_profile.ratings.each do |rating| %>
         <div class="accordion-container mb30">
           <!-- rating -->
           <div class="accordion-title bg-white">
@@ -88,7 +87,7 @@
           <!-- /quotes -->
 
           <!-- new-quote -->
-          <div class="new-quote bt bl br bb accordion-title no-bg ml5">
+          <div class="new-quote-border bt bl br bb accordion-title no-bg ml5">
             <a href="javascript:;" class="bold">
               +
               <span class="pull-right text-info">
@@ -96,22 +95,8 @@
               </span>
             </a>
           </div>
-          <div class="accordion-body bg-white ml5">
-            <%= form_for @quote, html: {class:'form-horizontal bordered-group', role:'form'}) do |f| %>
-
-              <div class="form-group">
-                <p>Account Information</p>
-                <div class="row">
-                  <div class="col-sm-5">
-                      <%= f.text_field :name, class:'form-control', placeholder:'Brokerage Name' %>
-                  </div>
-                  <div class="col-sm-5 col-sm-offset-2">
-                      <%= f.text_field :code, class:'form-control', placeholder:'Brokerage Code' %>
-                  </div>
-                </div>
-              </div>
-              
-            <% end %>
+          <div class="new-quote-border accordion-body no-bg bl br bb ml5">
+            <%= render partial: 'risk_profiles/show/new_quote', locals: { rating: rating } %>
           </div>
           <div class="pt5"></div>
           <!-- /new-quote -->

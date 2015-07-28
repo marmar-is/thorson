@@ -10,15 +10,16 @@ class CreateQuotes < ActiveRecord::Migration
       t.date :effective
       t.date :retro
 
-      t.boolean :addl_shared
-      t.boolean :addl_separate
+      t.text :addl_shared, array: true, default: []
+      t.text :addl_separate, array: true, default: []
+
       t.boolean :addtl_employment
       t.boolean :addtl_electronic
       t.boolean :addtl_medefense
       t.boolean :addtl_sexual
 
-      t.text :excl_location, array: true, default: []
-      t.text :excl_procedure, array: true, default: []
+      t.text :excl_locations, array: true, default: []
+      t.text :excl_procedures, array: true, default: []
 
       t.string :policy_type
       t.text :policy_forms, array: true, default: []
@@ -44,7 +45,7 @@ class CreateQuotes < ActiveRecord::Migration
     add_index  :quotes, :subjectivities, using: 'gin'
     #add_index  :quotes, :addl_shared, using: 'gin'
     #add_index  :quotes, :addl_separate, using: 'gin'
-    #add_index  :quotes, :excl_location, using: 'gin'
-    #add_index  :quotes, :excl_procedure, using: 'gin'
+    #add_index  :quotes, :excl_locations, using: 'gin'
+    #add_index  :quotes, :excl_procedures, using: 'gin'
   end
 end

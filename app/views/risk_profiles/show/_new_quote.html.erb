@@ -1,0 +1,149 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'jquery.tagsinput/jquery.tagsinput.css', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css', 'data-turbolinks-track' => true %>
+  <style>
+    #profile div.tagsinput {
+      min-height:77px;
+    }
+  </style>
+<% end %>
+
+<%= form_for(new_quote_risk_profile_path(@risk_profile, rating.id), html: {class:'form-horizontal', role:'form'}) do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row mb10 pl10 pr10">
+        <div class="col-sm-12">
+          <%= f.text_field :specialty, class:'form-control', placeholder: 'Specialty' %>
+        </div>
+      </div>
+
+      <div class="row pl10 pr10">
+        <div class="col-sm-6">
+          <%= f.text_field :effective, class:'form-control', 'data-provide':'datepicker', placeholder: 'Pick Effective Date' %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.text_field :retro, class:'form-control', 'data-provide':'datepicker', placeholder: 'Pick Retroactive Date' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <%= f.text_field :excl_procedures, id:'tags_procedures', placeholder: 'Enter Procedure or Activity Exclusion Tags' %>
+          <p class="help-block">Procedure or Activity Exclusions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-sm-12">
+        <%= f.text_field :addl_shared, id:'tags_shared', placeholder: 'Enter Additional Insured Shared Tags' %>
+        <p class="help-block">Additional Insured Shared</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="col-sm-12">
+        <%= f.text_field :excl_locations, id:'tags_locations', placeholder: 'Enter Location Exclusion Tags' %>
+        <p class="help-block">Location Exclusions</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-sm-12">
+        <%= f.text_field :addl_separate, id:'tags_separate',  placeholder: 'Enter Additional Insured Separate Tags' %>
+        <p class="help-block">Additional Insured Separate</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="col-sm-12">
+        <%= f.text_field :subjectivities, id:'tags_subjectivities', placeholder: 'Enter Additional Insured Shared Tags' %>
+        <p class="help-block">Subjectivities</p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-sm-12">
+        <%= f.text_field :policy_type, class:'form-control', placeholder: 'Policy Type' %>
+      </div>
+
+      <div class="col-sm-12">
+        <%= f.select :policy_forms, options_for_select(['Form 1', 'Form 2', 'Form 3']), {include_blank: true}, { class:'chosen', style:'width:100%;', 'data-placeholder':'Policy Forms', multiple: true } %>
+      </div>
+
+      <div class="col-sm-12">
+        <select data-placeholder="Your Favorite Types of Bear" multiple class="chosen" style="width: 100%;">
+          <option value=""></option>
+          <option>American Black Bear</option>
+          <option>Asiatic Black Bear</option>
+          <option>Brown Bear</option>
+          <option>Giant Panda</option>
+          <option selected>Sloth Bear</option>
+          <option disabled>Sun Bear</option>
+          <option>Polar Bear</option>
+          <option disabled>Spectacled Bear</option>
+        </select>
+        <%#= select_tag :additions, options_for_select(['Employement', 'Medefense', 'Sexual', 'Electronic']), include_blank: true, class:'chosen', style:'width:100%;', 'data-placeholder':'Additional Coverages', multiple: true %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="col-sm-12">
+        <%= f.number_field :broker_fee, class:'form-control', placeholder: 'Broker Fee (Integer)' %>
+        <p class="help-block">Only input the number, no "$"</p>
+      </div>
+
+      <div class="col-sm-12">
+        <%= f.number_field :broker_commision, class:'form-control', placeholder: 'Broker Commision (Decimal)' %>
+        <p class="help-block">Input the commision as a decimal</p>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+<%= content_for :js_includes do %>
+  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'jquery.tagsinput/jquery.tagsinput.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'data-turbolinks-track' => true %>
+
+  <script>
+  $('document').ready(function() {
+    'use strict';
+    $('.chosen').chosen();
+
+    $('[data-provide=datepicker]').datepicker({format: 'yyyy-mm-dd', viewformat: 'mm-dd-yyyy'});
+
+    $('#tags_shared').tagsInput({
+      width: '100%'
+    });
+
+    $('#tags_separate').tagsInput({
+      width: '100%'
+    });
+
+    $('#tags_procedures').tagsInput({
+      width: '100%'
+    });
+
+    $('#tags_locations').tagsInput({
+      width: '100%'
+    });
+
+    $('#tags_subjectivities').tagsInput({
+      width: '100%'
+    });
+  });
+  </script>
+<% end %>

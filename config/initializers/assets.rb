@@ -57,5 +57,11 @@ x-editable/inputs-ext/address/address.js
 broker-x-editable.js
 )
 
+# New Quote (css & js)
+Rails.application.config.assets.precompile += %w(
+jquery.tagsinput/jquery.tagsinput.css
+jquery.tagsinput/jquery.tagsinput.js
+)
+
 #checkbo/js/checkBo.min.js
 #checkbo/css/checkBo.min.css

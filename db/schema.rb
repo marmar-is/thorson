@@ -112,14 +112,14 @@ ActiveRecord::Schema.define(version: 20150726142913) do
     t.string   "specialty"
     t.date     "effective"
     t.date     "retro"
-    t.boolean  "addl_shared"
-    t.boolean  "addl_separate"
+    t.text     "addl_shared",          default: [],              array: true
+    t.text     "addl_separate",        default: [],              array: true
     t.boolean  "addtl_employment"
     t.boolean  "addtl_electronic"
     t.boolean  "addtl_medefense"
     t.boolean  "addtl_sexual"
-    t.text     "excl_location",        default: [],              array: true
-    t.text     "excl_procedure",       default: [],              array: true
+    t.text     "excl_locations",       default: [],              array: true
+    t.text     "excl_procedures",      default: [],              array: true
     t.string   "policy_type"
     t.text     "policy_forms",         default: [],              array: true
     t.text     "subjectivities",       default: [],              array: true
