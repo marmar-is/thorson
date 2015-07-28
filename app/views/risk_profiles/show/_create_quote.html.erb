@@ -16,10 +16,10 @@
     <%#= f.hidden_field :named_insured, @risk_profile.name %>
     <%#= f.hidden_field :specialty, @risk_profile.specialty %>
 
-    <%= f.hidden_field :deductible, rating.risk_prof['deductible'].to_i %>
-    <%= f.hidden_field :limit, rating.risk_prof['limit'] %>
-    <%= f.hidden_field :fairway_premium, rating.fairway_premium %>
-    <%= f.hidden_field :capital_contribution, rating.capital_contribution %>
+    <%= f.hidden_field :deductible, value: rating.risk_prof['deductible'].to_i %>
+    <%= f.hidden_field :limit, value: rating.risk_prof['limit'] %>
+    <%= f.hidden_field :fairway_premium, value: rating.fairway_premium %>
+    <%= f.hidden_field :capital_contribution, value: rating.capital_contribution %>
 
     <div class="row">
       <div class="col-md-6">
