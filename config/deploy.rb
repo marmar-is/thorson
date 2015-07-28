@@ -18,7 +18,7 @@ set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache
 set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-#set :unicorn_pid,     "#{shared_path}/pids/unicorn.pid"
+set :unicorn_pid,     "#{shared_path}/pids/unicorn.pid"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 
 ## Defaults:
@@ -38,7 +38,6 @@ namespace :unicorn do
     on roles(:app) do
       execute "mkdir #{shared_path}/sockets -p"
       execute "mkdir #{shared_path}/pids -p"
-      execute "mkdir /home/Matthew/apps/Thorson/current/tmp/pids -p"
       execute "mkdir #{shared_path}/logs -p"
     end
   end

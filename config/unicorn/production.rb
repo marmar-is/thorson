@@ -2,8 +2,7 @@ root = "/home/Matthew/apps/Thorson/current"
 shared_path= "/home/Matthew/apps/Thorson/shared"
 working_directory root
 
-#pid "#{shared_path}/pids/unicorn.pid"
-pid "#{root}/tmp/pids/unicorn.pid"
+pid "#{shared_path}/pids/unicorn.pid"
 
 stderr_path "#{shared_path}/logs/unicorn.error.log"
 stdout_path "#{shared_path}/logs/unicorn.access.log"
