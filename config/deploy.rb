@@ -77,7 +77,7 @@ namespace :deploy do
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  'deploy:finished',    'deploy:restart'
+  after  :finishing,    :restart
 end
 
 namespace :rails do
