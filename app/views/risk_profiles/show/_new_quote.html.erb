@@ -9,7 +9,7 @@
   </style>
 <% end %>
 
-<%= form_tag(new_quote_risk_profile_path, method: :post) do %>
+<%= form_tag(new_quote_risk_profile_path, method: :post, remote: true) do %>
   <%= hidden_field_tag :rating_id, rating.id %>
 
   <%= fields_for :quote do |f| %>
@@ -105,7 +105,7 @@
     </div>
 
     <div class="row mt30">
-      <div class="col-md-2 pull-right">
+      <div class="col-md-2 pull-left">
         <%= f.submit "Save Quote", class:'btn btn-success' %>
       </div>
     </div>

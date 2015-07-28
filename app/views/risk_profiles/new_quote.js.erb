@@ -1,4 +1,9 @@
+"<% @risk_profile = RiskProfile.find(params[:id]) %>"
+
+$("#overview").html("<%= j(render partial: 'risk_profiles/show/overview') %>");
 $("#profile").html("<%= j(render partial: 'risk_profiles/show/profile') %>");
+$("#interactions").html("<%= j(render partial: 'risk_profiles/show/interactions') %>");
+$("#actions").html("<%= j(render partial: 'risk_profiles/show/actions') %>");
 
 /* Reset Accordion Elements */
 var accordionBody = $('.accordion > .accordion-container > .accordion-body'),

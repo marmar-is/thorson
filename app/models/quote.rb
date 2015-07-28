@@ -9,4 +9,6 @@ class Quote < ActiveRecord::Base
     # accepted     -- broker's decision to accepted the quote
     # declined     -- broker's decision to declined the quote
 
+  # Accessors
+  attr_accessor :additions
 end

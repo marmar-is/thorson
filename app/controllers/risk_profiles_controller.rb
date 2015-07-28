@@ -22,7 +22,7 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/1
   # GET /risk_profiles/1.json
   def show
-    #@quote = Quote.new
+    @quote = Quote.new
   end
 
   # GET /risk_profiles/new
