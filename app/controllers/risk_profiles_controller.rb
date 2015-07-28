@@ -127,10 +127,10 @@ class RiskProfilesController < ApplicationController
     @quote.subjectivities = params[:quote][:subjectivities].split(',')
 
     # Multi Selects
-    @quote.addtl_employment = params[:quote][:additions].include?('Employment')
-    @quote.addtl_electronic = params[:quote][:additions].include?('Electronic')
-    @quote.addtl_medefense = params[:quote][:additions].include?('Medefense')
-    @quote.addtl_sexual = params[:quote][:additions].include?('Sexual')
+    @quote.addl_employment = params[:quote][:additions].include?('Employment')
+    @quote.addl_electronic = params[:quote][:additions].include?('Electronic')
+    @quote.addl_medefense = params[:quote][:additions].include?('Medefense')
+    @quote.addl_sexual = params[:quote][:additions].include?('Sexual')
     @quote.policy_forms = params[:quote][:policy_forms].reject(&:empty?)
 
     @quote.rating = Rating.find(params[:rating_id])
