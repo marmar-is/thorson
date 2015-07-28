@@ -42,9 +42,9 @@ class CreateQuotes < ActiveRecord::Migration
     add_reference :quotes, :rating, index: true, foreign_key: true
     add_index  :quotes, :policy_forms, using: 'gin'
     add_index  :quotes, :subjectivities, using: 'gin'
-    #add_index  :quotes, :addl_shared, using: 'gin'
-    #add_index  :quotes, :addl_separate, using: 'gin'
-    #add_index  :quotes, :excl_locations, using: 'gin'
-    #add_index  :quotes, :excl_procedures, using: 'gin'
+    add_index  :quotes, :addl_shared, using: 'gin'
+    add_index  :quotes, :addl_separate, using: 'gin'
+    add_index  :quotes, :excl_locations, using: 'gin'
+    add_index  :quotes, :excl_procedures, using: 'gin'
   end
 end
