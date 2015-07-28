@@ -17,6 +17,10 @@
       <%= button_to "Submit Risk", update_status_risk_profile_path(new_status: "submitted", for: "risk_profile"), class:'btn btn-warning', method: :patch, remote: true, disabled:  @risk_profile.submitted?  %>
     <% end -%>
 
+    <%- if @risk_profile.ratings.last.determined? && @risk_profile.ratings.last.quotes.last.created? %>
+      <%= button_to "Issue Quote", issue_quote_risk_profile_path(), class:'btn btn-info', method: :patch, remote: true, disabled:  (!@risk_profile.ratings.last.determined? || !@risk_profile.ratings.last.quotes.last.created?)  %>
+    <% end -%>
+
   <% elsif current_account.broker? %>
 
     <%- if @risk_profile.submitted? %>
