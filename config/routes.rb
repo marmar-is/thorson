@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     member do
       patch 'update_status'
       post 'new_quote'
-      #patch 'update_rating_status'
+      patch 'issue_quote'
     end
   end
   resources :factors, only: [ :index ]

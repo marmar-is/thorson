@@ -146,6 +146,11 @@ class RiskProfilesController < ApplicationController
     end
   end
 
+  # PATCH /risk_profiles/1/issue_quote
+  def issue_quote
+    pdftk = PdfForms.new(ENV['PDFTK_PATH'] || '/usr/local/bin/pdftk')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_risk_profile
