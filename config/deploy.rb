@@ -18,7 +18,8 @@ set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache
 set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :unicorn_pid,     "#{shared_path}/pids/unicorn.pid"
+#set :unicorn_pid,     "#{shared_path}/pids/unicorn.pid"
+set :unicorn_pid      "#{root}/tmp/pids/unicorn.pid"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 
 ## Defaults:
