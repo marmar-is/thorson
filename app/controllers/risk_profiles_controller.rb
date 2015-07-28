@@ -3,7 +3,7 @@ require_dependency 'exceptions'
 class RiskProfilesController < ApplicationController
 
   before_action :broker_access!, only: [ :new, :create ]
-  before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status ]
+  before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status, :issue_quote ]
 
   before_action :broker_possession!, only: [ :show ]
 
@@ -22,7 +22,7 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/1
   # GET /risk_profiles/1.json
   def show
-    @quote = Quote.new
+    #@quote = Quote.new
   end
 
   # GET /risk_profiles/new
@@ -104,7 +104,7 @@ class RiskProfilesController < ApplicationController
     when "rating"
       @risk_profile.ratings.last.update(status: params[:new_status], status_date: Time.now)
     else
-      raise Exceptions::UnrecognizedParameter
+      raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating'")
     end
 
     respond_to do |format|
@@ -115,8 +115,8 @@ class RiskProfilesController < ApplicationController
     end
   end
 
-  # POST /risk_profiles/1/new_quote
-  def new_quote
+  # POST /risk_profiles/1/create_quote
+  def create_quote
     @quote = Quote.new(quote_params)
 
     # Input Tags
@@ -148,7 +148,61 @@ class RiskProfilesController < ApplicationController
 
   # PATCH /risk_profiles/1/issue_quote
   def issue_quote
+    # catch any errors
+    raise Exceptions::UnrecognizedParameter("last rating isn't determined") if !@risk_profile.ratings.last.determined?
+
+    quote = @risk_profile.ratings.last.quotes.last
+    quote.update(status: 'issued', issue_date: Time.now)
+
     pdftk = PdfForms.new(ENV['PDFTK_PATH'] || '/usr/local/bin/pdftk')
+
+    fields = {
+      INSURED_NAMED:          @risk_profile.name,
+      INSURED_SPECIALTY:      @risk_profile.specialty,
+      INSURED_ADDITIONAL:     quote.addl_separate.join(', ') + ', ' + quote.addl_shared.join(', '),
+      PREMIUM:                quote.fairway_premium,
+      CAPITALCONTRIBUTION:    quote.capital_contribution,
+      BROKER_FEE:             quote.broker_fee,
+      BROKER_COMMISSION:      quote.broker_commission,
+      EFFECTIVE:              quote.effective.strftime('%d/%m/%Y'),
+      RETROACTIVE:            quote.retro.strftime('%d/%m/%Y'),
+      DEDUCTIBLE:             quote.deductible,
+      LIMIT:                  quote.limit,
+      EXCLUSIONS_PROCEDURES:  quote.excl_procedures.join(', '),
+      EXCLUSIONS_LOCATIONS:   quote.excl_locations.join(', ')
+    }
+
+    i = 0
+    addls = [
+      ['addl_employment', 'Additional Insured Employment', 'Additional Insured Employment Description' ],
+      ['addl_electronic', 'Additional Insured Electronic', 'Additional Insured Electronic Description' ],
+      ['addl_medefense',  'Additional Insured Medefense',  'Additional Insured Medefense Description'  ],
+      ['addl_sexual',     'Additional Insured Sexual',     'Additional Insured Sexual Description'     ]
+    ]
+    addls.each do |a|
+      if quote[a[0]]
+        fields["ADDITIONAL COVERAGE.#{i}"] = a[1]
+        fields["ADDITIONAL COVERAGE DESCRIPTION.#{i}"] = a[2]
+        i += 1
+      end
+    end
+
+    subjectivities.each_with_index do |s, i|
+      fields["SUBJECTIVITY NUMBER.#{i}"] = i
+      fields["SUBJECTIVITY.#{i}"] = s
+    end
+
+
+    pdftk.get_field_names("private/fillable/#{f}").each do |n|
+      if n == "POLICYNUMBER"
+        fields[n] = @policy.number
+      else
+        fields[n] = params[n]
+      end
+    end
+
+    pdftk.fill_form "app/views/layouts/quote_fairway.pdf", 'tmp/output.pdf', fields, flatten: true
+
   end
 
   private
@@ -163,8 +217,9 @@ class RiskProfilesController < ApplicationController
     end
 
     def quote_params
-      params.require(:quote).permit(:broker_fee, :broker_commission, :named_insured,
-      :specialty, :effective, :retro, :policy_type)
+      params.require(:quote).permit(:named_insured, :specialty, :broker_fee, :broker_commission,
+      :effective, :retro, :policy_type, :deductible, :limit, :fairway_premium,
+      :capital_contribution)
     end
 
     # A broker may only view his own risk profiles

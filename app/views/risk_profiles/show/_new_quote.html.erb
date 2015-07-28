@@ -9,17 +9,27 @@
   </style>
 <% end %>
 
-<%= form_tag(new_quote_risk_profile_path, method: :post, remote: true) do %>
+<%= form_tag(create_quote_risk_profile_path, method: :post, remote: true) do %>
   <%= hidden_field_tag :rating_id, rating.id %>
 
   <%= fields_for :quote do |f| %>
+    <%= f.hidden_field :named_insured, @risk_profile.name %>
+    <%= f.hidden_field :specialty, @risk_profile.specialty %>
+
+    <%= f.hidden_field :deductible, rating.risk_prof['deductible'].to_i %>
+    <%= f.hidden_field :limit, rating.risk_prof['limit'] %>
+    <%= f.hidden_field :fairway_premium, rating.fairway_premium %>
+    <%= f.hidden_field :capital_contribution, rating.capital_contribution %>
+
     <div class="row">
       <div class="col-md-6">
+        <!--
         <div class="row mb10 pl10 pr10">
           <div class="col-sm-12">
-            <%= f.text_field :specialty, class:'form-control', placeholder: 'Specialty' %>
+            <%#= f.text_field :specialty, class:'form-control', placeholder: 'Specialty' %>
           </div>
         </div>
+        -->
 
         <div class="row pl10 pr10">
           <div class="col-sm-6">
@@ -98,8 +108,8 @@
         </div>
 
         <div class="col-sm-12">
-          <%= f.number_field :broker_commision, class:'form-control', placeholder: 'Broker Commision (Decimal)', step:'0.05', min:'0', max:'1' %>
-          <p class="help-block">Input the commision as a decimal</p>
+          <%= f.number_field :broker_commission, class:'form-control', placeholder: 'Broker Commision (Decimal)', step:'0.05', min:'0', max:'1' %>
+          <p class="help-block">Input the commission as a decimal</p>
         </div>
       </div>
     </div>

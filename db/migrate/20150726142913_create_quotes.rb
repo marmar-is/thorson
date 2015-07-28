@@ -3,10 +3,10 @@ class CreateQuotes < ActiveRecord::Migration
     create_table :quotes do |t|
 
       t.integer :broker_fee
-      t.decimal :broker_commision
+      t.decimal :broker_commission
 
-      t.string :named_insured
-      t.string :specialty
+      #t.string :named_insured
+      #t.string :specialty
       t.date :effective
       t.date :retro
 
@@ -27,7 +27,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :policy_type
 
       t.integer :deductible
-      t.string :limits
+      t.string :limit
       t.integer :fairway_premium
       t.integer :capital_contribution
 
