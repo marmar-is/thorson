@@ -18,13 +18,18 @@
     <% end -%>
 
     <%- if @risk_profile.ratings.last.determined? && @risk_profile.ratings.last.quotes.any? && @risk_profile.ratings.last.quotes.last.created? %>
-      <%= button_to "Issue Quote", issue_quote_risk_profile_path(), class:'btn btn-info', method: :patch, remote: false, disabled:  (!@risk_profile.ratings.last.determined? || !@risk_profile.ratings.last.quotes.last.created?)  %>
+      <%= button_to "Issue Quote", issue_quote_risk_profile_path(), class:'btn btn-info', method: :patch, remote: true, disabled:  (!@risk_profile.ratings.last.determined? || !@risk_profile.ratings.last.quotes.last.created?)  %>
     <% end -%>
 
   <% elsif current_account.broker? %>
 
     <%- if @risk_profile.submitted? %>
       <%= button_to "Withdraw Risk", update_status_risk_profile_path(new_status: "withdrawn", for: "risk_profile"), class:'btn btn-danger', method: :patch, remote: true, disabled:  !@risk_profile.submitted? %>
+    <% end -%>
+
+    <%- if @risk_profile.ratings.last.determined? && @risk_profile.ratings.last.quotes.any? && @risk_profile.ratings.last.quotes.last.issued? %>
+      <%= button_to "Accept Quote", update_status_risk_profile_path(new_status: "accepted", for: "quote"), class:'btn btn-success', method: :patch, remote: true, confirm: "Please make sure to sign the quote and upload it to our Google Drive folder located at 'https://drive.marmar-is.com'" %>
+      <%= button_to "Decline Quote", update_status_risk_profile_path(new_status: "declined", for: "quote"), class:'btn btn-danger', method: :patch, remote: true %>
     <% end -%>
 
   <% end -%>

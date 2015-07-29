@@ -4,7 +4,7 @@ class RiskProfilesController < ApplicationController
 
   before_action :broker_access!, only: [ :new, :create ]
   before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status,
-    :issue_quote, :view_quote ]
+    :create_quote, :issue_quote, :view_quote ]
 
   before_action :broker_possession!, only: [ :show, :view_quote ]
 
@@ -97,13 +97,15 @@ class RiskProfilesController < ApplicationController
   def update_status
     # Ensure evil parameters are not injected (i.e. raise error if protocol is broken)
     raise Exceptions::UnauthorizedAccountRole if (params[:new_status] == 'withdrawn' && !current_account.broker?)
-    raise Exceptions::UnauthorizedAccountRole if ((params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
+    raise Exceptions::UnauthorizedAccountRole if (params[:for] == 'risk_profile' && (params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
 
     case params[:for]
     when "risk_profile"
-      @risk_profile.update(status: params[:new_status], status_date: Time.now)
+      obj = @risk_profile.update(status: params[:new_status], status_date: Time.now)
     when "rating"
       @risk_profile.ratings.last.update(status: params[:new_status], status_date: Time.now)
+    when "quote"
+      @risk_profile.ratings.last.quotes.laste.update(status: params[:new_status], status_date: Time.now)
     else
       raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating'")
     end
@@ -204,7 +206,7 @@ class RiskProfilesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: 'Quote was successfully issued.' }
-      #format.json { render :show, status: :ok, location: @risk_profile }
+      format.js
     end
 
   end
@@ -212,14 +214,6 @@ class RiskProfilesController < ApplicationController
   # GET /risk_profiles/1/view_quote/1
   def view_quote
     @quote = Quote.find(params[:quote_id])
-
-    #uploader = QuoteUploader.new
-    #uploader.retrieve_from_store!(@quote.quote_pdf.path)
-    #uploader.cache_stored_file!
-
-    #send_file @quote.quote_pdf.path
-    #pp @quote.quote_pdf.url
-    #redirect_to @quote.quote_pdf.url#uploader.cache_stored_file!
 
     send_data @quote.quote_pdf.read.force_encoding('BINARY'), filename: (@quote.quote_pdf.path.split('/')[1]), disposition: 'inline', format: 'pdf', type:'application/pdf'
   end
