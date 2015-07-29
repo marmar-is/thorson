@@ -11,4 +11,7 @@ class Quote < ActiveRecord::Base
 
   # Accessors
   attr_accessor :additions
+
+  # Carrierwave Upload QuotePdf
+  mount_uploader :quote_pdf, QuoteUploader
 end
