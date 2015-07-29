@@ -46,6 +46,52 @@
               <div class="timeline-date"><%= rating.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
             </section>
           </div>
+          <!-- rating quotes -->
+          <%- rating.quotes.each do |quote| %>
+            <!-- quote -->
+            <%- if !quote.created? %>
+              <!-- quote issued -->
+              <div class="timeline-panel hide"></div>
+              <div class="timeline-panel">
+                <div class="timeline-icon bg-info">
+                  <i class="fa fa-send"></i>
+                </div>
+                <section class="timeline-content">
+                    Quote Issued
+                  <div class="timeline-date"><%= quote.issue_date.strftime("%l:%M %P %b %d, %Y") %></div>
+                </section>
+              </div>
+              <!-- /quote issued -->
+
+              <!-- quote accepted, declined, error -->
+              <%- if quote.accepted? %>
+                <div class="timeline-panel">
+                  <div class="timeline-icon bg-success">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <section class="timeline-content">
+                      Quote Accepted
+                    <div class="timeline-date"><%= quote.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+                  </section>
+                </div>
+              <% elsif quote.declined? %>
+                <div class="timeline-panel">
+                  <div class="timeline-icon bg-danger">
+                    <i class="fa fa-times"></i>
+                  </div>
+                  <section class="timeline-content">
+                    Quote Declined
+                    <div class="timeline-date"><%= quote.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+                  </section>
+                </div>
+              <% else %>
+                <%# Nothing %>
+              <% end -%>
+              <!-- /quote accepted, declined, error -->
+            <% end -%>
+            <!-- /quote -->
+          <% end -%>
+          <!-- /rating quotes -->
         <% end -%>
       <% end -%>
       <!-- /rating determined -->
@@ -73,15 +119,15 @@
         </section>
       </div>
     <% else %>
-    <div class="timeline-panel">
-      <div class="timeline-icon bg-danger">
-        <i class="fa fa-plane"></i>
+      <div class="timeline-panel">
+        <div class="timeline-icon bg-danger">
+          <i class="fa fa-plane"></i>
+        </div>
+        <section class="timeline-content">
+            Error with Broker Status!
+          <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
+        </section>
       </div>
-      <section class="timeline-content">
-          Error with Broker Status!
-        <div class="timeline-date"><%= @risk_profile.status_date.strftime("%l:%M %P %b %d, %Y") %></div>
-      </section>
-    </div>
     <% end -%>
   <% end -%>
 

@@ -101,11 +101,11 @@ class RiskProfilesController < ApplicationController
 
     case params[:for]
     when "risk_profile"
-      obj = @risk_profile.update(status: params[:new_status], status_date: Time.now)
+      @risk_profile.update(status: params[:new_status], status_date: Time.now)
     when "rating"
       @risk_profile.ratings.last.update(status: params[:new_status], status_date: Time.now)
     when "quote"
-      @risk_profile.ratings.last.quotes.laste.update(status: params[:new_status], status_date: Time.now)
+      @risk_profile.ratings.last.quotes.last.update(status: params[:new_status], status_date: Time.now)
     else
       raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating'")
     end

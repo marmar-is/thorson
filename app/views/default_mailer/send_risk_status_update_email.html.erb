@@ -7,6 +7,9 @@
   <h1>Your risk profile for <%= link_to @risk.name, risk_profile_url(@risk) %> has been updated!</h1>
   <h2>Risk Status: <%= @risk.status %></h2>
   <h2>Latest Rating Status: <%= @risk.ratings.last.status %></h2>
+  <%- if @risk.ratings.last.quotes.any? %>
+    <h2>Latest Quote Status: <%= @risk.ratings.last.quotes.last.status %></h2>
+  <% end -%>
   <h2>Your Brokerage Code: <%= @broker.code %></h2>
   <p>Please review the changes.</p>
 </body>
