@@ -69,7 +69,7 @@
                   <%- if quote.created? %>
                     (Saved <%= quote.created_at.strftime("%b %d, %Y") %>)
                   <% elsif quote.issued? %>
-                    (Issue  <%= quote.issue_date.strftime("%b %d, %Y") %>)
+                    (Issued  <%= quote.issue_date.strftime("%b %d, %Y") %>)
                   <% else %>
                     (<%= quote.status.capitalize + " " + quote.status_date.strftime("%b %d, %Y") %>)
                   <% end -%>

@@ -193,6 +193,12 @@ class RiskProfilesController < ApplicationController
 
     pdftk.fill_form "app/views/layouts/quote_fairway.pdf", 'tmp/output.pdf', fields, flatten: true
 
+    uploader = QuoteUploader.new
+    File.open('tmp/output.pdf') do |f|
+      uploader.store!(f)
+    end
+
+
     quote.update(status: 'issued', issue_date: Time.now)
 
     respond_to do |format|
