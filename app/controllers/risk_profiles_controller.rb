@@ -3,9 +3,10 @@ require_dependency 'exceptions'
 class RiskProfilesController < ApplicationController
 
   before_action :broker_access!, only: [ :new, :create ]
-  before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status, :issue_quote ]
+  before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status,
+    :issue_quote, :view_quote ]
 
-  before_action :broker_possession!, only: [ :show ]
+  before_action :broker_possession!, only: [ :show, :view_quote ]
 
   # GET /risk_profiles
   # GET /risk_profiles.json
@@ -107,9 +108,9 @@ class RiskProfilesController < ApplicationController
       raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating'")
     end
 
-    respond_to do |format|
-      DefaultMailer.send_risk_status_update_email(@risk_profile).deliver
+    DefaultMailer.send_risk_status_update_email(@risk_profile).deliver
 
+    respond_to do |format|
       format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
       format.js
     end
@@ -193,20 +194,34 @@ class RiskProfilesController < ApplicationController
 
     pdftk.fill_form "app/views/layouts/quote_fairway.pdf", 'tmp/output.pdf', fields, flatten: true
 
-    #uploader = QuoteUploader.new
-    File.open('tmp/output.pdf') do |f|
-      quote.quote_pdf = f
-      uploader.store_quote_pdf!
-      quote.save
-    end
 
     quote.update(status: 'issued', issue_date: Time.now)
+
+    quote.quote_pdf = File.open('tmp/output.pdf')
+    quote.save!
+
+    DefaultMailer.send_quote_issued_email(@risk_profile, quote).deliver
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: 'Quote was successfully issued.' }
       #format.json { render :show, status: :ok, location: @risk_profile }
     end
 
+  end
+
+  # GET /risk_profiles/1/view_quote/1
+  def view_quote
+    @quote = Quote.find(params[:quote_id])
+
+    #uploader = QuoteUploader.new
+    #uploader.retrieve_from_store!(@quote.quote_pdf.path)
+    #uploader.cache_stored_file!
+
+    #send_file @quote.quote_pdf.path
+    #pp @quote.quote_pdf.url
+    #redirect_to @quote.quote_pdf.url#uploader.cache_stored_file!
+
+    send_data @quote.quote_pdf.read.force_encoding('BINARY'), filename: (@quote.quote_pdf.path.split('/')[1]), disposition: 'inline', format: 'pdf', type:'application/pdf'
   end
 
   private

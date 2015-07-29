@@ -20,9 +20,22 @@ class DefaultMailer < ApplicationMailer
     @broker = risk.broker_acct
 
     headers['X-SMTPAPI'] = {
-      category: 'Risk Status Update',
+      category: 'Risk Status Update'
     }.to_json
 
     mail( to: @broker.email, subject: 'One of your risks has been updated' )
+  end
+
+  # Send an email letting the broker a quote has been issued with a download/view link
+  def send_quote_issued_email(risk, quote)
+    @risk = risk
+    @broker = risk.broker_acct
+    @quote = quote
+
+    headers['X-SMTPAPI'] = {
+      category: 'Quote Issued'
+    }.to_json
+
+    mail( to: @broker.email, subject: 'One of your risk has been issued a quote')
   end
 end

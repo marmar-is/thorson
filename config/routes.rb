@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       patch 'update_status'
       post 'create_quote'
       patch 'issue_quote'
+      get 'view_quote/:quote_id' => 'risk_profiles#view_quote', as: 'view_quote'
     end
   end
   resources :factors, only: [ :index ]

@@ -26,4 +26,6 @@ class RiskProfile < ActiveRecord::Base
     # declined      -- underwriter's decision to decline the risk
     # withdrawn     -- broker's decision to withdraw the risk
 
+  # Order
+  default_scope { order('id ASC') }
 end

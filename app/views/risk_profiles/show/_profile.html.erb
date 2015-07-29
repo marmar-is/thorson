@@ -77,6 +77,10 @@
               </a>
             </div>
             <div class="accordion-body bg-white bt ml5">
+              <%- if !quote.created? %>
+                <%= link_to  "View", view_quote_risk_profile_path(quote_id: quote.id), class:'btn btn-default' %>
+              <% end -%>
+
               <%- quote.attributes.each do |k, v| %>
                 <div class="row">
                   <div class="col-md-4">
@@ -93,7 +97,7 @@
           <!-- /quotes -->
 
           <!-- new-quote -->
-          <%- if rating == @risk_profile.ratings.last %>
+          <%- if current_account.employee? && rating == @risk_profile.ratings.last %>
           <div class="new-quote-border bt bl br bb accordion-title no-bg ml5">
             <a href="javascript:;" class="new-quote bold">
               +

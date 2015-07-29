@@ -14,4 +14,7 @@ class Quote < ActiveRecord::Base
 
   # Carrierwave Upload QuotePdf
   mount_uploader :quote_pdf, QuoteUploader
+
+  # Order
+  default_scope { order('id ASC') }
 end

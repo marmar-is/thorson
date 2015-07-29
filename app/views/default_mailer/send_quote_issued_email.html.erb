@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Your risk profile for <%= link_to @risk.name, risk_profile_url(@risk) %> has been issued a quote!</h1>
+  <h2>Your Brokerage Code: <%= @broker.code %></h2>
+  <p>Please review <%= link_to "the quote", view_quote_risk_profile_url(id: @risk.id, quote_id: @quote.id)%>.</p>
+</body>
+</html>
