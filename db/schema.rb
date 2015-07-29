@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726142913) do
+ActiveRecord::Schema.define(version: 20150729174424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20150726142913) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "rating_id"
+    t.string   "quote_pdf"
   end
 
   add_index "quotes", ["addl_separate"], name: "index_quotes_on_addl_separate", using: :gin
