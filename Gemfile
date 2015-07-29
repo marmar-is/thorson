@@ -101,5 +101,5 @@ end
 # => gem 'carrierwave-google_drive'
 
 # Upload to Google Cloud Storage
-gem 'carrierwave'
+gem 'carrierwave', git: 'https://github.com/carrierwaveuploader/carrierwave.git'
 gem 'fog-google'
