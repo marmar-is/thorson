@@ -98,7 +98,8 @@ group :development do
 end
 
 # Upload to Google Drive
-# => gem 'carrierwave'
 # => gem 'carrierwave-google_drive'
 
 # Upload to Google Cloud Storage
+gem 'carrierwave'
+gem 'fog-google'
