@@ -152,7 +152,6 @@ class RiskProfilesController < ApplicationController
     raise Exceptions::UnrecognizedParameter("last rating isn't determined") if !@risk_profile.ratings.last.determined?
 
     quote = @risk_profile.ratings.last.quotes.last
-    quote.update(status: 'issued', issue_date: Time.now)
 
     pdftk = PdfForms.new(ENV['PDFTK_PATH'] || '/usr/local/bin/pdftk')
 
@@ -187,12 +186,20 @@ class RiskProfilesController < ApplicationController
       end
     end
 
-    subjectivities.each_with_index do |s, i|
+    quote.subjectivities.each_with_index do |s, i|
       fields["SUBJECTIVITY NUMBER.#{i}"] = i
       fields["SUBJECTIVITY.#{i}"] = s
     end
 
     pdftk.fill_form "app/views/layouts/quote_fairway.pdf", 'tmp/output.pdf', fields, flatten: true
+
+    quote.update(status: 'issued', issue_date: Time.now)
+
+    respond_to do |format|
+      format.html { redirect_to @risk_profile, notice: 'Quote was successfully issued.' }
+      #format.json { render :show, status: :ok, location: @risk_profile }
+    end
+
   end
 
   private
