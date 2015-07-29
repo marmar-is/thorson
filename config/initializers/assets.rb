@@ -57,10 +57,11 @@ x-editable/inputs-ext/address/address.js
 broker-x-editable.js
 )
 
-# New Quote (css & js)
+# Risk Profile Show (css & js)
 Rails.application.config.assets.precompile += %w(
 jquery.tagsinput/jquery.tagsinput.css
 jquery.tagsinput/jquery.tagsinput.js
+rating-x-editable.js
 )
 
 #checkbo/js/checkBo.min.js

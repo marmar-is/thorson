@@ -218,6 +218,12 @@ class RiskProfilesController < ApplicationController
     send_data @quote.quote_pdf.read.force_encoding('BINARY'), filename: (@quote.quote_pdf.path.split('/')[1]), disposition: 'inline', format: 'pdf', type:'application/pdf'
   end
 
+  # PATCH /risk_profiles/1/update_rating/1
+  def update_rating
+    @rating = Rating.find(params[:rating_id])
+    @rating.update(rating_params)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_risk_profile
@@ -233,6 +239,11 @@ class RiskProfilesController < ApplicationController
       params.require(:quote).permit(:named_insured, :specialty, :broker_fee, :broker_commission,
       :effective, :retro, :policy_type, :deductible, :limit, :fairway_premium,
       :capital_contribution)
+    end
+
+    def rating_params
+      params.require(:rating).permit(:capital, :physician_premium, :allied_premium,
+      :nas_premium, :fairway_premium, :total_premium, :capital_contribution)
     end
 
     # A broker may only view his own risk profiles
@@ -270,7 +281,7 @@ class RiskProfilesController < ApplicationController
       territory_f   = territory.factor
 
       physician_p   = (base_r * specialty_f * territory_f * deductible_f * step_f)
-      allied_p      = (allied1_r * @risk_profile.allied1 * allied2_r * @risk_profile.allied2 * allied3_r * @risk_profile.allied3)
+      allied_p      = (allied1_r * @risk_profile.allied1 + allied2_r * @risk_profile.allied2 + allied3_r * @risk_profile.allied3)
       fairway_p     = (((physician_p * risk_f * entity_f) + entity_p) * limit_f)
       capital_c     = (capital_f * fairway_p)
 
@@ -296,8 +307,8 @@ class RiskProfilesController < ApplicationController
           territory_exposure: territory_e,
           territory_factor:   territory_f
         },
-        policy_year: 1,
-        capital: true,
+        policy_year:          1,    # Start at first year (duh)
+        capital:              true, # Always true before 3rd year
         physician_premium:    physician_p,
         allied_premium:       allied_p,
         nas_premium:          nas_r,
