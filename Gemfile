@@ -96,3 +96,7 @@ group :development do
     gem 'capistrano-bundler', require: false
     gem 'capistrano3-unicorn', require: false
 end
+
+# Upload to Google Drive
+gem 'carrierwave'
+gem 'carrierwave-google_drive'
