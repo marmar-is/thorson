@@ -1,0 +1,99 @@
+<%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
+
+  <%= fields_for :rating do |f| %>
+    <div class="row pt15 mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-md-8 pr0">
+            <input type="text" class="form-control" value="Capital Included?" readonly>
+          </div>
+          <div class="col-md-4 pl0">
+            <span class="bg-info form-control"><%= rating.capital ? "Yes" : "No" %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "Capital Contribution: " + number_to_currency(rating.capital_contribution) %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "Risk Factor: " + rating.factors[:risk_c].to_s %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "Allied Premium: " +  number_to_currency(rating.allied_premium) %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "NAS Premium: " + number_to_currency(rating.nas_premium) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "Physician Premium: " + number_to_currency(rating.physician_premium) %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "Fairway Premium: " + number_to_currency(rating.fairway_premium) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <span class="form-control"><%= "Total Premium: " + number_to_currency(rating.total_premium) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mt30">
+      <div class="col-md-12">
+        <%= f.submit "Modify Rating", class:'btn btn-success btn-block' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= content_for :js_includes do %>
+  <script>
+    /* activate chosen on rating open */
+    $('.accordion-title.rating-title > a').on('click', function(){
+      $('.rating .chosen').chosen({
+        width: "100%",
+      });
+    });
+  </script>
+<% end %>

@@ -1,4 +1,5 @@
 <%= content_for :head do %>
+  <%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
   <%#= stylesheet_link_tag 'x-editable/bootstrap3-editable/css/bootstrap-editable.css', 'data-turbolinks-track' => true %>
   <style>
     .accordion-title {
@@ -12,7 +13,7 @@
       padding-left:10px;
     }
 
-    .new-quote-border {
+    .new-quote {
       border-width:2px;
     }
   </style>
@@ -37,46 +38,16 @@
       <%- @risk_profile.ratings.each do |rating| %>
         <div class="accordion-container mb30">
           <!-- rating -->
-          <div class="accordion-title bg-white">
+          <div class="accordion-title bg-white rating-title">
             <a href="javascript:;" class="bold">
               Rating Year <%= rating.policy_year %>
               <span class="pull-right text-info">
-                (Accepted <%= rating.created_at.strftime("%b %d, %Y") %>)
+                (<%= rating.status.capitalize + " " + rating.status_date.strftime("%b %d, %Y") %>)
               </span>
             </a>
           </div>
           <div class="accordion-body bg-white bt rating">
-
-            <%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
-              <%= fields_for :rating do |f| %>
-                <div class="row pt10">
-                  <div class="col-md-6">
-                    <div class="row col-md-9">
-                      <div class="col-md-8 pr0">
-                        <input type="text" class="form-control" value="Capital Included?" readonly>
-                      </div>
-                      <div class="col-md-4 pl0">
-                        <%= f.select :capital, options_for_select([['Yes', true], ['No', false]]), {}, {class:'form-control btn btn-info'} %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="row col-md-12">
-                      <%= f.number_field :capital_contribution, class:'form-control btn btn-info', placeholder: 'Capital Contribution' %>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="row col-md-12">
-                      <%= f.number_field :risk_f, class:'form-control btn btn-info', placeholder: 'Risk Factor' %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
+            <%= render partial: "risk_profiles/show/rating_#{rating.status}", locals: { rating: rating } %>
 
             <%- rating.attributes.each do |k, v| %>
               <div class="row">
@@ -95,7 +66,7 @@
 
           <!-- quotes -->
           <%- rating.quotes.each do |quote| %>
-            <div class="accordion-title bg-white ml5">
+            <div class="accordion-title bg-white ml10">
               <a href="javascript:;" class="bold">
                 Quote
                 <span class="pull-right text-info">
@@ -109,7 +80,7 @@
                 </span>
               </a>
             </div>
-            <div class="accordion-body bg-white bt ml5">
+            <div class="accordion-body bg-white bt ml10">
               <%- if !quote.created? %>
                 <%= link_to  "View", view_quote_risk_profile_path(quote_id: quote.id), class:'btn btn-default', 'data-no-turbolink' => true %>
               <% end -%>
@@ -130,16 +101,16 @@
           <!-- /quotes -->
 
           <!-- new-quote -->
-          <%- if current_account.employee? && rating == @risk_profile.ratings.last && rating.determined? && !rating.quotes.last.created? %>
-          <div class="new-quote-border bt bl br bb accordion-title no-bg ml5">
-            <a href="javascript:;" class="new-quote bold">
+          <%- if current_account.employee? && rating == @risk_profile.ratings.last && rating.determined? && rating.quotes.any? && !rating.quotes.last.created? %>
+          <div class="new-quote bt bl br bb accordion-title no-bg ml10">
+            <a href="javascript:;" class="bold">
               +
               <span class="pull-right text-info">
                 (New Quote)
               </span>
             </a>
           </div>
-          <div class="new-quote-border accordion-body no-bg bl br bb ml5">
+          <div class="new-quote accordion-body no-bg bl br bb ml10">
             <%= render partial: 'risk_profiles/show/create_quote', locals: { rating: rating } %>
           </div>
           <div class="pt5"></div>
@@ -171,6 +142,7 @@
   </div>
 </div>
 <%= content_for :js_includes do %>
+  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
   <%#= javascript_include_tag 'x-editable/bootstrap3-editable/js/bootstrap-editable.js', 'data-turbolinks-track' => true %>
   <%#= javascript_include_tag 'rating-x-editable.js', 'data-turbolinks-track' => true %>
 <% end %>

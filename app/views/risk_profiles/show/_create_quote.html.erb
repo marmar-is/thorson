@@ -1,5 +1,4 @@
 <%= content_for :head do %>
-  <%= stylesheet_link_tag 'chosen_v1.4.0/chosen.min.css', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'jquery.tagsinput/jquery.tagsinput.css', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css', 'data-turbolinks-track' => true %>
   <style>
@@ -23,14 +22,6 @@
 
     <div class="row">
       <div class="col-md-6">
-        <!--
-        <div class="row mb10 pl10 pr10">
-          <div class="col-sm-12">
-            <%#= f.text_field :specialty, class:'form-control', placeholder: 'Specialty' %>
-          </div>
-        </div>
-        -->
-
         <div class="row pl10 pr10">
           <div class="col-sm-6">
             <%= f.text_field :effective, class:'form-control', 'data-provide':'datepicker', placeholder: 'Pick Effective Date' %>
@@ -42,11 +33,9 @@
       </div>
 
       <div class="col-md-6">
-        <div class="row">
-          <div class="col-sm-12">
-            <%= f.text_field :excl_procedures, id:'tags_procedures', placeholder: 'Enter Procedure or Activity Exclusion Tags' %>
-            <p class="help-block">Procedure or Activity Exclusions</p>
-          </div>
+        <div class="col-sm-12">
+          <%= f.text_field :excl_procedures, id:'tags_procedures', placeholder: 'Enter Procedure or Activity Exclusion Tags' %>
+          <p class="help-block">Procedure or Activity Exclusions</p>
         </div>
       </div>
     </div>
@@ -115,8 +104,8 @@
     </div>
 
     <div class="row mt30">
-      <div class="col-md-2 pull-left">
-        <%= f.submit "Save Quote", class:'btn btn-success' %>
+      <div class="col-md-12">
+        <%= f.submit "Save Quote", class:'btn btn-success btn-block' %>
       </div>
     </div>
   <% end %>
@@ -124,7 +113,6 @@
 
 <%= content_for :js_includes do %>
   <%= javascript_include_tag 'jquery.tagsinput/jquery.tagsinput.js', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'chosen_v1.4.0/chosen.jquery.min.js', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'data-turbolinks-track' => true %>
 
   <script>
@@ -153,8 +141,8 @@
     });
 
     /* activate chosen on new quote open */
-    $('.accordion-title .new-quote').on('click', function(){
-      $('.chosen').chosen();
+    $('.accordion-title.new-quote > a').on('click', function(){
+      $('.new-quote .chosen').chosen();
     });
   };
 

@@ -1,0 +1,117 @@
+<%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
+
+  <%= fields_for :rating do |f| %>
+    <div class="row pt15 mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-md-8 pr0">
+            <input type="text" class="form-control" value="Capital Included?" readonly>
+          </div>
+          <div class="col-md-4 pl0">
+            <%= f.select :capital, options_for_select([['Yes', true], ['No', false]], rating.capital), {}, {class:'form-control btn btn-info', value: 'No'} %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <%= f.number_field :capital_contribution, class:'form-control', placeholder: "Capital Contribution (Currently #{rating.capital_contribution})" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <%= f.number_field :nas_premium, class:'form-control', placeholder: "NAS Premium (Currently #{number_to_currency(rating.nas_premium)})" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <%= f.number_field :allied_premium, class:'form-control', placeholder: "Allied Premium (Currently #{number_to_currency(rating.allied_premium)})" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <%= f.number_field :fairway_premium, class:'form-control', placeholder: "Fairway Premium (Currently #{number_to_currency(rating.fairway_premium)})" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb25">
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <%= f.number_field :physician_premium, class:'form-control', placeholder: "Physician Premium (Currently #{number_to_currency(rating.physician_premium)})" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <%= f.number_field :total_premium, class:'form-control', placeholder: "Total Premium (Currently #{number_to_currency(rating.total_premium)})" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- risk-factors -->
+    <%- RiskFactor.all.each do |rf| %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            rf.criteria
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            Factor:
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="row pl10 pr10">
+          <div class="col-sm-12">
+            <div class="slider slider-primary" data-values="[75,300]" data-range="true" data-min="0" data-max="500"></div>
+            <%= f.select :risk_f, options_for_select(RiskFactor.pluck(:criteria)), {include_blank: true}, {class:'chosen', placeholder: 'Select Risk Factor'} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end -%>
+    <!-- /risk-factors -->
+
+    <div class="row mt30">
+      <div class="col-md-12">
+        <%= f.submit "Modify Rating", class:'btn btn-success btn-block' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= content_for :js_includes do %>
+  <script>
+    /* activate chosen on rating open */
+    $('.accordion-title.rating-title > a').on('click', function(){
+      $('.rating .chosen').chosen({
+        width: "100%",
+      });
+    });
+  </script>
+<% end %>

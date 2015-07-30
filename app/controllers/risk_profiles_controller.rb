@@ -221,7 +221,7 @@ class RiskProfilesController < ApplicationController
   # PATCH /risk_profiles/1/update_rating/1
   def update_rating
     @rating = Rating.find(params[:rating_id])
-    @rating.update(rating_params)
+    @rating.update(rating_params.delete_if { |key, value| value.blank? })
   end
 
   private
@@ -266,7 +266,10 @@ class RiskProfilesController < ApplicationController
       limit_f       = (LimitFactor.where(limit: @risk_profile.limit, state: @risk_profile.state).first || LimitFactor.offset(rand(LimitFactor.count)).first).factor
       deductible_f  = DedFactor.where(deductible: @risk_profile.deductible).first.factor
       step_f        = (StepFactor.where(policy_year: "1", state: @risk_profile.state).first || StepFactor.offset(rand(StepFactor.count)).first).factor
-      risk_f        = 1#RiskFactor.where
+
+      risk          = RiskFactor.where(criteria: "CLAIMS FREE 3 TO 5 YEARS").first
+      risk_f        = risk.min_factor
+      risk_c        = risk.criteria
 
       entity_f      = EntityFactor.where(entity: @risk_profile.entity).first.factor
       entity_p      = 0
@@ -303,6 +306,7 @@ class RiskProfilesController < ApplicationController
           step_factor:        step_f,
           capital_factor:     capital_f,
           risk_factor:        risk_f,
+          risk_criteria:      risk_c,
           territory_number:   territory_n,
           territory_exposure: territory_e,
           territory_factor:   territory_f
@@ -314,7 +318,8 @@ class RiskProfilesController < ApplicationController
         nas_premium:          nas_r,
         fairway_premium:      fairway_p,
         total_premium:        (fairway_p + capital_c + nas_r),
-        capital_contribution: capital_c
+        capital_contribution: capital_c,
+        status_date:          Date.today
       )
     end
 end
