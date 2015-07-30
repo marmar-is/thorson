@@ -61,8 +61,8 @@ broker-x-editable.js
 Rails.application.config.assets.precompile += %w(
 jquery.tagsinput/jquery.tagsinput.css
 jquery.tagsinput/jquery.tagsinput.js
-rating-x-editable.js
 )
+#rating-x-editable.js
 
 #checkbo/js/checkBo.min.js
 #checkbo/css/checkBo.min.css

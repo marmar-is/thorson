@@ -302,7 +302,7 @@ class RiskProfilesController < ApplicationController
           specialty_class:    specialty_c,
           step_factor:        step_f,
           capital_factor:     capital_f,
-          #risk_factor:       risk_f,
+          risk_factor:        risk_f,
           territory_number:   territory_n,
           territory_exposure: territory_e,
           territory_factor:   territory_f
