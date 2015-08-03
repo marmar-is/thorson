@@ -96,8 +96,8 @@ class RiskProfilesController < ApplicationController
   # PATCH /risk_profiles/1/update_status
   def update_status
     # Ensure evil parameters are not injected (i.e. raise error if protocol is broken)
-    raise Exceptions::UnauthorizedAccountRole if (params[:new_status] == 'withdrawn' && !current_account.broker?)
-    raise Exceptions::UnauthorizedAccountRole if (params[:for] == 'risk_profile' && (params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
+    raise Exceptions::UnauthorizedAccountRole("(RiskProfilesController.rb:99)") if (params[:new_status] == 'withdrawn' && !current_account.broker?)
+    raise Exceptions::UnauthorizedAccountRole("(RiskProfilesController.rb:100)") if (params[:for] == 'risk_profile' && (params[:new_status] == 'accepted' || params[:new_status] == 'declined') && !current_account.employee?)
 
     case params[:for]
     when "risk_profile"
@@ -107,7 +107,7 @@ class RiskProfilesController < ApplicationController
     when "quote"
       @risk_profile.ratings.last.quotes.last.update(status: params[:new_status], status_date: Time.now)
     else
-      raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating'")
+      raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating' (RiskProfilesController.rb:110)")
     end
 
     DefaultMailer.send_risk_status_update_email(@risk_profile).deliver
@@ -152,7 +152,7 @@ class RiskProfilesController < ApplicationController
   # PATCH /risk_profiles/1/issue_quote
   def issue_quote
     # catch any errors
-    raise Exceptions::UnrecognizedParameter("last rating isn't determined") if !@risk_profile.ratings.last.determined?
+    raise Exceptions::UnrecognizedParameter("last rating isn't determined (RiskProfilesController.rb:155)") if !@risk_profile.ratings.last.determined?
 
     quote = @risk_profile.ratings.last.quotes.last
 
@@ -249,7 +249,7 @@ class RiskProfilesController < ApplicationController
     # A broker may only view his own risk profiles
     def broker_possession!
       if current_account.broker? && @risk_profile.broker_acct_id != @acct.id
-        raise ActionController::RoutingError.new('Not Found')
+        raise ActionController::RoutingError.new('Not Found (RiskProfilesController.rb:252)')
       end
     end
 
