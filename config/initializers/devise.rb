@@ -21,12 +21,13 @@ Devise.setup do |config|
   config.saml_configure do |settings|
     settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-    settings.issuer                             = "https://app.onelogin.com/saml/metadata/463009"#{}"https://emea.centrify.com/saasManage/DownloadSAMLMetadataForApp?appkey=d649e3e8-ab16-4820-8160-611e12951e64&customerid=AAG0648"#{}"https://cloud.centrify.com/SAML/GenericSAML"
-    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport "
-    settings.idp_sso_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-post/sso/463009"#{}"https://emea.centrify.com/applogin/appKey/#{ENV['CENTRIFY_APP_KEY']}/customerId/#{ENV['CENTRIFY_CUSTOMER_ID']}"
-    settings.idp_slo_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-redirect/slo/463009"#{}"https://emea.centrify.com/applogout"
-    settings.idp_cert                           = <<-CERT.chomp
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified"
+    settings.issuer                             = "https://emea.centrify.com/saasManage/DownloadSAMLMetadataForApp?appkey=d649e3e8-ab16-4820-8160-611e12951e64&customerid=AAG0648"#{}"https://cloud.centrify.com/SAML/GenericSAML"
+    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified "
+    settings.idp_sso_target_url                 = "https://emea.centrify.com/applogin/appKey/#{ENV['CENTRIFY_APP_KEY']}/customerId/#{ENV['CENTRIFY_CUSTOMER_ID']}"
+    settings.idp_slo_target_url                 = "https://emea.centrify.com/applogout"
+    settings.idp_cert                           = File.read("tmp/Thorson Group (Localhost).cer")
+=begin
 -----BEGIN CERTIFICATE-----
 MIIEGjCCAwKgAwIBAgIUc7s30jcxy+Z71Gow0N4WxdNTbT8wDQYJKoZIhvcNAQEF
 BQAwWTELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCW1hcm1hci1pczEVMBMGA1UECwwM
@@ -53,6 +54,7 @@ Kt12v+IWZTmG/1NaRi385t+B947cWyZi3gKliCpF8x7EmS7ovJZTUKBaXUiNoFRJ
 -----END CERTIFICATE-----
 
     CERT
+=end
   end
 
   # The secret key used by Devise. Devise uses this key to generate

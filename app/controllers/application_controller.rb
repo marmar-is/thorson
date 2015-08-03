@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     elsif current_account.employee?
       "/"
     else
-      raise AbstractController::ActionNotFound
+      raise AbstractController::ActionNotFound("Current Account Not Found!")
     end
   end
 
