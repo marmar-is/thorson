@@ -22,7 +22,7 @@ Devise.setup do |config|
     settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified"
-    settings.issuer                             = "https://emea.centrify.com/saasManage/DownloadSAMLMetadataForApp?appkey=d649e3e8-ab16-4820-8160-611e12951e64&customerid=AAG0648"#{}"https://cloud.centrify.com/SAML/GenericSAML"
+    settings.issuer                             = "https://emea.centrify.com/saasManage/DownloadSAMLMetadataForApp?appkey=d649e3e8-ab16-4820-8160-611e12951e64&customerid=AAG0648"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified "
     settings.idp_sso_target_url                 = "https://emea.centrify.com/applogin/appKey/#{ENV['CENTRIFY_APP_KEY']}/customerId/#{ENV['CENTRIFY_CUSTOMER_ID']}"
     settings.idp_slo_target_url                 = "https://emea.centrify.com/applogout"

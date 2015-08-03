@@ -5,5 +5,5 @@ CarrierWave.configure do |config|
     google_storage_access_key_id:     ENV['GCS_ACCESS_KEY'],
     google_storage_secret_access_key: ENV['GCS_ACCESS_SECRET']
   }
-  config.fog_directory = 'fairway'
+  config.fog_directory = 'thorson-fairway'
 end
