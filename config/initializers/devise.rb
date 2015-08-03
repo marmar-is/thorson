@@ -21,13 +21,12 @@ Devise.setup do |config|
   config.saml_configure do |settings|
     settings.assertion_consumer_service_url     = "http://localhost:8080/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified"
-    settings.issuer                             = "https://cloud.centrify.com/SAML/GenericSAML"
-    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified "
-    settings.idp_sso_target_url                 = "https://emea.centrify.com/applogin/appKey/#{ENV['CENTRIFY_APP_KEY']}/customerId/#{ENV['CENTRIFY_CUSTOMER_ID']}"
-    settings.idp_slo_target_url                 = "https://emea.centrify.com/applogout"
-    settings.idp_cert                           = "MIIDfDCCAmSgAwIBAgIQXXi0htqlXLdiYNVjt4AxyDANBgkqhkiG9w0BAQUFADAkMSIwIAYDVQQDDBlDZW50cmlmeSBDdXN0b21lciBBQUcwNjQ4MB4XDTE1MDcyNjA2NTY0OFoXDTM5MDEwMTAwMDAwMFowRDFCMEAGA1UEAww5Q2VudHJpZnkgQ3VzdG9tZXIgQUFHMDY0OCBBcHBsaWNhdGlvbiBTaWduaW5nIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgU/dUUL/CTO3QJ9uY4PA4rSY0iwraI0ImbnhQYNyxEeUl4HoHKiEDsk8oXRwUCOP+c+i0ZPqKjnGoXuXxZ3wLnZsVmv/DLWBuQKSoUI3NbKZq/5QwyQEUBOcNmMhXy3M/Z1xI09ZqbzrXycIGfifAz3Wp/JmGYbKm+LDMXCSzh9fyNLdDxPkpum3ny+pWoOpH1u3mxzODoYIo7nqY3h6ycIGY7jLwv5DIVixbQqNRObnnkM9j5mOhYj132hfY3Kh5S1BRYILRgtQEF1NK+bgelwWVMVKYGtepPQwV0Vh6IYu0B3Fo3k2dVePTpSwhtUJWNp6NR3uLqma0Pft/5mZywIDAQABo4GJMIGGMBcGCisGAQQBgqZwAQMECQwHQUFHMDY0ODAfBgNVHSMEGDAWgBQeCs8y5ASUPDvxajec+oCf5O3V1TAdBgNVHQ4EFgQU7PHzHcaQXoKiuOQV5BKZBmAQEV0wDgYDVR0PAQH/BAQDAgWgMBsGCisGAQQBgqZwAQQEDQwLQXBwbGljYXRpb24wDQYJKoZIhvcNAQEFBQADggEBACpwrEVqsG/pFybAJVsSe6zofEYRQNbvzAE0m6VDXuN7iR/3bH3el6MfzVWlp5rjNSALKr527JSL+qU7QZs6En2v0CLIKl5fIRk3p9U4J1twfkWOWiFJfmm59Nv3qmEKorwCoFEXrj1vx7q+3S0BZWVy+vaKc/kSAJPjxWWNJzngmh1yyCzd+2jiWBLu3VU26nqhl6JcKUB0Ut1rdauT9KzhglQIxr7dMt05dlp382ZKqTXQI2wV0+WiA7MconCgbVFiuUeDS/NBY+jCaNWawAMWnTZuy4AouNSHxmrK+BiVJX4910cVTHPZhBXZzqTTyhhb6sox0oMPAEl3NHBOVO8="
-=begin
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer                             = "https://app.onelogin.com/saml/metadata/463009"#{}"https://emea.centrify.com/saasManage/DownloadSAMLMetadataForApp?appkey=d649e3e8-ab16-4820-8160-611e12951e64&customerid=AAG0648"#{}"https://cloud.centrify.com/SAML/GenericSAML"
+    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport "
+    settings.idp_sso_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-post/sso/463009"#{}"https://emea.centrify.com/applogin/appKey/#{ENV['CENTRIFY_APP_KEY']}/customerId/#{ENV['CENTRIFY_CUSTOMER_ID']}"
+    settings.idp_slo_target_url                 = "https://marmar-is.onelogin.com/trust/saml2/http-redirect/slo/463009"#{}"https://emea.centrify.com/applogout"
+    settings.idp_cert                           = <<-CERT.chomp
 -----BEGIN CERTIFICATE-----
 MIIEGjCCAwKgAwIBAgIUc7s30jcxy+Z71Gow0N4WxdNTbT8wDQYJKoZIhvcNAQEF
 BQAwWTELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCW1hcm1hci1pczEVMBMGA1UECwwM
@@ -54,7 +53,6 @@ Kt12v+IWZTmG/1NaRi385t+B947cWyZi3gKliCpF8x7EmS7ovJZTUKBaXUiNoFRJ
 -----END CERTIFICATE-----
 
     CERT
-=end
   end
 
   # The secret key used by Devise. Devise uses this key to generate
