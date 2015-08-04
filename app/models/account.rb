@@ -23,7 +23,6 @@ class Account < ActiveRecord::Base
 
   private
   def set_role!
-    puts self.full_role
     self.role = self.full_role.split('_')[1]
   end
 
