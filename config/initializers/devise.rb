@@ -19,7 +19,7 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see [ruby-saml][] for more information).
   config.saml_configure do |settings|
-    settings.assertion_consumer_service_url     = "http://thorsongroup.com/accounts/saml/auth"
+    settings.assertion_consumer_service_url     =    "http://thorsongroup.com/accounts/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified"
     settings.issuer                             = "https://emea.centrify.com/saasManage/DownloadSAMLMetadataForApp?appkey=d649e3e8-ab16-4820-8160-611e12951e64&customerid=AAG0648"
