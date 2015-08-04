@@ -20,7 +20,6 @@ class Account < ActiveRecord::Base
     self.fname + " " + self.lname
   end
 
-
   private
   def set_role!
     self.role = self.full_role.split('_')[1]
