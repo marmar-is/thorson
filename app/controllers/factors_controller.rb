@@ -1,4 +1,5 @@
 class FactorsController < ApplicationController
+  # ActionController Callbacks
   before_action :employee_access!
 
   # GET /factors
