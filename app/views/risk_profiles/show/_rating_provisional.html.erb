@@ -18,7 +18,7 @@
       <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <%= f.number_field :capital_contribution, class:'form-control', placeholder: "Capital Contribution (Currently #{rating.capital_contribution})" %>
+            <%= f.number_field :capital_contribution, class:'form-control', placeholder: "Capital Contribution (Currently #{number_to_currency(rating.capital_contribution)})" %>
           </div>
         </div>
       </div>
@@ -70,26 +70,39 @@
 
     <!-- risk-factors -->
     <%- RiskFactor.all.each do |rf| %>
-    <div class="row">
+    <div class="row rf-row">
       <div class="col-md-4">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            rf.criteria
+            <%= rf.criteria %>
           </div>
         </div>
       </div>
-      <div class="col-md-1">
-        <div class="row pl10 pr10">
-          <div class="col-sm-12">
-            Factor:
-          </div>
-        </div>
+      <div class="col-md-2">
+        Factor:
+        <label id="<%= 'rf-label-' + rf.id.to_s %>" style="border:0; color:#f6931f; font-weight:bold;">
+          <%= rf.min_factor %>
+        </label>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <div class="slider slider-primary" data-values="[75,300]" data-range="true" data-min="0" data-max="500"></div>
-            <%= f.select :risk_f, options_for_select(RiskFactor.pluck(:criteria)), {include_blank: true}, {class:'chosen', placeholder: 'Select Risk Factor'} %>
+            <div class="row">
+              <div class="col-md-3">
+                <label>
+                  Min:
+                  <span class="min-max-label"><%= rf.min_factor %></span>
+                </label>
+              </div>
+              <div class="col-md-3 col-md-offset-6">
+                <label>
+                  Max:
+                  <span class="min-max-label"><%= rf.max_factor %></span>
+                </label>
+              </div>
+            </div>
+
+            <div id="<%= rf.id %>" class="slider" data-step="0.01" data-min="<%= rf.min_factor %>" data-max="<%= rf.max_factor %>"></div>
           </div>
         </div>
       </div>
@@ -113,5 +126,17 @@
         width: "100%",
       });
     });
+
+    $('.slider').each(function () {
+      var data = $(this).data();
+      $(this).slider(data);
+    });
+
+    $( ".slider" ).on( "slide", function( event, ui ) {
+      var slider_id = $(event.target).attr("id");
+      //console.log( slider_id );
+      $('#rf-label-' + slider_id).html( ui.value );
+    });
+
   </script>
 <% end %>

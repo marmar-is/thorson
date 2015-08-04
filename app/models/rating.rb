@@ -10,4 +10,12 @@ class Rating < ActiveRecord::Base
 
   # Order
   default_scope { order('id ASC') }
+
+  def risk_factor
+    sum = 0
+    self.risk_factors.each do |rf|
+      sum += rf[1]
+    end
+    return sum
+  end
 end

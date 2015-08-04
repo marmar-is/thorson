@@ -8,6 +8,7 @@ class CreateRatings < ActiveRecord::Migration
 
       t.hstore :rates # taken directly from current rates
       t.hstore :factors # taken directly from current factors
+      t.text :risk_factors, array: true, default: []
 
       t.integer :policy_year
       t.boolean :capital
@@ -26,5 +27,6 @@ class CreateRatings < ActiveRecord::Migration
     end
 
     add_reference :ratings, :risk_profile, index: true, foreign_key: true
+    add_index  :ratings, :risk_factors, using: 'gin'
   end
 end

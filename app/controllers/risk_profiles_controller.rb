@@ -267,9 +267,10 @@ class RiskProfilesController < ApplicationController
       deductible_f  = DedFactor.where(deductible: @risk_profile.deductible).first.factor
       step_f        = (StepFactor.where(policy_year: "1", state: @risk_profile.state).first || StepFactor.offset(rand(StepFactor.count)).first).factor
 
-      risk          = RiskFactor.where(criteria: "Claims Free 3 to 5 Years").first
-      risk_f        = risk.min_factor
-      risk_c        = risk.criteria
+      #risk          = RiskFactor.where(criteria: "Claims Free 3 to 5 Years").first
+      risk_f         = RiskFactor.average(:min_factor)
+      #risk_f        = risk.min_factor
+      #risk_c        = risk.criteria
 
       entity_f      = EntityFactor.where(entity: @risk_profile.entity).first.factor
       entity_p      = 0
@@ -305,8 +306,6 @@ class RiskProfilesController < ApplicationController
           specialty_class:    specialty_c,
           step_factor:        step_f,
           capital_factor:     capital_f,
-          risk_factor:        risk_f,
-          risk_criteria:      risk_c,
           territory_number:   territory_n,
           territory_exposure: territory_e,
           territory_factor:   territory_f
@@ -321,5 +320,10 @@ class RiskProfilesController < ApplicationController
         capital_contribution: capital_c,
         status_date:          Date.today
       )
+
+      # Initialize the ratings risk factors to each criteria's minimum factor
+      RiskFactors.select(:criteria, :min_factor).each do |rf|
+        @rating.risk_factors << [rf.criteria, rf.min_factor]
+      end
     end
 end
