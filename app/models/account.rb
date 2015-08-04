@@ -1,4 +1,8 @@
 class Account < ActiveRecord::Base
+  before_save :set_role!
+
+  attr_accessor :full_role
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :saml_authenticatable, :trackable #, :registerable,
@@ -16,5 +20,11 @@ class Account < ActiveRecord::Base
     self.fname + " " + self.lname
   end
 
+
+  private
+  def set_role!
+    puts self.full_role
+    self.role = self.full_role.split('_')[1]
+  end
 
 end
