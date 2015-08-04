@@ -111,7 +111,7 @@
           <!-- /quotes -->
 
           <!-- new-quote -->
-          <%- if current_account.employee? && rating == @risk_profile.ratings.last && rating.determined? && (!rating.quotes.any? || !rating.quotes.last.created?)) %>
+          <%- if current_account.employee? && rating == @risk_profile.ratings.last && rating.determined? && (!rating.quotes.any? || !rating.quotes.last.created?) %>
           <div class="new-quote bt bl br bb accordion-title no-bg ml10">
             <a href="javascript:;" class="bold">
               +
