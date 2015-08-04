@@ -26,7 +26,7 @@ Devise.setup do |config|
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified "
     settings.idp_sso_target_url                 = "https://emea.centrify.com/applogin/appKey/#{ENV['CENTRIFY_APP_KEY']}/customerId/#{ENV['CENTRIFY_CUSTOMER_ID']}"
     settings.idp_slo_target_url                 = "https://emea.centrify.com/applogout"
-    settings.idp_cert                           = File.read("tmp/Thorson Group (Localhost).cer")
+    settings.idp_cert                           = File.read("/home/Matthew/apps/Thorson/shared/certificates/ThorsonGroup.cer")
   end
 
   # The secret key used by Devise. Devise uses this key to generate
