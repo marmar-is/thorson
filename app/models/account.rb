@@ -1,8 +1,6 @@
 class Account < ActiveRecord::Base
   before_save :set_role!
 
-  attr_accessor :full_role
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :saml_authenticatable, :trackable #, :registerable,
@@ -13,6 +11,9 @@ class Account < ActiveRecord::Base
 
   # Associations
   belongs_to :meta, polymorphic: true # Polymorphic association for Accounts + Broker/Employee
+
+  # Accessors
+  attr_accessor :full_role
 
   # Methods
   # get Full Name
