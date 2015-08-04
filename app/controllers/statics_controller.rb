@@ -1,9 +1,7 @@
 class StaticsController < ApplicationController
   layout false, only: [ :portal ]
 
-  def index
-    
-
+  def index    
   end
 
   def portal

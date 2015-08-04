@@ -1,6 +1,6 @@
 class EmployeeAcctsController < ApplicationController
+  # ActionController Callbacks
   before_action :employee_access!
-  #before_action :set_employee_acct, only: [ :profile, :update ]
   skip_before_action :authenticate_meta!, only: [ :new, :create ]
 
   # GET /employee_accts/new

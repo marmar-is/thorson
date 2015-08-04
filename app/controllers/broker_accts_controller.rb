@@ -1,6 +1,6 @@
 class BrokerAcctsController < ApplicationController
+  # ActionController Callbacks
   before_action :broker_access!
-  #before_action :set_broker_acct, only: [ :profile, :update ]
   skip_before_action :authenticate_meta!, only: [ :new, :create ]
 
   # GET /broker_accts/new

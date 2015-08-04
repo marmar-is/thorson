@@ -1,7 +1,7 @@
 require_dependency 'exceptions'
 
 class RiskProfilesController < ApplicationController
-
+  # ActionController Callbacks
   before_action :broker_access!, only: [ :new, :create ]
   before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status,
     :create_quote, :issue_quote, :view_quote ]
