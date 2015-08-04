@@ -16,6 +16,16 @@
     .new-quote {
       border-width:2px;
     }
+
+    .min-max-label {
+      border:0;
+      color:#f6931f;
+      font-weight:bold;
+    }
+
+    div.row.rf-row {
+      min-height: 50px;
+    }
   </style>
 <% end %>
 
@@ -47,15 +57,15 @@
             </a>
           </div>
           <div class="accordion-body bg-white bt rating">
-            <%= render partial: "risk_profiles/show/rating_#{rating.status}", locals: { rating: rating } %>
+            <%= render partial: "risk_profiles/show/rating_#{(current_account.broker? || !@risk_profile.accepted?)? 'determined' : rating.status}", locals: { rating: rating } %>
 
             <%- rating.attributes.each do |k, v| %>
               <div class="row">
                 <div class="col-md-4">
-                  <%= k %>
+                  <%#= k %>
                 </div>
                 <div class="col-md-7 col-md-offset-1">
-                  <%= v %>
+                  <%#= v %>
                 </div>
               </div>
             <% end -%>
@@ -101,7 +111,7 @@
           <!-- /quotes -->
 
           <!-- new-quote -->
-          <%- if current_account.employee? && rating == @risk_profile.ratings.last && rating.determined? && rating.quotes.any? && !rating.quotes.last.created? %>
+          <%- if current_account.employee? && rating == @risk_profile.ratings.last && rating.determined? && (!rating.quotes.any? || !rating.quotes.last.created?) %>
           <div class="new-quote bt bl br bb accordion-title no-bg ml10">
             <a href="javascript:;" class="bold">
               +

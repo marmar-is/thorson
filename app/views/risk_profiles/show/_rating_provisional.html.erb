@@ -1,5 +1,6 @@
 <%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
 
+  <!-- rating fields -->
   <%= fields_for :rating do |f| %>
     <div class="row pt15 mb25">
       <div class="col-md-6">
@@ -18,7 +19,7 @@
       <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <%= f.number_field :capital_contribution, class:'form-control', placeholder: "Capital Contribution (Currently #{rating.capital_contribution})" %>
+            <%= f.number_field :capital_contribution, class:'form-control', placeholder: "Capital Contribution (Currently #{number_to_currency(rating.capital_contribution)})" %>
           </div>
         </div>
       </div>
@@ -67,42 +68,59 @@
         </div>
       </div>
     </div>
+  <% end %>
+  <!-- /rating fields -->
 
-    <!-- risk-factors -->
+  <!-- risk-factors -->
+  <%= fields_for :rfs do |f| %>
     <%- RiskFactor.all.each do |rf| %>
-    <div class="row">
+    <div class="row rf-row">
       <div class="col-md-4">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            rf.criteria
+            <%= rf.criteria %>
           </div>
         </div>
       </div>
-      <div class="col-md-1">
-        <div class="row pl10 pr10">
-          <div class="col-sm-12">
-            Factor:
-          </div>
-        </div>
+      <div class="col-md-2">
+        Factor:
+        <label id="<%= 'rf-label-' + rf.id.to_s %>" style="border:0; color:#f6931f; font-weight:bold;">
+          <%= rating.risk_factors[rf.criteria] || rf.min_factor %>
+        </label>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <div class="slider slider-primary" data-values="[75,300]" data-range="true" data-min="0" data-max="500"></div>
-            <%= f.select :risk_f, options_for_select(RiskFactor.pluck(:criteria)), {include_blank: true}, {class:'chosen', placeholder: 'Select Risk Factor'} %>
+            <div class="row">
+              <div class="col-md-3">
+                <label>
+                  Min:
+                  <span class="min-max-label"><%= rf.min_factor %></span>
+                </label>
+              </div>
+              <div class="col-md-3 col-md-offset-6">
+                <label>
+                  Max:
+                  <span class="min-max-label"><%= rf.max_factor %></span>
+                </label>
+              </div>
+            </div>
+
+            <div id="<%= rf.id %>" class="slider" data-value="<%= rating.risk_factors[rf.criteria]  || rf.min_factor %>" data-step="0.01" data-min="<%= rf.min_factor %>" data-max="<%= rf.max_factor %>"></div>
+            <%= f.hidden_field "#{rf.criteria}", value: (rating.risk_factors[rf.criteria]  || rf.min_factor), id: "#{rf.id}_rf_val" %>
           </div>
         </div>
       </div>
     </div>
     <% end -%>
-    <!-- /risk-factors -->
-
-    <div class="row mt30">
-      <div class="col-md-12">
-        <%= f.submit "Modify Rating", class:'btn btn-success btn-block' %>
-      </div>
-    </div>
   <% end %>
+  <!-- /risk-factors -->
+
+  <div class="row mt30">
+    <div class="col-md-12">
+      <%= submit_tag "Modify Rating", class:'btn btn-success btn-block' %>
+    </div>
+  </div>
 <% end %>
 
 <%= content_for :js_includes do %>
@@ -113,5 +131,8 @@
         width: "100%",
       });
     });
+
+    provisional_rating();
+
   </script>
 <% end %>

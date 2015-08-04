@@ -202,7 +202,7 @@ RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Claims Free 5 
 RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Risk Management ")
 RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Unusual Risk Characteristics")
 RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Group Discount")
-RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Part Time ")
+RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Part Time")
 RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "New Practioner")
 RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Premises Care/Condition")
 RiskFactor.create!(min_factor: 0.95, max_factor: 1.05, criteria: "Employee Selection, Training, EXP, Supervision")

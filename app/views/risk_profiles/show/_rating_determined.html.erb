@@ -1,6 +1,6 @@
-<%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
+<%#= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
 
-  <%= fields_for :rating do |f| %>
+  <%#= fields_for :rating do |f| %>
     <div class="row pt15 mb25">
       <div class="col-md-6">
         <div class="row pl10 pr10">
@@ -26,7 +26,7 @@
       <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <span class="form-control"><%= "Risk Factor: " + rating.factors[:risk_c].to_s %></span>
+            <span class="form-control"><%= "NAS Premium: " + number_to_currency(rating.nas_premium) %></span>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
       <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <span class="form-control"><%= "NAS Premium: " + number_to_currency(rating.nas_premium) %></span>
+            <span class="form-control"><%= "Fairway Premium: " + number_to_currency(rating.fairway_premium) %></span>
           </div>
         </div>
       </div>
@@ -62,30 +62,36 @@
       <div class="col-md-6">
         <div class="row pl10 pr10">
           <div class="col-sm-12">
-            <span class="form-control"><%= "Fairway Premium: " + number_to_currency(rating.fairway_premium) %></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 col-md-offset-6">
-        <div class="row pl10 pr10">
-          <div class="col-sm-12">
             <span class="form-control"><%= "Total Premium: " + number_to_currency(rating.total_premium) %></span>
           </div>
         </div>
       </div>
     </div>
 
+    <hr />
 
-    <div class="row mt30">
-      <div class="col-md-12">
-        <%= f.submit "Modify Rating", class:'btn btn-success btn-block' %>
-      </div>
+    <%- rating.risk_factors.each_slice(2) do |slice| %>
+    <div class="row mb25">
+      <%- slice.each do |criteria, factor| %>
+        <div class="col-md-6">
+          <div class="row pl10 pr10">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-9">
+                  <span class="bold"><%= criteria + " : " %></span>
+                </div>
+                <div class="col-sm-3">
+                  <span class="min-max-label"><%= number_with_precision(factor, precision: 2) %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end -%>
     </div>
-  <% end %>
-<% end %>
+    <% end -%>
+  <%# end %>
+<%# end %>
 
 <%= content_for :js_includes do %>
   <script>

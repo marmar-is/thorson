@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 20150729174424) do
     t.hstore   "risk_prof"
     t.hstore   "rates"
     t.hstore   "factors"
+    t.hstore   "risk_factors"
     t.integer  "policy_year"
     t.boolean  "capital"
     t.decimal  "physician_premium",    default: 0.0
