@@ -3,7 +3,10 @@ $(function(){
 
   $.fn.editable.defaults.url = '/broker_accts';
   $.fn.editable.defaults.mode = 'inline';
-  $.fn.editable.defaults.ajaxOptions = {type: "PATCH"};
+  $.fn.editable.defaults.ajaxOptions = {
+    type: "PATCH",
+    global: false
+  };
 
   $('#broker #address').editable({
     params: function(params) {

@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   # ActiveRecord Callbacks
-  before_save :set_role!
+  before_save :set_role!, if: :new_record?
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
