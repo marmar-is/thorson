@@ -267,7 +267,7 @@ class RiskProfilesController < ApplicationController
       deductible_f  = DedFactor.where(deductible: @risk_profile.deductible).first.factor
       step_f        = (StepFactor.where(policy_year: "1", state: @risk_profile.state).first || StepFactor.offset(rand(StepFactor.count)).first).factor
 
-      risk          = RiskFactor.where(criteria: "CLAIMS FREE 3 TO 5 YEARS").first
+      risk          = RiskFactor.where(criteria: "Claims Free 3 to 5 Years").first
       risk_f        = risk.min_factor
       risk_c        = risk.criteria
 

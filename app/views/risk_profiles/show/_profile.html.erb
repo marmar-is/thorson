@@ -47,7 +47,7 @@
             </a>
           </div>
           <div class="accordion-body bg-white bt rating">
-            <%= render partial: "risk_profiles/show/rating_#{rating.status}", locals: { rating: rating } %>
+            <%= render partial: "risk_profiles/show/rating_#{current_account.broker? ? 'determined' : rating.status}", locals: { rating: rating } %>
 
             <%- rating.attributes.each do |k, v| %>
               <div class="row">
