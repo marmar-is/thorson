@@ -1,4 +1,5 @@
 class Account < ActiveRecord::Base
+  # ActiveRecord Callbacks
   before_save :set_role!
 
   # Include default devise modules. Others available are:
