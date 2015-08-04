@@ -4,7 +4,7 @@ class RiskProfilesController < ApplicationController
   # ActionController Callbacks
   before_action :broker_access!, only: [ :new, :create ]
   before_action :set_risk_profile, only: [ :show, :edit, :update, :destroy, :update_status,
-    :create_quote, :issue_quote, :view_quote ]
+    :create_quote, :issue_quote, :view_quote, :update_rating]
 
   before_action :broker_possession!, only: [ :show, :view_quote ]
 
@@ -222,6 +222,21 @@ class RiskProfilesController < ApplicationController
   def update_rating
     @rating = Rating.find(params[:rating_id])
     @rating.update(rating_params.delete_if { |key, value| value.blank? })
+
+    #new_risk_factors = []
+    #params[:rfs].each do |k, v|
+      #new_risk_factors << [k, v]
+    #end
+
+    #pp new_risk_factors
+    pp params[:rfs]
+
+    @rating.update(risk_factors: params[:rfs])
+
+    respond_to do |format|
+      format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
+      format.js
+    end
   end
 
   private
@@ -322,8 +337,9 @@ class RiskProfilesController < ApplicationController
       )
 
       # Initialize the ratings risk factors to each criteria's minimum factor
-      RiskFactors.select(:criteria, :min_factor).each do |rf|
-        @rating.risk_factors << [rf.criteria, rf.min_factor]
+      @rating.risk_factors = {}
+      RiskFactor.select(:criteria, :min_factor).each do |rf|
+        @rating.risk_factors[rf.criteria] = rf.min_factor
       end
     end
 end

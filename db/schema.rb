@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20150729174424) do
     t.hstore   "risk_prof"
     t.hstore   "rates"
     t.hstore   "factors"
-    t.text     "risk_factors",         default: [],               array: true
+    t.hstore   "risk_factors"
     t.integer  "policy_year"
     t.boolean  "capital"
     t.decimal  "physician_premium",    default: 0.0
@@ -163,7 +163,6 @@ ActiveRecord::Schema.define(version: 20150729174424) do
     t.integer  "risk_profile_id"
   end
 
-  add_index "ratings", ["risk_factors"], name: "index_ratings_on_risk_factors", using: :gin
   add_index "ratings", ["risk_profile_id"], name: "index_ratings_on_risk_profile_id", using: :btree
 
   create_table "risk_factors", force: :cascade do |t|

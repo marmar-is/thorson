@@ -1,5 +1,6 @@
 <%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
 
+  <!-- rating fields -->
   <%= fields_for :rating do |f| %>
     <div class="row pt15 mb25">
       <div class="col-md-6">
@@ -67,8 +68,11 @@
         </div>
       </div>
     </div>
+  <% end %>
+  <!-- /rating fields -->
 
-    <!-- risk-factors -->
+  <!-- risk-factors -->
+  <%= fields_for :rfs do |f| %>
     <%- RiskFactor.all.each do |rf| %>
     <div class="row rf-row">
       <div class="col-md-4">
@@ -81,7 +85,7 @@
       <div class="col-md-2">
         Factor:
         <label id="<%= 'rf-label-' + rf.id.to_s %>" style="border:0; color:#f6931f; font-weight:bold;">
-          <%= rf.min_factor %>
+          <%= rating.risk_factors[rf.criteria] || rf.min_factor %>
         </label>
       </div>
       <div class="col-md-6">
@@ -102,20 +106,21 @@
               </div>
             </div>
 
-            <div id="<%= rf.id %>" class="slider" data-step="0.01" data-min="<%= rf.min_factor %>" data-max="<%= rf.max_factor %>"></div>
+            <div id="<%= rf.id %>" class="slider" data-value="<%= rating.risk_factors[rf.criteria]  || rf.min_factor %>" data-step="0.01" data-min="<%= rf.min_factor %>" data-max="<%= rf.max_factor %>"></div>
+            <%= f.hidden_field "#{rf.criteria}", value: (rating.risk_factors[rf.criteria]  || rf.min_factor), id: "#{rf.id}_rf_val" %>
           </div>
         </div>
       </div>
     </div>
     <% end -%>
-    <!-- /risk-factors -->
-
-    <div class="row mt30">
-      <div class="col-md-12">
-        <%= f.submit "Modify Rating", class:'btn btn-success btn-block' %>
-      </div>
-    </div>
   <% end %>
+  <!-- /risk-factors -->
+
+  <div class="row mt30">
+    <div class="col-md-12">
+      <%= submit_tag "Modify Rating", class:'btn btn-success btn-block' %>
+    </div>
+  </div>
 <% end %>
 
 <%= content_for :js_includes do %>
@@ -127,16 +132,7 @@
       });
     });
 
-    $('.slider').each(function () {
-      var data = $(this).data();
-      $(this).slider(data);
-    });
-
-    $( ".slider" ).on( "slide", function( event, ui ) {
-      var slider_id = $(event.target).attr("id");
-      //console.log( slider_id );
-      $('#rf-label-' + slider_id).html( ui.value );
-    });
+    provisional_rating();
 
   </script>
 <% end %>
