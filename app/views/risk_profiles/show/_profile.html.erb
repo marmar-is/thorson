@@ -58,17 +58,6 @@
           </div>
           <div class="accordion-body bg-white bt rating">
             <%= render partial: "risk_profiles/show/rating_#{(current_account.broker? || !@risk_profile.accepted?)? 'determined' : rating.status}", locals: { rating: rating } %>
-
-            <%- rating.attributes.each do |k, v| %>
-              <div class="row">
-                <div class="col-md-4">
-                  <%#= k %>
-                </div>
-                <div class="col-md-7 col-md-offset-1">
-                  <%#= v %>
-                </div>
-              </div>
-            <% end -%>
           </div>
           <!-- /rating -->
 
