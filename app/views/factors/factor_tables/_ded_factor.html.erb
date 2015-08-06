@@ -50,7 +50,7 @@
 
       oTable = $('#ded-factor').dataTable();
 
-      $('#ded_f .toolbar').append("<a id='new' href='javascript:;' class='btn btn-info mb15 ml15' data-model='DedFactor'>Add new row</a>");
+      $('#ded_f .toolbar').append("<a href='javascript:;' class='new btn btn-info mb15 ml15' data-model='DedFactor'>Add new row</a>");
 
       function restoreRow(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
@@ -97,15 +97,34 @@
 
       }
 
-      /*$('#new').on('click', function (e) {
+      $('#ded_f').on('click', 'a.new', function(e) {
         e.preventDefault();
 
-        var aiNew = oTable.fnAddData(['', '', '', '', '',
-                    '<a class=\'edit\' href=\'\'>Edit</a>', '<a class=\'delete\' href=\'\'>Delete</a>']);
-        var nRow = oTable.fnGetNodes(aiNew[0]);
-        editRow(oTable, nRow);
-        nEditing = nRow;
-      });*/
+        $.ajax({
+          url: "factors/DedFactor",
+          type: "POST",
+          datatype: "json",
+          success: function(data) {
+            var pk = data.id;
+            var model = "DedFactor";
+
+            var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='DedFactor' data-pk='"+pk+"'>Edit</a>"+
+            "<a class='delete btn btn-danger' data-confirm='Are you sure you'd like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
+
+            var aiNew = oTable.fnAddData(['', '', buttonHtml]);
+            var nRow = oTable.fnGetNodes(aiNew[0]);
+            editRow(oTable, nRow, model, pk);
+            nEditing = nRow;
+
+            return false;
+          },
+          error: function(data) {
+            console.log('Error!');
+            console.log(data);
+            return false;
+          }
+        });
+      });
 
       /* Remove row on delete */
       $('#ded-factor').on('ajax:success', 'a.delete', function(e, data, status, xhr){

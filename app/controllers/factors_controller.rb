@@ -76,6 +76,44 @@ class FactorsController < ApplicationController
     else
       Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
     end
+  end
+
+  # PATCH /factors/:model
+  def create
+    case params[:model]
+    when "DedFactor"
+      @factor = DedFactor.new
+    when "EntityFactor"
+      @factor = EntityFactor.new
+    when "LimitFactor"
+      @factor = LimitFactor.new
+    when "StepFactor"
+      @factor = StepFactor.new
+    when "TerritoryFactor"
+      @factor = TerritoryFactor.new
+    when "SpecialtyFactor"
+      @factor = SpecialtyFactor.new
+    when "RiskFactor"
+      @factor = RiskFactor.new
+    when "NasRate"
+      @factor = NasRate.new
+    when "BaseRate"
+      @factor = BaseRate.new
+    when "AlliedRate"
+      @factor = AlliedRate.new
+    else
+      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
+    end
+
+    if @factor.save
+      respond_to do |format|
+        format.json { render json: @factor, status: :created }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @factor.errors, status: :created }
+      end
+    end
 
   end
 
