@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
   end
   resources :factors, only: [ :index ]
+  delete 'factors/:model/:id' => 'factors#destroy', as: :destroy_factor
 
   resources :broker_accts, only: [ :new, :create, :update ]
   get 'profile' => 'broker_accts#profile', as: :broker_profile

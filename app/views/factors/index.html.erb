@@ -43,39 +43,7 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active in" id="ded_f">
-                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
-                      <thead>
-                        <tr>
-                          <th>Deductible</th>
-                          <th>Factor</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>Deductible</th>
-                          <th>Factor</th>
-                          <th>Actions</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <% @ded_factors.each  do |factor| %>
-                          <tr>
-                            <td><%= factor.deductible %></td>
-                            <td><%= factor.factor %></td>
-                            <td>
-                              <%- if @acct.manager? %>
-                                <a href="javascript:;" class="edit btn btn-warning mr15">Edit</a>
-                                <a href="javascript:;" class="delete btn btn-danger">Delete</a>
-                              <% else %>
-                              <a href="javascript:;" class="edit btn btn-warning mr15" disabled>Edit</a>
-                              <a href="javascript:;" class="delete btn btn-danger" disabled>Delete</a>
-                              <% end -%>
-                            </td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
+                    <%= render partial: 'factors/factor_tables/ded_factor' %>
                   </div>
                   <div class="tab-pane" id="entity_f">
                     <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
@@ -356,5 +324,5 @@
   <%= javascript_include_tag 'datatables/js/jquery.dataTables.js', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'bootstrap-datatables.js', 'data-turbolinks-track' => true %>
 
-  <%= javascript_include_tag 'table-edit.js', 'data-turbolinks-track' => true %>
+  <%#= javascript_include_tag 'table-edit.js', 'data-turbolinks-track' => true %>
 <% end %>

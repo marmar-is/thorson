@@ -17,4 +17,38 @@ class FactorsController < ApplicationController
     @allied_rates        = AlliedRate.all
   end
 
+  # DELETE /factors
+  def destroy
+    case params[:model]
+    when "DedFactor"
+      puts "DEDFACTOR"
+      #DedFactor.find(params[:id]).destroy
+    when "EntityFactor"
+      EntityFactor.find(params[:id]).destroy
+    when "LimitFactor"
+      LimitFactor.find(params[:id]).destroy
+    when "StepFactor"
+      StepFactor.find(params[:id]).destroy
+    when "TerritoryFactor"
+      TerritoryFactor.find(params[:id]).destroy
+    when "SpecialtyFactor"
+      SpecialtyFactor.find(params[:id]).destroy
+    when "RiskFactor"
+      RiskFactor.find(params[:id]).destroy
+    when "NasRate"
+      NasRate.find(params[:id]).destroy
+    when "BaseRate"
+      BaseRate.find(params[:id]).destroy
+    when "AlliedRate"
+      AlliedRate.find(params[:id]).destroy
+    else
+      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
+    end
+
+    respond_to do |format|
+      format.html { redirect_to factors_url, notice: 'Factor/Rate was successfully destroyed.' }
+      format.js { }
+    end
+  end
+
 end
