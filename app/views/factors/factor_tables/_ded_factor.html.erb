@@ -50,7 +50,7 @@
 
       oTable = $('#ded-factor').dataTable();
 
-      $('#ded_f .toolbar').append('<a id=\'new\' href=\'javascript:;\' class=\'btn btn-info mb15 ml15\' >Add new row</a>');
+      $('#ded_f .toolbar').append("<a id='new' href='javascript:;' class='btn btn-info mb15 ml15' data-model='DedFactor'>Add new row</a>");
 
       function restoreRow(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
@@ -66,11 +66,8 @@
       function editRow(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
         var jqTds = $('>td', nRow);
-        jqTds[0].innerHTML = '<input type=\'number\' class=\'form-control\' value=\'' + aData[0] + '\'>';
-        jqTds[1].innerHTML = '<input type=\'number\' class=\'form-control\' value=\'' + aData[1] + '\'>';
-        //jqTds[2].innerHTML = '<input type=\'text\' class=\'form-control\' value=\'' + aData[2] + '\'>';
-        //jqTds[3].innerHTML = '<input type=\'text\' class=\'form-control\' value=\'' + aData[3] + '\'>';
-        //jqTds[4].innerHTML = '<input type=\'text\' class=\'form-control\' value=\'' + aData[4] + '\'>';
+        jqTds[0].innerHTML = "<input type='number' placeholder='Deductible' class='form-control' value='" + aData[0] + "'>";
+        jqTds[1].innerHTML = "<input type='number' placeholder='Factor' class='form-control' value='" + aData[1] + "'>";
         jqTds[2].innerHTML = "<a href='javascript:;' class='edit btn btn-success mr15' data-model='"+model+"' data-pk='"+pk+"'>Save</a>";
       }
 
@@ -78,6 +75,7 @@
         var jqInputs = $('input', nRow);
         oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
         oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+
         var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
         "<a class='delete btn btn-danger' data-confirm='Are you sure you'd like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
         oTable.fnUpdate(buttonHtml, nRow, 2, false);
@@ -94,11 +92,6 @@
             }
           }
         });
-
-        //"<%#= link_to 'Delete', destroy_factor_path(model: 'DedFactor', id: factor.id), method: :delete, class: 'delete btn btn-danger', remote: true, data: { confirm: 'Are you sure you\'d like to delete this factor?', model: 'DedFactor', pk: factor.id } %> "
-        //oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-        //oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-        //oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
 
         oTable.fnDraw();
 
