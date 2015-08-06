@@ -1,6 +1,8 @@
 <table id="ded-factor" class="table table-bordered bordered table-striped table-condensed dataTable">
   <thead>
     <tr>
+      <!--<th>Model</th>
+      <th>PK</th>-->
       <th>Deductible</th>
       <th>Factor</th>
       <th>Actions</th>
@@ -16,11 +18,13 @@
   <tbody>
     <% @ded_factors.each  do |factor| %>
       <tr>
+        <!--<td>DedFactor</td>
+        <td><%#= factor.id %></td>-->
         <td><%= factor.deductible %></td>
         <td><%= factor.factor %></td>
         <td>
           <%- if true#@acct.manager? %>
-            <a href="javascript:;" class="edit btn btn-warning mr15" data-pk="<%= factor.id %>">Edit</a>
+            <a href="javascript:;" class="edit btn btn-warning mr15" data-model="DedFactor" data-pk="<%= factor.id %>">Edit</a>
             <%#  %>
             <%= link_to "Delete", destroy_factor_path(model: "DedFactor", id: factor.id),
             method: :delete, class: "delete btn btn-danger", remote: true,
@@ -48,7 +52,7 @@
 
       $('#ded_f .toolbar').append('<a id=\'new\' href=\'javascript:;\' class=\'btn btn-info mb15 ml15\' >Add new row</a>');
 
-      function restoreRow(oTable, nRow) {
+      function restoreRow(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
         var jqTds = $('>td', nRow);
 
@@ -59,7 +63,7 @@
         oTable.fnDraw();
       }
 
-      function editRow(oTable, nRow) {
+      function editRow(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
         var jqTds = $('>td', nRow);
         jqTds[0].innerHTML = '<input type=\'number\' class=\'form-control\' value=\'' + aData[0] + '\'>';
@@ -67,19 +71,37 @@
         //jqTds[2].innerHTML = '<input type=\'text\' class=\'form-control\' value=\'' + aData[2] + '\'>';
         //jqTds[3].innerHTML = '<input type=\'text\' class=\'form-control\' value=\'' + aData[3] + '\'>';
         //jqTds[4].innerHTML = '<input type=\'text\' class=\'form-control\' value=\'' + aData[4] + '\'>';
-        jqTds[2].innerHTML = '<a class=\'edit btn btn-success mr15\' href=\'\'>Save</a>';
+        jqTds[2].innerHTML = "<a href='javascript:;' class='edit btn btn-success mr15' data-model='"+model+"' data-pk='"+pk+"'>Save</a>";
       }
 
-      function saveRow(oTable, nRow) {
+      function saveRow(oTable, nRow, model, pk) {
         var jqInputs = $('input', nRow);
         oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
         oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-        oTable.fnUpdate("<a class=\'edit btn btn-warning mr15\' href=\'\'>Edit</a><a class='delete btn btn-danger' href=''>Delete</a>", nRow, 2, false);
+        var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
+        "<a class='delete btn btn-danger' data-confirm='Are you sure you'd like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
+        oTable.fnUpdate(buttonHtml, nRow, 2, false);
+
+        $.ajax({
+          url: "factors/"+model+"/"+pk,
+          type: "PATCH",
+          data: {
+            model: model,
+            id: pk,
+            factor: {
+              deductible: jqInputs[0].value,
+              factor: jqInputs[1].value
+            }
+          }
+        });
+
+        //"<%#= link_to 'Delete', destroy_factor_path(model: 'DedFactor', id: factor.id), method: :delete, class: 'delete btn btn-danger', remote: true, data: { confirm: 'Are you sure you\'d like to delete this factor?', model: 'DedFactor', pk: factor.id } %> "
         //oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
         //oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
         //oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
 
         oTable.fnDraw();
+
       }
 
       /*$('#new').on('click', function (e) {
@@ -93,32 +115,33 @@
       });*/
 
       /* Remove row on delete */
-      $('#ded-factor a.delete').on('ajax:success', function(e, data, status, xhr){
+      $('#ded-factor').on('ajax:success', 'a.delete', function(e, data, status, xhr){
         var nRow = $(this).parents('tr')[0];
         oTable.fnDeleteRow(nRow);
       }).on('ajax:error', function(e, xhr, status, error){
         console.log('error');
       });
 
-
       $('#ded-factor').on('click', 'a.edit', function (e) {
         e.preventDefault();
 
         /* Get the row as a parent of the link that was clicked on */
         var nRow = $(this).parents('tr')[0];
+        var model = $(this).data('model');
+        var pk = $(this).data('pk');
 
         if (nEditing !== null && nEditing !== nRow) {
           /* Currently editing - but not this row - restore the old before continuing to edit mode */
-          restoreRow(oTable, nEditing);
-          editRow(oTable, nRow);
+          restoreRow(oTable, nEditing, model, pk);
+          editRow(oTable, nRow, model, pk);
           nEditing = nRow;
         } else if (nEditing === nRow && this.innerHTML === 'Save') {
           /* Editing this row and want to save it */
-          saveRow(oTable, nEditing);
+          saveRow(oTable, nEditing, model, pk);
           nEditing = null;
         } else {
           /* No edit in progress - let's start one */
-          editRow(oTable, nRow);
+          editRow(oTable, nRow, model, pk);
           nEditing = nRow;
         }
         return false;
@@ -126,6 +149,5 @@
     };
 
     $('document').ready(ded_table_ready);
-
   </script>
 <% end %>

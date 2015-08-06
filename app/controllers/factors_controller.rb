@@ -17,12 +17,11 @@ class FactorsController < ApplicationController
     @allied_rates        = AlliedRate.all
   end
 
-  # DELETE /factors
+  # DELETE /factors/:model/:id
   def destroy
     case params[:model]
     when "DedFactor"
-      puts "DEDFACTOR"
-      #DedFactor.find(params[:id]).destroy
+      DedFactor.find(params[:id]).destroy
     when "EntityFactor"
       EntityFactor.find(params[:id]).destroy
     when "LimitFactor"
@@ -49,6 +48,40 @@ class FactorsController < ApplicationController
       format.html { redirect_to factors_url, notice: 'Factor/Rate was successfully destroyed.' }
       format.js { }
     end
+  end
+
+  # PATCH /factors/:model/:id
+  def update
+    case params[:model]
+    when "DedFactor"
+      DedFactor.find(params[:id]).update(factor_params)
+    when "EntityFactor"
+      EntityFactor.find(params[:id]).update(factor_params)
+    when "LimitFactor"
+      LimitFactor.find(params[:id]).update(factor_params)
+    when "StepFactor"
+      StepFactor.find(params[:id]).update(factor_params)
+    when "TerritoryFactor"
+      TerritoryFactor.find(params[:id]).update(factor_params)
+    when "SpecialtyFactor"
+      SpecialtyFactor.find(params[:id]).update(factor_params)
+    when "RiskFactor"
+      RiskFactor.find(params[:id]).update(factor_params)
+    when "NasRate"
+      NasRate.find(params[:id]).update(factor_params)
+    when "BaseRate"
+      BaseRate.find(params[:id]).update(factor_params)
+    when "AlliedRate"
+      AlliedRate.find(params[:id]).update(factor_params)
+    else
+      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
+    end
+
+  end
+
+  private
+  def factor_params
+    params.require(:factor).permit(:deductible, :factor )
   end
 
 end
