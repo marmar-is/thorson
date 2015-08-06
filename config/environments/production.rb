@@ -15,9 +15,12 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Action Mailer Delivery Configuration
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
+  #config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.perform_deliveries = true
 
+  # (Don't) use letter_opener for development emails
+  config.action_mailer.delivery_method = :letter_opener
+  
   # Default mailer url
   config.action_mailer.default_url_options = { host: 'thorsongroup.com' }
 
