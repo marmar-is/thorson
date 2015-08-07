@@ -1,4 +1,4 @@
-<table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
+<table id="allied-rate" class="table table-bordered bordered table-striped table-condensed dataTable">
   <thead>
     <tr>
       <th>Group</th>
@@ -66,8 +66,8 @@
         var aData = oTable.fnGetData(nRow);
         var jqTds = $('>td', nRow);
         jqTds[0].innerHTML = "<input type='text' placeholder='Group' class='form-control' value='" + aData[0] + "'>";
-        jqTds[0].innerHTML = "<input type='text' placeholder='Constituents (Comma separated)' class='form-control' value='" + aData[0] + "'>";
-        jqTds[2].innerHTML = "<input type='number' placeholder='Rate' class='form-control' value='" + aData[1] + "'>";
+        jqTds[1].innerHTML = "<input type='text' placeholder='Constituents (Comma separated)' class='form-control' value='" + aData[1] + "'>";
+        jqTds[2].innerHTML = "<input type='number' placeholder='Rate' class='form-control' value='" + aData[2] + "'>";
         jqTds[3].innerHTML = "<a href='javascript:;' class='edit btn btn-success mr15' data-model='"+model+"' data-pk='"+pk+"'>Save</a>";
       }
 
@@ -89,7 +89,7 @@
             id: pk,
             factor: {
               group: jqInputs[0].value.toLowerCase(),
-              constitutents: jqInputs[1].value.split(','),
+              constituents: $.map(jqInputs[1].value.split(","), $.trim),
               rate: jqInputs[2].value
             }
           }
@@ -113,7 +113,7 @@
             var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
             "<a class='delete btn btn-danger' data-confirm='Are you sure you\'d like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
 
-            var aiNew = oTable.fnAddData(['', '', buttonHtml]);
+            var aiNew = oTable.fnAddData(['', '', '', buttonHtml]);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow, model, pk);
             nEditing = nRow;
