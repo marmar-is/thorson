@@ -1,31 +1,31 @@
-<table id="ded-factor" class="table table-bordered bordered table-striped table-condensed dataTable">
+<table id="base-rate" class="table table-bordered bordered table-striped table-condensed dataTable">
   <thead>
     <tr>
-      <th>Deductible</th>
-      <th>Factor</th>
+      <th>State</th>
+      <th>Rate</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tfoot>
     <tr>
-      <th>Deductible</th>
-      <th>Factor</th>
+      <th>State</th>
+      <th>Rate</th>
       <th>Actions</th>
     </tr>
   </tfoot>
   <tbody>
-    <% @ded_factors.each  do |factor| %>
+    <% @base_rates.each  do |rate| %>
       <tr>
-        <td><%= factor.deductible %></td>
-        <td><%= factor.factor %></td>
+        <td><%= rate.state %></td>
+        <td><%= rate.rate %></td>
         <td>
           <%- if @acct.manager? %>
-            <a href="javascript:;" class="edit btn btn-warning mr15" data-model="DedFactor" data-pk="<%= factor.id %>">Edit</a>
+            <a href="javascript:;" class="edit btn btn-warning mr15" data-model="BaseRate" data-pk="<%= rate.id %>">Edit</a>
             <%#  %>
-            <%= link_to "Delete", destroy_factor_path(model: "DedFactor", id: factor.id),
+            <%= link_to "Delete", destroy_factor_path(model: "BaseRate", id: rate.id),
             method: :delete, class: "delete btn btn-danger", remote: true,
             data: { confirm: "Are you sure you'd like to delete this factor?",
-              model: 'DedFactor', pk: factor.id } %>
+              model: 'BaseRate', pk: rate.id } %>
           <% else %>
             <a href="javascript:;" class="btn btn-warning mr15" disabled>Edit</a>
             <a href="javascript:;" class="btn btn-danger" disabled>Delete</a>
@@ -38,15 +38,15 @@
 
 <%= content_for :js_includes do %>
   <script>
-    var ded_table_ready = function() {
+    var base_table_ready = function() {
       'use strict';
 
       var nEditing = null;
       var oTable;
 
-      oTable = $('#ded-factor').dataTable();
+      oTable = $('#base-rate').dataTable();
 
-      $('#ded_f .toolbar').append("<a href='javascript:;' class='new btn btn-info mb15 ml15' data-model='DedFactor'>Add new row</a>");
+      $('#base_r .toolbar').append("<a href='javascript:;' class='new btn btn-info mb15 ml15' data-model='BaseRate'>Add new row</a>");
 
       var restoreRow = function(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
@@ -62,8 +62,8 @@
       var editRow = function(oTable, nRow, model, pk) {
         var aData = oTable.fnGetData(nRow);
         var jqTds = $('>td', nRow);
-        jqTds[0].innerHTML = "<input type='number' placeholder='Deductible' class='form-control' value='" + aData[0] + "'>";
-        jqTds[1].innerHTML = "<input type='number' placeholder='Factor' class='form-control' value='" + aData[1] + "'>";
+        jqTds[0].innerHTML = "<input type='text' placeholder='State' class='form-control' value='" + aData[0] + "'>";
+        jqTds[1].innerHTML = "<input type='number' placeholder='Rate' class='form-control' value='" + aData[1] + "'>";
         jqTds[2].innerHTML = "<a href='javascript:;' class='edit btn btn-success mr15' data-model='"+model+"' data-pk='"+pk+"'>Save</a>";
       }
 
@@ -83,8 +83,8 @@
             model: model,
             id: pk,
             factor: {
-              deductible: jqInputs[0].value,
-              factor: jqInputs[1].value
+              state: jqInputs[0].value,
+              rate: jqInputs[1].value
             }
           }
         });
@@ -93,16 +93,16 @@
 
       }
 
-      $('#ded_f').on('click', 'a.new', function(e) {
+      $('#base_r').on('click', 'a.new', function(e) {
         e.preventDefault();
 
         $.ajax({
-          url: "factors/DedFactor",
+          url: "factors/BaseRate",
           type: "POST",
           datatype: "json",
           success: function(data) {
             var pk = data.id;
-            var model = 'DedFactor';
+            var model = 'BaseRate';
 
             var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
             "<a class='delete btn btn-danger' data-confirm='Are you sure you\'d like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
@@ -123,7 +123,7 @@
       });
 
       /* Remove row on delete */
-      $('#ded-factor').on('ajax:success', 'a.delete', function(e, data, status, xhr){
+      $('#base-rate').on('ajax:success', 'a.delete', function(e, data, status, xhr){
         var nRow = $(this).parents('tr')[0];
         oTable.fnDeleteRow(nRow);
       }).on('ajax:error', function(e, xhr, status, error){
@@ -131,7 +131,7 @@
       });
 
       /* Edit row on click */
-      $('#ded-factor').on('click', 'a.edit', function (e) {
+      $('#base-rate').on('click', 'a.edit', function (e) {
         e.preventDefault();
 
         /* Get the row as a parent of the link that was clicked on */
@@ -157,6 +157,6 @@
       });
     };
 
-    $('document').ready(ded_table_ready);
+    $('document').ready(base_table_ready);
   </script>
 <% end %>

@@ -56,7 +56,7 @@
           oTable.fnUpdate(aData[i], nRow, i, false);
         }
 
-        oTable.fnDraw();
+        oTable.fnDraw(false);
       }
 
       var editRow = function(oTable, nRow, model, pk) {
@@ -80,8 +80,6 @@
         "<a class='delete btn btn-danger' data-confirm='Are you sure you\'d like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
         oTable.fnUpdate(buttonHtml, nRow, 2, false);
 
-        console.log(jqInputs);
-
         $.ajax({
           url: "factors/"+model+"/"+pk,
           type: "PATCH",
@@ -95,7 +93,7 @@
           }
         });
 
-        oTable.fnDraw();
+        oTable.fnDraw(false);
       }
 
       $('#entity_f').on('click', 'a.new', function(e) {

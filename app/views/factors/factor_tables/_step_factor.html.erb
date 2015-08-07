@@ -41,14 +41,17 @@
 
 <%= content_for :js_includes do %>
   <script>
-    var entity_table_ready = function() {
+    var step_table_ready = function() {
       'use strict';
 
       var nEditing = null;
       var oTable;
 
       oTable = $('#step-factor').dataTable({
-        "order": [[ 1, "asc" ]]
+        "order": [
+          [ 1, "asc" ],
+          [ 0, "asc" ]
+        ]
       });
 
       $('#step_f .toolbar').append("<a href='javascript:;' class='new btn btn-info mb15 ml15' data-model='StepFactor'>Add new row</a>");
@@ -61,7 +64,7 @@
           oTable.fnUpdate(aData[i], nRow, i, false);
         }
 
-        oTable.fnDraw();
+        oTable.fnDraw(false);
       }
 
       var editRow = function(oTable, nRow, model, pk) {
@@ -72,10 +75,6 @@
         jqTds[1].innerHTML = "<input type='text' placeholder='State' class='form-control' value='" + aData[1] + "'>";
         jqTds[2].innerHTML = "<input type='number' placeholder='Factor' class='form-control' value='" + aData[2] + "'>";
         jqTds[3].innerHTML = "<a href='javascript:;' class='edit btn btn-success mr15' data-model='"+model+"' data-pk='"+pk+"'>Save</a>";
-
-        $("#step-factor select option").filter(function() {
-          return $(this).text() == aData[0];
-        }).prop('selected', true);
       }
       var saveRow = function(oTable, nRow, model, pk) {
         var jqInputs = $(':input', nRow);
@@ -87,8 +86,6 @@
         "<a class='delete btn btn-danger' data-confirm='Are you sure you\'d like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
         oTable.fnUpdate(buttonHtml, nRow, 3, false);
 
-        console.log(jqInputs);
-
         $.ajax({
           url: "factors/"+model+"/"+pk,
           type: "PATCH",
@@ -97,13 +94,13 @@
             id: pk,
             factor: {
               policy_year: jqInputs[0].value,
-              state: jqInputs[0].value,
-              factor: jqInputs[1].value
+              state: jqInputs[1].value,
+              factor: jqInputs[2].value
             }
           }
         });
 
-        oTable.fnDraw();
+        oTable.fnDraw(false);
       }
 
       $('#step_f').on('click', 'a.new', function(e) {
@@ -120,7 +117,7 @@
             var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
             "<a class='delete btn btn-danger' data-confirm='Are you sure you'd like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
 
-            var aiNew = oTable.fnAddData(['', '', buttonHtml]);
+            var aiNew = oTable.fnAddData(['', '', '', buttonHtml]);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow, model, pk);
             nEditing = nRow;
@@ -170,6 +167,6 @@
       });
     };
 
-    $('document').ready(entity_table_ready);
+    $('document').ready(step_table_ready);
   </script>
 <% end %>
