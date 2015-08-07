@@ -1,3 +1,5 @@
+require_dependency 'exceptions'
+
 class FactorsController < ApplicationController
   # ActionController Callbacks
   before_action :employee_access!
@@ -41,7 +43,7 @@ class FactorsController < ApplicationController
     when "AlliedRate"
       AlliedRate.find(params[:id]).destroy
     else
-      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
+      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:46)")
     end
 
     respond_to do |format|
@@ -74,7 +76,7 @@ class FactorsController < ApplicationController
     when "AlliedRate"
       AlliedRate.find(params[:id]).update(factor_params)
     else
-      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
+      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:79)")
     end
   end
 
@@ -102,7 +104,7 @@ class FactorsController < ApplicationController
     when "AlliedRate"
       @factor = AlliedRate.new
     else
-      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:)")
+      Exceptions::UnrecognizedParameter("Unrecognized model parameter (FactorsController.rb:107)")
     end
 
     if @factor.save
@@ -119,7 +121,7 @@ class FactorsController < ApplicationController
 
   private
   def factor_params
-    params.require(:factor).permit(:deductible, :factor )
+    params.require(:factor).permit( :limit, :state, :deductible, :entity, :factor )
   end
 
 end

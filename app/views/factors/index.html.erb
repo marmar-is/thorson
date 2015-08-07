@@ -46,82 +46,13 @@
                     <%= render partial: 'factors/factor_tables/ded_factor' %>
                   </div>
                   <div class="tab-pane" id="entity_f">
-                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
-                      <thead>
-                        <tr>
-                          <th>Entity</th>
-                          <th>Factor</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>Entity</th>
-                          <th>Factor</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <% @entity_factors.each  do |factor| %>
-                          <tr>
-                            <td><%= factor.entity ? "Yes" : "No" %></td>
-                            <td><%= factor.factor %></td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
+                    <%= render partial: 'factors/factor_tables/entity_factor' %>
                   </div>
                   <div class="tab-pane" id="limit_f">
-                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
-                      <thead>
-                        <tr>
-                          <th>Limit</th>
-                          <th>State</th>
-                          <th>Factor</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>Limit</th>
-                          <th>State</th>
-                          <th>Factor</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <% @limit_factors.each  do |factor| %>
-                          <tr>
-                            <td><%= factor.limit %></td>
-                            <td><%= factor.state %></td>
-                            <td><%= factor.factor %></td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
+                    <%= render partial: 'factors/factor_tables/limit_factor' %>
                   </div>
                   <div class="tab-pane" id="step_f">
-                    <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">
-                      <thead>
-                        <tr>
-                          <th>Policy Year</th>
-                          <th>State</th>
-                          <th>Factor</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>Policy Year</th>
-                          <th>State</th>
-                          <th>Factor</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <% @step_factors.each  do |factor| %>
-                          <tr>
-                            <td><%= factor.policy_year %></td>
-                            <td><%= factor.state %></td>
-                            <td><%= factor.factor %></td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
+                    <%= render partial: 'factors/factor_tables/step_factor' %>
                   </div>
                   <div class="tab-pane" id="territory_f">
                     <table class="rate-factor table table-bordered bordered table-striped table-condensed dataTable">

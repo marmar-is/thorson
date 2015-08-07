@@ -9,7 +9,7 @@
             <input type="text" class="form-control" value="Capital Included?" readonly>
           </div>
           <div class="col-md-4 pl0">
-            <%= f.select :capital, options_for_select([['Yes', true], ['No', false]], rating.capital), {}, {class:'form-control btn btn-info', value: 'No'} %>
+            <%= f.select :capital, options_for_select([['Yes', true], ['No', false]], rating.capital), {}, {class:'form-control btn btn-info', value: rating.capital} %>
           </div>
         </div>
       </div>
