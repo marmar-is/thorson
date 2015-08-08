@@ -1,0 +1,180 @@
+<table id="territory-factor" class="table table-bordered bordered table-striped table-condensed dataTable">
+  <thead>
+    <tr>
+      <th>Territory</th>
+      <th>Exposure</th>
+      <th>Number</th>
+      <th>State</th>
+      <th>Factor</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>Territory</th>
+      <th>Exposure</th>
+      <th>Number</th>
+      <th>State</th>
+      <th>Factor</th>
+      <th>Actions</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @territory_factors.each  do |factor| %>
+      <tr>
+        <td><%= factor.territory %></td>
+        <td><%= factor.exposure %></td>
+        <td><%= factor.number %></td>
+        <td><%= factor.state %></td>
+        <td><%= factor.factor %></td>
+        <td>
+          <%- if @acct.manager? %>
+            <a href="javascript:;" class="edit btn btn-warning mr15" data-model="TerritoryFactor" data-pk="<%= factor.id %>">Edit</a>
+            <%#  %>
+            <%= link_to "Delete", destroy_factor_path(model: "TerritoryFactor", id: factor.id),
+            method: :delete, class: "delete btn btn-danger", remote: true,
+            data: { confirm: "Are you sure you'd like to delete this factor?",
+              model: 'TerritoryFactor', pk: factor.id } %>
+          <% else %>
+            <a href="javascript:;" class="btn btn-warning mr15" disabled>Edit</a>
+            <a href="javascript:;" class="btn btn-danger" disabled>Delete</a>
+          <% end -%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= content_for :js_includes do %>
+  <script>
+    var territory_table_ready = function() {
+      'use strict';
+
+      var nEditing = null;
+      var oTable;
+
+      oTable = $('#territory-factor').dataTable();
+
+      $('#territory_f .toolbar').append("<a href='javascript:;' class='new btn btn-info mb15 ml15' data-model='TerritoryFactor'>Add new row</a>");
+
+      var restoreRow = function(oTable, nRow, model, pk) {
+        var aData = oTable.fnGetData(nRow);
+        var jqTds = $('>td', nRow);
+
+        for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+          oTable.fnUpdate(aData[i], nRow, i, false);
+        }
+
+        oTable.fnDraw(false);
+      }
+
+      var editRow = function(oTable, nRow, model, pk) {
+        var aData = oTable.fnGetData(nRow);
+        var jqTds = $('>td', nRow);
+
+        jqTds[0].innerHTML = "<input type='text' placeholder='Territory' class='form-control' value='" + aData[0] + "'>";
+        jqTds[1].innerHTML = "<input type='number' placeholder='Exposure' class='form-control' value='" + aData[1] + "'>";
+        jqTds[2].innerHTML = "<input type='number' placeholder='Number' class='form-control' value='" + aData[2] + "'>";
+        jqTds[3].innerHTML = "<input type='text' placeholder='State' class='form-control' value='" + aData[3] + "'>";
+        jqTds[4].innerHTML = "<input type='number' placeholder='Factor' class='form-control' value='" + aData[4] + "'>";
+        jqTds[5].innerHTML = "<a href='javascript:;' class='edit btn btn-success mr15' data-model='"+model+"' data-pk='"+pk+"'>Save</a>";
+
+      }
+      var saveRow = function(oTable, nRow, model, pk) {
+        var jqInputs = $(':input', nRow);
+        oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+        oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+        oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+        oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+        oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+
+        var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
+        "<a class='delete btn btn-danger' data-confirm='Are you sure you\'d like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
+        oTable.fnUpdate(buttonHtml, nRow, 5, false);
+
+        $.ajax({
+          url: "factors/"+model+"/"+pk,
+          type: "PATCH",
+          data: {
+            model: model,
+            id: pk,
+            factor: {
+              territory: jqInputs[0].value,
+              exposure: jqInputs[1].value,
+              number: jqInputs[2].value,
+              state: jqInputs[3].value,
+              factor: jqInputs[4].value,
+            }
+          }
+        });
+
+        oTable.fnDraw(false);
+      }
+
+      $('#territory_f').on('click', 'a.new', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+          url: "factors/TerritoryFactor",
+          type: "POST",
+          datatype: "json",
+          success: function(data) {
+            var pk = data.id;
+            var model = 'TerritoryFactor';
+
+            var buttonHtml = "<a href='javascript:;' class='edit btn btn-warning mr15' data-model='"+model+"' data-pk='"+pk+"'>Edit</a>"+
+            "<a class='delete btn btn-danger' data-confirm='Are you sure you'd like to delete this factor?' data-model='"+ model + "' data-pk='"+pk+"' data-remote='true' rel='nofollow' data-method='delete' href='/factors/"+model+"/"+pk+"'>Delete</a>"
+
+            var aiNew = oTable.fnAddData(['', '', '', '', '', buttonHtml]);
+            var nRow = oTable.fnGetNodes(aiNew[0]);
+            editRow(oTable, nRow, model, pk);
+            nEditing = nRow;
+
+            return false;
+          },
+          error: function(data) {
+            console.log('Error!');
+            console.log(data);
+            return false;
+          }
+        });
+      });
+
+      /* Remove row on delete */
+      $('#territory-factor').on('ajax:success', 'a.delete', function(e, data, status, xhr){
+        var nRow = $(this).parents('tr')[0];
+        oTable.fnDeleteRow(nRow);
+      }).on('ajax:error', function(e, xhr, status, error){
+        console.log('error');
+      });
+
+      /* Edit row on click */
+      $('#territory-factor').on('click', 'a.edit', function (e) {
+        e.preventDefault();
+
+        /* Get the row as a parent of the link that was clicked on */
+        var nRow = $(this).parents('tr')[0];
+        var model = $(this).data('model');
+        var pk = $(this).data('pk');
+
+        if (nEditing !== null && nEditing !== nRow) {
+          /* Currently editing - but not this row - restore the old before continuing to edit mode */
+          restoreRow(oTable, nEditing, model, pk);
+          editRow(oTable, nRow, model, pk);
+          nEditing = nRow;
+        } else if (nEditing === nRow && this.innerHTML === 'Save') {
+          /* Editing this row and want to save it */
+          saveRow(oTable, nEditing, model, pk);
+          nEditing = null;
+        } else {
+          /* No edit in progress - let's start one */
+          editRow(oTable, nRow, model, pk);
+          nEditing = nRow;
+        }
+        return false;
+      });
+    };
+
+    $('document').ready(territory_table_ready);
+  </script>
+<% end %>

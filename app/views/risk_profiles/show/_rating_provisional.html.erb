@@ -1,4 +1,4 @@
-<%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: false) do %>
+<%= form_tag(update_rating_risk_profile_path(id: @risk_profile, rating_id: rating.id), method: :patch, remote: true) do %>
 
   <!-- rating fields -->
   <%= fields_for :rating do |f| %>
@@ -9,7 +9,7 @@
             <input type="text" class="form-control" value="Capital Included?" readonly>
           </div>
           <div class="col-md-4 pl0">
-            <%= f.select :capital, options_for_select([['Yes', true], ['No', false]], rating.capital), {}, {class:'form-control btn btn-info', value: 'No'} %>
+            <%= f.select :capital, options_for_select([['Yes', true], ['No', false]], rating.capital), {}, {class:'form-control btn btn-info', value: rating.capital} %>
           </div>
         </div>
       </div>
@@ -132,7 +132,21 @@
       });
     });
 
-    provisional_rating();
+    var provisional_rating = function() {
+      'use strict';
+      $('.slider').each(function () {
+        var data = $(this).data();
+        $(this).slider(data);
+      });
+
+      $( ".slider" ).on( "slide", function( event, ui ) {
+        var slider_id = $(event.target).attr("id");
+        $('#rf-label-' + slider_id).html( ui.value.toFixed(2) );
+        $('#' + slider_id + '_rf_val').val( ui.value );
+      });
+    };
+
+    $('document').ready(provisional_rating);
 
   </script>
 <% end %>
