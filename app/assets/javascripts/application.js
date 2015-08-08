@@ -32,16 +32,3 @@ $(function() {
       $('#overlay-ajax').hide();
     });
 });
-
-var provisional_rating = function() {
-  $('.slider').each(function () {
-    var data = $(this).data();
-    $(this).slider(data);
-  });
-
-  $( ".slider" ).on( "slide", function( event, ui ) {
-    var slider_id = $(event.target).attr("id");
-    $('#rf-label-' + slider_id).html( ui.value.toFixed(2) );
-    $('#' + slider_id + '_rf_val').val( ui.value );
-  });
-};

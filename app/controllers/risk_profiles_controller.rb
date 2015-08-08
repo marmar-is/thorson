@@ -114,7 +114,7 @@ class RiskProfilesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
-      format.js
+      format.js { render action: "update_status.js.erb" }
     end
   end
 
@@ -141,7 +141,7 @@ class RiskProfilesController < ApplicationController
     respond_to do |format|
       if @quote.save
         format.html { redirect_to @quote.rating.risk_profile, notice: "Quote was successfully saved." }
-        format.js
+        format.js { render action: "update_status.js.erb" }
       else
         format.html { render :show }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
@@ -206,7 +206,7 @@ class RiskProfilesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: 'Quote was successfully issued.' }
-      format.js
+      format.js { render action: "update_status.js.erb" }
     end
 
   end
@@ -235,7 +235,7 @@ class RiskProfilesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
-      format.js
+      format.js { render action: "update_status.js.erb" }
     end
   end
 
