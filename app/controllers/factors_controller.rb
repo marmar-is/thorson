@@ -121,8 +121,9 @@ class FactorsController < ApplicationController
 
   private
   def factor_params
-    params.require(:factor).permit( :group, :spec_name, :spec_surgery, :spec_class, :spec_code,
-    :territory, :exposure, :number, :limit, :state, :deductible, :entity, :factor, :rate, constituents: [] )
+    params.require(:factor).permit( :criteria, :min_factor, :max_factor, :group,
+    :spec_name, :spec_surgery, :spec_class, :spec_code, :territory, :exposure,
+    :number, :limit, :state, :deductible, :entity, :factor, :rate, constituents: [] )
   end
 
 end
