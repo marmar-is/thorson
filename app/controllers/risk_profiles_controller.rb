@@ -57,7 +57,7 @@ class RiskProfilesController < ApplicationController
         @risk_profile.ratings << @rating
 
         if @risk_profile.save # should always save!
-          #DefaultMailer.send_new_risk_email(@risk_profile, Account.where(role: 2).pluck(:email) ).deliver
+          DefaultMailer.send_new_risk_email(@risk_profile, Account.where(role: 2).pluck(:email) ).deliver
 
           format.html { redirect_to risk_profiles_path, notice: 'Risk profile was successfully created.' }
           format.json { render :index, status: :created, location: @risk_profile }
@@ -110,7 +110,7 @@ class RiskProfilesController < ApplicationController
       raise Exceptions::UnrecognizedParameter("for isn't 'risk_profile' or 'rating' (RiskProfilesController.rb:110)")
     end
 
-    #DefaultMailer.send_risk_status_update_email(@risk_profile).deliver
+    DefaultMailer.send_risk_status_update_email(@risk_profile).deliver
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: "Risk profile was successfully #{params[:new_status]}." }
@@ -202,7 +202,7 @@ class RiskProfilesController < ApplicationController
     quote.quote_pdf = File.open('tmp/output.pdf')
     quote.save!
 
-    #DefaultMailer.send_quote_issued_email(@risk_profile, quote).deliver
+    DefaultMailer.send_quote_issued_email(@risk_profile, quote).deliver
 
     respond_to do |format|
       format.html { redirect_to @risk_profile, notice: 'Quote was successfully issued.' }
