@@ -1,5 +1,5 @@
-root = "/home/Matthew/apps/Thorson/current"
-shared_path= "/home/Matthew/apps/Thorson/shared"
+root = "/home/marmaris/apps/Thorson/current"
+shared_path= "/home/marmaris/apps/Thorson/shared"
 working_directory root
 
 pid "#{shared_path}/pids/unicorn.pid"
