@@ -3,7 +3,7 @@ server ENV['THORSON_WEB_IP'], port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:marmar-is/Thorson.git'
 set :application,     'Thorson'
-set :user,            'Matthew'
+set :user,            'marmaris'
 set :branch, :production # Push from production branch
 
 #set :linked_files, fetch(:linked_files, []).push('config/database.yml')
